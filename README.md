@@ -31,7 +31,7 @@ sudo apt install tmux
 ```
 $ mkdir ~/dotfiles
 $ cd ~/dotfiles
-$ git clone https://github.com/umutondersu/dotfiles_ubuntu.git
+$ git clone https://github.com/umutondersu/dotfiles_ubuntu.git .
 $ stow .
 ```
 
