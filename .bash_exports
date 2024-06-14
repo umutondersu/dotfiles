@@ -19,3 +19,6 @@ export PATH=$PATH:/snap/bin
 
 # goloang
 export PATH=$PATH:/usr/local/go/bin
+
+# bob
+export PATH=$PATH:$HOME/.cargo/bin

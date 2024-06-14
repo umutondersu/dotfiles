@@ -118,4 +118,3 @@ fi
 if [ -f /home/qorcialwolf/.config/synth-shell/synth-shell-prompt.sh ] && [ -n "$( echo $- | grep i )" ]; then
 	source /home/qorcialwolf/.config/synth-shell/synth-shell-prompt.sh
 fi
-. "$HOME/.cargo/env"
