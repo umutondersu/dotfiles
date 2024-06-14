@@ -23,7 +23,7 @@ sudo apt install tmux
 ```
 
 - [Fish Shell](https://www.jwillikers.com/switch-to-fish)
-- [Zoxide](https://github.com/nanotee/zoxide.vim)
+- [Zoxide](https://github.com/ajeetdsouza/zoxide)
 - [Synth-shell](https://github.com/andresgongora/synth-shell) (Optinal since fish is used)
 
 ## Installation
@@ -32,7 +32,8 @@ sudo apt install tmux
 $ mkdir ~/dotfiles
 $ cd ~/dotfiles
 $ git clone https://github.com/umutondersu/dotfiles_ubuntu.git .
-$ stow .
+$ stow --adopt .
+$ git restore .
 ```
 
 After the the symlinks are created run the setup script
