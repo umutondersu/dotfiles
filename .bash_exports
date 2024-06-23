@@ -22,3 +22,4 @@ export PATH=$PATH:/usr/local/go/bin
 
 # bob
 export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
