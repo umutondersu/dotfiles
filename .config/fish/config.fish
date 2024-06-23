@@ -7,4 +7,4 @@ if status is-interactive
   gpgconf --launch gpg-agent
 end
 
-zoxide init --cmd cd fish | source
+zoxide init fish | source
