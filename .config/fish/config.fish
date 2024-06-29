@@ -5,6 +5,7 @@ if status is-interactive
   set -x GPG_TTY (tty)
   set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
   gpgconf --launch gpg-agent
+  fzf_configure_bindings --directory=\cf --variables=\e\cv
 end
 
 zoxide init --cmd cd fish | source
