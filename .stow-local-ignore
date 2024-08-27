@@ -1,0 +1,12 @@
+# Comments and blank lines are allowed.
+\.git
+\.gitignore
+
+^/README.*
+^/LICENSE.*
+^/COPYING
+
+# Custom Ignores
+
+/setup
+/gnome
