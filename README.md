@@ -1,6 +1,6 @@
-# My Dotfiles for Ubuntu WSL
+# My Dotfiles for Pop!\_OS Desktop
 
-This Repository contains my configuration files on my WSL Ubuntu system
+This Repository contains my Pop!\_OS sconfiguration files. Should be able to work the same in any Ubuntu Based Linux Distro
 
 ## Requirements
 
@@ -39,11 +39,18 @@ After the the symlinks are created run the setup script
 
 ```
 $ cd ~
-$ chmod +x setup/setup.sh
-$ cd setup
-$ ./setup.sh
+$ chmod +x ~/dotfiles/setup/tmux_setup.sh
+$ ~/dotfiles/setup/tmux_setup.sh
 ```
 
-## Notes
+## Gnome
 
-- Since this an wsl I have created a symlink for the neovim configuration from Windows 10. You can find it in my windows 10 config repository.
+Themes have to be in the `~/.themes` and Icons have to be in the `~/.icons` directory
+
+- Themes: [Dracula](https://github.com/dracula/gtk/archive/refs/heads/master.zip), [Sweet Dark](https://www.gnome-look.org/p/1253385)
+
+- Icons: [Flatery Indigo Dark](https://www.gnome-look.org/p/1332404)
+
+for restoring the entire desktop enviroment (Icons, Themes, Fonts, Background and flatpak apps) you can use your own configuration with [SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by using the `gnome/.settings.rc` config with dconf by using `dconf load / < ~/dotfiles/gnome/.settings.rc`
+
+## Notes
