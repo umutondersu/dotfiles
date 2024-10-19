@@ -120,3 +120,4 @@ if [ -f /home/qorcialwolf/.config/synth-shell/synth-shell-prompt.sh ] && [ -n "$
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "/home/qorcialwolf/.deno/env"
