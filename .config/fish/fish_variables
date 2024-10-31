@@ -3,6 +3,18 @@
 SETUVAR --export EDITOR:nvim
 SETUVAR VIRTUAL_ENV_DISABLE_PROMPT:true
 SETUVAR __fish_initialized:3400
+SETUVAR _fish_abbr_claer:clear
+SETUVAR _fish_abbr_ga:git\x20add
+SETUVAR _fish_abbr_gco:git\x20checkout
+SETUVAR _fish_abbr_ltree:lsd\x20\x2d\x2dtree\x20\x2d\x2ddepth\x202
+SETUVAR _fish_abbr_onedrivelog:journalctl\x20\x2d\x2duser\x2dunit\x3donedrive\x20\x2df
+SETUVAR _fish_abbr_please:sudo
+SETUVAR _fish_abbr_python:python3
+SETUVAR _fish_abbr_rsd:rip\x20search\x20deezer
+SETUVAR _fish_abbr_rsda:rip\x20search\x20deezer\x20album
+SETUVAR _fish_abbr_rsdt:rip\x20search\x20deezer\x20track
+SETUVAR _fish_abbr_rsdu:rip\x20deezer\x20url
+SETUVAR _fish_abbr_soundrestart:systemctl\x20\x2d\x2duser\x20restart\x20wireplumber\x20pipewire\x20pipewire\x2dpulse
 SETUVAR _fisher_catppuccin_2F_fish_files:\x7e/\x2econfig/fish/themes/Catppuccin\x20Frappe\x2etheme\x1e\x7e/\x2econfig/fish/themes/Catppuccin\x20Latte\x2etheme\x1e\x7e/\x2econfig/fish/themes/Catppuccin\x20Macchiato\x2etheme\x1e\x7e/\x2econfig/fish/themes/Catppuccin\x20Mocha\x2etheme
 SETUVAR _fisher_edc_2F_bass_files:\x7e/\x2econfig/fish/functions/__bass\x2epy\x1e\x7e/\x2econfig/fish/functions/bass\x2efish
 SETUVAR _fisher_ilancosman_2F_tide_40_v6_files:\x7e/\x2econfig/fish/functions/_tide_1_line_prompt\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_2_line_prompt\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_cache_variables\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_detect_os\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_find_and_remove\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_fish_colorize\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_aws\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_character\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_cmd_duration\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_context\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_crystal\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_direnv\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_distrobox\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_docker\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_elixir\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_gcloud\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_git\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_go\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_java\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_jobs\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_kubectl\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_nix_shell\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_node\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_os\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_php\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_private_mode\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_pulumi\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_python\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_ruby\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_rustc\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_shlvl\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_status\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_terraform\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_time\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_toolbox\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_vi_mode\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_item_zig\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_parent_dirs\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_print_item\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_pwd\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_remove_unusable_items\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_sub_bug\x2dreport\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_sub_configure\x2efish\x1e\x7e/\x2econfig/fish/functions/_tide_sub_reload\x2efish\x1e\x7e/\x2econfig/fish/functions/fish_mode_prompt\x2efish\x1e\x7e/\x2econfig/fish/functions/fish_prompt\x2efish\x1e\x7e/\x2econfig/fish/functions/tide\x1e\x7e/\x2econfig/fish/functions/tide\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/_tide_init\x2efish\x1e\x7e/\x2econfig/fish/completions/tide\x2efish
@@ -57,7 +69,7 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3d283457
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/home/qorcialwolf/go/bin\x1e/usr/local/go/bin\x1e/home/qorcialwolf/\x2elocal/share/bob/nvim\x2dbin\x1e/home/qorcialwolf/\x2ecargo/bin\x1e/usr/bin\x1e/home/qorcialwolf/\x2efzf/bin
+SETUVAR fish_user_paths:/home/qorcialwolf/\x2elocal/bin\x1e/home/qorcialwolf/go/bin\x1e/usr/local/go/bin\x1e/home/qorcialwolf/\x2elocal/share/bob/nvim\x2dbin\x1e/home/qorcialwolf/\x2ecargo/bin\x1e/usr/bin\x1e/home/qorcialwolf/\x2efzf/bin
 SETUVAR --export fzf_directory_opts:\x2d\x2dbind\x1ectrl\x2do\x3aexecute\x28nvim\x20\x7b\x7d\x20\x26\x3e\x20/dev/tty\x29
 SETUVAR nvm_default_version:v22\x2e8\x2e0
 SETUVAR tide_aws_bg_color:normal
