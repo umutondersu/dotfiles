@@ -1,49 +1,38 @@
 # My Dotfiles for Pop!\_OS Desktop
 
-This Repository contains my Pop!\_OS sconfiguration files. Should be able to work the same in any Ubuntu Based Linux Distro
+This Repository contains my Pop!\_OS sconfiguration files symlinked with stow. Should be able to work the same in any Ubuntu or Debian Based Linux Distro that has apt
 
 ## Requirements
 
-- Stow
-
-```
-sudo apt install stow
-```
-
 - Git
 
-```
+```bash
 sudo apt install git
 ```
 
 - Tmux
 
-```
+```bash
 sudo apt install tmux
 ```
 
-- [Fish Shell](https://www.jwillikers.com/switch-to-fish)
-- [Zoxide](https://github.com/ajeetdsouza/zoxide)
-- [Synth-shell](https://github.com/andresgongora/synth-shell) (Optinal since fish is used)
+All other requriements will be installed with the install script
 
 ## Installation
 
-```
+### Development Environment
+
+Just run the install script in your home directory after cloning the repository
+
+```bash
 $ git clone https://github.com/umutondersu/dotfiles_ubuntu.git dotfiles
-$ cd ~/dotfiles
-$ stow --adopt .
-$ git restore .
+$ cd
+$ ./dotfiles/install.sh
 ```
 
-After the the symlinks are created run the setup script
+⚠️ This will also clone my neovim configuration inside `~/.config/nvim`
 
-```
-$ cd ~
-$ chmod +x ~/dotfiles/setup/tmux_setup.sh
-$ ~/dotfiles/setup/tmux_setup.sh
-```
-
-## Gnome
+### Gnome Desktop Environment
 
 Themes have to be in the `~/.themes` and Icons have to be in the `~/.icons` directory
 
@@ -53,4 +42,23 @@ Themes have to be in the `~/.themes` and Icons have to be in the `~/.icons` dire
 
 for restoring the entire desktop enviroment (Icons, Themes, Fonts, Background and flatpak apps) you can use your own configuration with [SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by using the `gnome/.settings.rc` config with dconf by using `dconf load / < ~/dotfiles/gnome/.settings.rc`
 
+### All other stuff
+
+TODO
+
 ## Notes
+
+If you are going to use the dotfiles inside a devcontainer with neovim, you must add the following lines below to your `devcontainer/.devcontainer.json` for the clipboards to be synced
+
+```json
+  "runArgs": [
+    "--env",
+    "DISPLAY",
+    "--env",
+    "XAUTHORITY=/tmp/.docker.xauth",
+    "--volume",
+    "/tmp/.X11-unix:/tmp/.X11-unix",
+    "--volume",
+    "${localEnv:HOME}/.Xauthority:/tmp/.docker.xauth"
+  ]
+```
