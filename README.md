@@ -25,8 +25,8 @@ All other requriements will be installed with the install script
 Just run the install script in your home directory after cloning the repository
 
 ```bash
-$ git clone https://github.com/umutondersu/dotfiles_ubuntu.git dotfiles
 $ cd
+$ git clone https://github.com/umutondersu/dotfiles.git
 $ ./dotfiles/install.sh
 ```
 
