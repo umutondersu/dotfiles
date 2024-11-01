@@ -1,6 +1,6 @@
 # My Dotfiles for Pop!\_OS Desktop
 
-This Repository contains my Pop!\_OS sconfiguration files symlinked with stow. Should be able to work the same in any Ubuntu or Debian Based Linux Distro that has apt
+This Repository contains my Pop!\_OS configuration files symlinked with stow. Should be able to work the same in any Ubuntu or Debian Based Linux Distro that has apt
 
 ## Requirements
 
