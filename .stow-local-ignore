@@ -8,5 +8,6 @@
 
 # Custom Ignores
 
+install.sh
 /setup
 /gnome
