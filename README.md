@@ -34,11 +34,15 @@ $ ./dotfiles/install.sh
 
 ### Gnome Desktop Environment
 
+![Screenshot from 2024-11-01 14-38-56](https://github.com/user-attachments/assets/6fcd937b-5756-43f5-9664-c30c9749169c)
+
 Themes have to be in the `~/.themes` and Icons have to be in the `~/.icons` directory
 
 - Themes: [Dracula](https://github.com/dracula/gtk/archive/refs/heads/master.zip), [Sweet Dark](https://www.gnome-look.org/p/1253385)
 
 - Icons: [Flatery Indigo Dark](https://www.gnome-look.org/p/1332404)
+
+- Wallpaper: [eberhardgross](https://unsplash.com/photos/a-bird-flying-through-a-cloudy-blue-sky-xC7Ho08RYF4)
 
 for restoring the entire desktop enviroment (Icons, Themes, Fonts, Background and flatpak apps) you can use your own configuration with [SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by using the `gnome/.settings.rc` config with dconf by using `dconf load / < ~/dotfiles/gnome/.settings.rc`
 
