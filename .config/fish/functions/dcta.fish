@@ -1,4 +1,4 @@
-function dct
+function dcta
     # Run the devcontainer command with the provided template ID and any additional arguments
     devcontainer templates apply --workspace-folder . --template-id $argv[1] $argv[2..-1]
 
