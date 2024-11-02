@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#TODO: Neovim from devcontainer features has only 1 version. Can cause a conflict later
 ./setup/stow.sh
 ./setup/binaries.sh
 ./setup/wo_cargo.sh
