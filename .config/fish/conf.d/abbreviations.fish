@@ -15,3 +15,4 @@ abbr --add please sudo
 abbr --add python python3
 abbr --add v nvim
 abbr --add V --position anywhere "&& nvim"
+abbr --add ds devpod ssh
