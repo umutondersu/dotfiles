@@ -1,4 +1,4 @@
-function add-runargs
+function dcconfig
     # Find the devcontainer.json file in the current directory or subdirectories
     set json_file (find . -name "devcontainer.json" -print -quit)
 
@@ -11,6 +11,12 @@ function add-runargs
             # If runArgs does not exist, add it
             sed -i -e '/"image":/s|"$|",|' \
                 -e '/"image":/a\
+\
+    "features": {\
+        "ghcr.io/duduribeiro/devcontainer-features/neovim:1": {\
+        "version": "stable"\
+        }\
+  },\
 \
     "runArgs": [\
         "--env", "DISPLAY",\
