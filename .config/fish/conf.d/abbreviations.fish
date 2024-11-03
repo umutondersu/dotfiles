@@ -13,3 +13,5 @@ abbr --add claer clear
 abbr --add ltree lsd --tree --depth 2
 abbr --add please sudo
 abbr --add python python3
+abbr --add v nvim
+abbr --add V --position anywhere "&& nvim"
