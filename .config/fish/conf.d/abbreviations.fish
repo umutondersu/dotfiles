@@ -21,3 +21,4 @@ abbr --add dockersql docker run -e "'ACCEPT_EULA=Y'" -e "'MSSQL_SA_PASSWORD=pass
    -v sqlvolume:/var/opt/mssql \
    -d \
    mcr.microsoft.com/mssql/server:2022-latest
+abbr kp sudo kill -9
