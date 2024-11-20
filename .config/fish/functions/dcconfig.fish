@@ -20,9 +20,8 @@ function dcconfig
 \
     "runArgs": [\
         "--env", "DISPLAY",\
-        "--env", "XAUTHORITY=/tmp/.docker.xauth",\
-        "--volume", "/tmp/.X11-unix:/tmp/.X11-unix",\
-        "--volume", "${localEnv:HOME}/.Xauthority:/tmp/.docker.xauth"\
+        "--mount",\
+        "type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix"\
     ]' $json_file
         else
             echo "runArgs already exists, skipping addition."
