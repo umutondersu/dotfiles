@@ -5,6 +5,13 @@ if type -q rip
     abbr --add rsdu rip deezer url
 end
 
+if type -q devpod
+   abbr --add dp devpod
+   abbr --add dps devpod ssh
+   abbr --add dpu devpod up .
+   abbr --add dpd devpod delete
+end
+
 abbr --add soundrestart systemctl --user restart wireplumber pipewire pipewire-pulse
 abbr --add onedrivelog journalctl --user-unit=onedrive -f
 abbr --add ga git add
@@ -15,7 +22,6 @@ abbr --add please sudo
 abbr --add python python3
 abbr --add v nvim
 abbr --add V --position anywhere "&& nvim"
-abbr --add ds devpod ssh
 abbr kp sudo kill -9
 
 # Abbreviations for starting up sql servers
