@@ -16,9 +16,18 @@ abbr --add python python3
 abbr --add v nvim
 abbr --add V --position anywhere "&& nvim"
 abbr --add ds devpod ssh
-abbr --add dockersql docker run -e "'ACCEPT_EULA=Y'" -e "'MSSQL_SA_PASSWORD=password'" \
-   -p 1433:1433 --name sql1 --hostname sql1 \
-   -v sqlvolume:/var/opt/mssql \
-   -d \
-   mcr.microsoft.com/mssql/server:2022-latest
 abbr kp sudo kill -9
+
+# Abbreviations for starting up sql servers
+abbr --add dmssql docker run -p 1433:1433 --name mssql --hostname mssql \
+   -d \
+   mcr.microsoft.com/mssql/server:2022-latest \
+   -v sqlvolume:/var/opt/mssql \
+   -e "'ACCEPT_EULA=Y'" -e "'MSSQL_SA_PASSWORD=password'"
+
+abbr --add dpgsql docker run -p 5432:5432 \
+   -d \
+   postgres \
+   --name postgres \
+   -v pgdata:/var/lib/postgresql/data \
+   -e "'POSTGRES_USER=postgres'" -e "'POSTGRES_PASSWORD=password'"  \
