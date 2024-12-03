@@ -17,7 +17,7 @@ abbr --add onedrivelog journalctl --user-unit=onedrive -f
 abbr --add ga git add
 abbr --add gco git checkout
 abbr --add claer clear
-abbr --add ltree lsd --tree --depth 2
+abbr --add lst lsd --tree --depth 2
 abbr --add please sudo
 abbr --add python python3
 abbr --add v nvim
