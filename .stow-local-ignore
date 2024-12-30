@@ -7,7 +7,7 @@
 ^/COPYING
 
 # Custom Ignores
-
 install.sh
+devpod-install.sh
 /setup
 /gnome
