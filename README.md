@@ -44,11 +44,7 @@ Themes have to be in the `~/.themes` and Icons have to be in the `~/.icons` dire
 
 - Wallpaper: [eberhardgross](https://unsplash.com/photos/a-bird-flying-through-a-cloudy-blue-sky-xC7Ho08RYF4)
 
-for restoring the entire desktop enviroment (Icons, Themes, Fonts, Background and flatpak apps) you can use your own configuration with [SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by using the `gnome/.settings.rc` config with dconf by using `dconf load / < ~/dotfiles/gnome/.settings.rc`
-
-### All other stuff
-
-TODO
+for restoring the entire desktop enviroment (Icons, Themes, Fonts, Background, Extensions, Desktop and Flatpak apps) you can use your own configuration with [SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by using the `gnome/.settings.rc` config with dconf by using `dconf load / < ~/dotfiles/gnome/.settings.rc` I keep my SaveDesktop backup on cloud due to its size
 
 ## Notes
 
@@ -56,13 +52,10 @@ If you are going to use the dotfiles inside a devcontainer with neovim, you must
 
 ```json
   "runArgs": [
-    "--env",
-    "DISPLAY",
-    "--env",
-    "XAUTHORITY=/tmp/.docker.xauth",
-    "--volume",
-    "/tmp/.X11-unix:/tmp/.X11-unix",
-    "--volume",
-    "${localEnv:HOME}/.Xauthority:/tmp/.docker.xauth"
+        "--env", "DISPLAY",
+        "--mount",
+        "type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix"
   ]
 ```
+
+This will be added automatically if the dcta function is used to create the devcontainer file. Additionaly you can use the dcconfig if `devcontainer/.devcontainer.json` already exists
