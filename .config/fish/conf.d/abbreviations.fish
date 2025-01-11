@@ -32,8 +32,7 @@ abbr --add dmssql docker run -p 1433:1433 --name mssql --hostname mssql \
    -e "'ACCEPT_EULA=Y'" -e "'MSSQL_SA_PASSWORD=password'"
 
 abbr --add dpgsql docker run -p 5432:5432 \
-   -d \
-   postgres \
    --name postgres \
    -v pgdata:/var/lib/postgresql/data \
-   -e "'POSTGRES_USER=postgres'" -e "'POSTGRES_PASSWORD=password'"  \
+   -e POSTGRES_PASSWORD=password  \
+   -d postgres \
