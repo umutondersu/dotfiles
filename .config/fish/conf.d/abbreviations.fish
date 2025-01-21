@@ -31,8 +31,15 @@ abbr --add dmssql docker run -p 1433:1433 --name mssql --hostname mssql \
    -v sqlvolume:/var/opt/mssql \
    -e "'ACCEPT_EULA=Y'" -e "'MSSQL_SA_PASSWORD=password'"
 
-abbr --add dpgsql docker run -p 5432:5432 \
+abbr --add dpsql docker run -d \
+   -p 5432:5432 \
    --name postgres \
    -v pgdata:/var/lib/postgresql/data \
    -e POSTGRES_PASSWORD=password  \
-   -d postgres \
+   postgres \
+
+abbr --add dmysql docker run -d \
+   --name mysql-container \
+   -e MYSQL_ROOT_PASSWORD=your_password \
+   -p 3306:3306 \
+   mysql:latest
