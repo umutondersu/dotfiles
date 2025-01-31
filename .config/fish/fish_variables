@@ -1,7 +1,9 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export EDITOR:nvim
+SETUVAR --export TMPDIR:/tmp
 SETUVAR VIRTUAL_ENV_DISABLE_PROMPT:true
+SETUVAR --export XDG_RUNTIME_DIR:/tmp/
 SETUVAR __fish_initialized:3400
 SETUVAR _fish_abbr_claer:clear
 SETUVAR _fish_abbr_ga:git\x20add
