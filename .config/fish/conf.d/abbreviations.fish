@@ -22,7 +22,16 @@ abbr --add please sudo
 abbr --add python python3
 abbr --add v nvim
 abbr --add V --position anywhere "&& nvim"
-abbr kp sudo kill -9
+abbr --add kp sudo kill -9
+
+abbr --add dopen_webui docker run -d \
+            --name open-webui \
+            -p 3001:8080 \
+            -e WEBUI_AUTH=False \
+            -v open-webui:/app/backend/data \
+            --restart unless-stopped \
+            --add-host host.docker.internal:host-gateway \
+            ghcr.io/open-webui/open-webui:mai
 
 # Abbreviations for starting up sql servers
 abbr --add dmssql docker run -p 1433:1433 --name mssql --hostname mssql \
