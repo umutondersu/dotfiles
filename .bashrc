@@ -121,3 +121,4 @@ fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 . "/home/qorcialwolf/.deno/env"
+. "$HOME/.cargo/env"
