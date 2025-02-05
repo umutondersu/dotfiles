@@ -3,16 +3,13 @@
 	email = umutsonder@gmail.com
 [init]
 	defaultBranch = main
-[credential]
-	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
-	helper = 
-	helper = /usr/local/bin/git-credential-manager
-	credentialStore = secretservice
-[credential "https://dev.azure.com"]
-	useHttpPath = true
 [alias]
 	hist = log --all --decorate --oneline --graph
 	uncommit= reset HEAD~1
 	recommit= commit --amend --no-edit
 	editcommit= commit --amend
 	blist= branch -a
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[credential]
+	helper = /usr/local/bin/git-credential-manager
