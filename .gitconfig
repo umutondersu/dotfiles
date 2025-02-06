@@ -13,3 +13,4 @@
 	useHttpPath = true
 [credential]
 	helper = /usr/local/bin/git-credential-manager
+	credentialStore = secretservice
