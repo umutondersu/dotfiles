@@ -16,7 +16,7 @@ sudo apt install git
 sudo apt install tmux
 ```
 
-All other requriements will be installed with the install script
+All other requirements will be installed with the install script
 
 ## Installation
 
@@ -44,7 +44,7 @@ Themes have to be in the `~/.themes` and Icons have to be in the `~/.icons` dire
 
 - Wallpaper: [eberhardgross](https://unsplash.com/photos/a-bird-flying-through-a-cloudy-blue-sky-xC7Ho08RYF4)
 
-for restoring the entire desktop enviroment (Icons, Themes, Fonts, Background, Extensions, Desktop and Flatpak apps) you can use your own configuration with [SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by using the `gnome/.settings.rc` config with dconf by using `dconf load / < ~/dotfiles/gnome/.settings.rc` I keep my SaveDesktop backup on cloud due to its size
+For restoring the entire desktop environment (Icons, Themes, Fonts, Background, Extensions, Desktop and Flatpak apps) you can use your own configuration with [SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by using the `gnome/.settings.rc` config with dconf by using `dconf load / < ~/dotfiles/gnome/.settings.rc` I keep my SaveDesktop backup on cloud due to its size
 
 ## Notes
 
