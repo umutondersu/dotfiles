@@ -6,12 +6,7 @@ if status is-interactive
   set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
   gpgconf --launch gpg-agent
   fzf_configure_bindings --directory=\cf --variables=\e\cv
+  zoxide init --cmd cd fish | source
 end
-
-zoxide init --cmd cd fish | source
-
-# bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
 
 load_env_vars ~/.env
