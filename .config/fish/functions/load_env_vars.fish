@@ -1,4 +1,7 @@
 function load_env_vars -d "Load variables in a .env file"
+    if not test -f $argv
+        return
+    end
     set lines (cat $argv | string split -n '\n' | string match -vre '^#')
     for line in $lines
         set arr (string split -n -m 1 = $line)
