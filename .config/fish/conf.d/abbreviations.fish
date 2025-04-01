@@ -21,6 +21,7 @@ abbr --add python python3
 abbr --add v nvim
 abbr --add V --position anywhere "&& nvim"
 abbr --add fkill sudo kill -9
+abbr --add Y --position anywhere "| xclip -selection clipboard"
 
 # Abbreviations for starting up servers with docker
 if type -q docker
