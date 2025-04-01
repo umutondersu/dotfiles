@@ -1,6 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export EDITOR:nvim
+SETUVAR --export GOTOOLCHAIN:auto
 SETUVAR --export OLLAMA_API_BASE:http\x3a//127\x2e0\x2e0\x2e1\x3a11434
 SETUVAR --export TMPDIR:/tmp
 SETUVAR VIRTUAL_ENV_DISABLE_PROMPT:true
