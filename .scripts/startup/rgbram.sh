@@ -13,7 +13,7 @@
 # sudo ./rgbram.sh 00 ff ff # cyan
 # sudo ./rgbram.sh 00 00 00 # lights out
 
-if ! [ "$(i2cdetect -l | grep I801)" ]; then
+if ! i2cdetect -l | grep -q I801; then
   echo "Intel I801 not detected! use sudo apt install i2c-tools"
   exit 2
 fi
@@ -50,32 +50,32 @@ echo -e "Setting up color value of #$red$green$blue\n"
 
 # ram stick 1
 
-i2cset -y $i2cbus $ramstick1 0x08 0x53
+i2cset -y "$i2cbus" "$ramstick1" 0x08 0x53
 sleep 0.020
-i2cset -y $i2cbus $ramstick1 0x09 0x00
+i2cset -y "$i2cbus" "$ramstick1" 0x09 0x00
 sleep 0.020
-i2cset -y $i2cbus $ramstick1 0x31 0x$red
+i2cset -y "$i2cbus" "$ramstick1" 0x31 0x"$red"
 sleep 0.020
-i2cset -y $i2cbus $ramstick1 0x32 0x$green
+i2cset -y "$i2cbus" "$ramstick1" 0x32 0x"$green"
 sleep 0.020
-i2cset -y $i2cbus $ramstick1 0x33 0x$blue
+i2cset -y "$i2cbus" "$ramstick1" 0x33 0x"$blue"
 sleep 0.020
-i2cset -y $i2cbus $ramstick1 0x20 $brightness
+i2cset -y "$i2cbus" "$ramstick1" 0x20 "$brightness"
 sleep 0.020
-i2cset -y $i2cbus $ramstick1 0x08 0x44
+i2cset -y "$i2cbus" "$ramstick1" 0x08 0x44
 
 # ram stick 2
 
-i2cset -y $i2cbus $ramstick2 0x08 0x53
+i2cset -y "$i2cbus" "$ramstick2" 0x08 0x53
 sleep 0.020
-i2cset -y $i2cbus $ramstick2 0x09 0x00
+i2cset -y "$i2cbus" "$ramstick2" 0x09 0x00
 sleep 0.020
-i2cset -y $i2cbus $ramstick2 0x31 0x$red
+i2cset -y "$i2cbus" "$ramstick2" 0x31 0x"$red"
 sleep 0.020
-i2cset -y $i2cbus $ramstick2 0x32 0x$green
+i2cset -y "$i2cbus" "$ramstick2" 0x32 0x"$green"
 sleep 0.020
-i2cset -y $i2cbus $ramstick2 0x33 0x$blue
+i2cset -y "$i2cbus" "$ramstick2" 0x33 0x"$blue"
 sleep 0.020
-i2cset -y $i2cbus $ramstick2 0x20 $brightness
+i2cset -y "$i2cbus" "$ramstick2" 0x20 "$brightness"
 sleep 0.020
-i2cset -y $i2cbus $ramstick2 0x08 0x44
+i2cset -y "$i2cbus" "$ramstick2" 0x08 0x44

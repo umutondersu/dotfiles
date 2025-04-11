@@ -1,3 +1,5 @@
+#!/bin/bash
+
 chmod +x ./next.sh
 chmod +x ./playpause.sh
 chmod +x ./prev.sh
