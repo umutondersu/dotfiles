@@ -1,1 +1,0 @@
-../../../dotfiles/.config/fish/functions/foobar200.fish
