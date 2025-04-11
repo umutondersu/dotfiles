@@ -13,7 +13,6 @@ if type -q devpod
    abbr --add dpS devpod stop
 end
 
-abbr --add soundrestart systemctl --user restart wireplumber pipewire pipewire-pulse
 abbr --add onedrivelog journalctl --user-unit=onedrive -f
 abbr --add claer clear
 abbr --add lst lsd --tree --depth 2
