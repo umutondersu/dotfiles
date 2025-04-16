@@ -14,7 +14,6 @@ case $DISTRO in
     ubuntu|pop)
         # Ubuntu/Pop!_OS installation using PPA
         sudo apt update
-        sudo apt install -y software-properties-common
         sudo apt-add-repository -y ppa:fish-shell/release-4
         sudo apt update
         sudo apt install -y fish
