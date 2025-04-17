@@ -6,7 +6,7 @@ SETUVAR --export OLLAMA_API_BASE:http\x3a//127\x2e0\x2e0\x2e1\x3a11434
 SETUVAR --export TMPDIR:/tmp
 SETUVAR VIRTUAL_ENV_DISABLE_PROMPT:true
 SETUVAR --export XDG_RUNTIME_DIR:/tmp/
-SETUVAR __fish_initialized:3400
+SETUVAR __fish_initialized:3800
 SETUVAR _fish_abbr_claer:clear
 SETUVAR _fish_abbr_ga:git\x20add
 SETUVAR _fish_abbr_gco:git\x20checkout
