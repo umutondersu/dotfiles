@@ -1,4 +1,4 @@
-function frg
+function livegrep
     fzf --ansi \
         --disabled \
         --bind "change:reload:rg --color=always --line-number --no-heading --smart-case {q} || true" \
