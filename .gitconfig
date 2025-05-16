@@ -14,5 +14,7 @@
 [credential]
 	helper = /usr/local/bin/git-credential-manager
 	credentialStore = secretservice
+	helper = 
+	helper = /usr/bin/git-credential-manager
 [pull]
 	rebase = true
