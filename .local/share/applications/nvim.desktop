@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Neovim
+Comment=Edit text files in Neovim
+Exec= kitty fish -c 'nvm use lts && nvim %F'
+Terminal=false
+Type=Application
+Icon=nvim
+Categories=Utility;TextEditor;
+MimeType=text/plain;
