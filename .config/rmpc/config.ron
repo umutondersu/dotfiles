@@ -4,11 +4,11 @@
 (
     address: "127.0.0.1:6600",
     password: None,
-    theme: None,
+    theme: "nord",
     cache_dir: None,
     on_song_change: None,
     volume_step: 5,
-    max_fps: 30,
+    max_fps: 180,
     scrolloff: 0,
     wrap_navigation: false,
     enable_mouse: true,
@@ -16,7 +16,7 @@
     status_update_interval_ms: 1000,
     select_current_song_on_change: false,
     browser_song_sort: [Disc, Track, Artist, Title],
-    directories_sort: SortFormat(group_directories_first: true, reverse: false),
+    directories_sort: ModifiedTime(group_directories_first: true, reverse: true),
     album_art: (
         method: Auto,
         max_size_px: (width: 1200, height: 1200),
@@ -123,7 +123,7 @@
             name: "Queue",
             pane: Split(
                 direction: Horizontal,
-                panes: [(size: "40%", pane: Pane(AlbumArt)), (size: "60%", pane: Pane(Queue))],
+                panes: [(size: "60%", pane: Pane(Queue)), (size: "40%", pane: Pane(AlbumArt))],
             ),
         ),
         (
