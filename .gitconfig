@@ -9,7 +9,7 @@
 	recommit= commit --amend --no-edit
 	editcommit= commit --amend
 	blist= branch -a
-	yolo = !git commit -m \"$(curl -s https://whatthecommit.com/index.txt)\"
+	yolo = "!git commit -m \"$(curl -s https://whatthecommit.com/index.txt)\""
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [credential]
