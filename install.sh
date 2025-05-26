@@ -11,3 +11,4 @@ sudo chsh -s /usr/bin/fish "$USER"
 
 ./setup/tmux.sh
 ./setup/nerd-dictation.sh
+./setup/kitty.sh

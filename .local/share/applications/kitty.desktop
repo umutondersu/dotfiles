@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Kitty
+Comment=Fast, feature-rich, GPU based terminal emulator
+Exec=/home/qorcialwolf/.local/kitty.app/bin/kitty
+Icon=kitty
+Type=Application
+Categories=System;TerminalEmulator;
+StartupNotify=true
+Terminal=false
