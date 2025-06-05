@@ -1,4 +1,4 @@
-function dcta
+function dcfa
     # Use dctemplates with fzf to select a feature
     set selected_feature (dctemplates | fzf)
 
