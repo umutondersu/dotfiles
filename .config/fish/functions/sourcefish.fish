@@ -1,3 +1,5 @@
-function sourcefish --description 'alias sourcefish=source ~/.config/fish/**/*.fish'
-  source ~/.config/fish/**/*.fish
+function sourcefish --description 'Source all .fish files in ~/.config/fish recursively'
+    for file in (find ~/.config/fish -type f -name '*.fish')
+        source $file
+    end
 end
