@@ -14,5 +14,4 @@ nvm use "$node_version" || nvm install "$node_version"
 export PATH="$NVM_DIR/versions/node/$(nvm current)/bin:$PATH"
 
 # Install npm packages
-npm install -g fd-find
-npm install -g tldr
+npm install -g fd-find tldr fish-lsp
