@@ -14,4 +14,9 @@ nvm use "$node_version" || nvm install "$node_version"
 export PATH="$NVM_DIR/versions/node/$(nvm current)/bin:$PATH"
 
 # Install npm packages
-npm install -g fd-find tldr fish-lsp
+npm install -g tldr fish-lsp
+
+# Only install fd-find if it's not already installed with cargo
+if ! command -v fd &> /dev/null; then
+  npm install -g fd-find
+fi
