@@ -13,9 +13,17 @@ if type -q devpod
    abbr --add dpS devpod stop
 end
 
+if type -q lsd
+   abbr --add lst ls --tree --depth 2
+   abbr --add lt 'ls -I node_modules -I dist -I build -I .idea -I .vscode -I target -I out -I .pytest_cache -I .cache -I __pycache__ --tree --depth 2'
+end
+abbr --add l ls
+abbr --add ll ls -lg
+abbr --add la ls -a
+abbr --add lla ls -lga
+
 abbr --add onedrivelog journalctl --user-unit=onedrive -f
 abbr --add claer clear
-abbr --add lst lsd --tree --depth 2
 abbr --add python python3
 abbr --add v nvim
 abbr --add V --position anywhere "&& nvim"
