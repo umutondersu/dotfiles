@@ -4,17 +4,17 @@ function __ollama_list
 end
 
 # Complete subcommands for ollama with descriptions
-complete -c ollama -n '__fish_use_subcommand' -f -a "serve" -d "Start ollama"
-complete -c ollama -n '__fish_use_subcommand' -f -a "create" -d "Create a model from a Modelfile"
-complete -c ollama -n '__fish_use_subcommand' -f -a "show" -d "Show information for a model"
-complete -c ollama -n '__fish_use_subcommand' -f -a "run" -d "Run a model"
-complete -c ollama -n '__fish_use_subcommand' -f -a "pull" -d "Pull a model from a registry"
-complete -c ollama -n '__fish_use_subcommand' -f -a "push" -d "Push a model to a registry"
-complete -c ollama -n '__fish_use_subcommand' -f -a "list ls" -d "List models"
-complete -c ollama -n '__fish_use_subcommand' -f -a "ps" -d "List running models"
-complete -c ollama -n '__fish_use_subcommand' -f -a "cp" -d "Copy a model"
-complete -c ollama -n '__fish_use_subcommand' -f -a "rm" -d "Remove a model"
-complete -c ollama -n '__fish_use_subcommand' -f -a "help" -d "Help about any command"
+complete -c ollama -n __fish_use_subcommand -f -a serve -d "Start ollama"
+complete -c ollama -n __fish_use_subcommand -f -a create -d "Create a model from a Modelfile"
+complete -c ollama -n __fish_use_subcommand -f -a show -d "Show information for a model"
+complete -c ollama -n __fish_use_subcommand -f -a run -d "Run a model"
+complete -c ollama -n __fish_use_subcommand -f -a pull -d "Pull a model from a registry"
+complete -c ollama -n __fish_use_subcommand -f -a push -d "Push a model to a registry"
+complete -c ollama -n __fish_use_subcommand -f -a "list ls" -d "List models"
+complete -c ollama -n __fish_use_subcommand -f -a ps -d "List running models"
+complete -c ollama -n __fish_use_subcommand -f -a cp -d "Copy a model"
+complete -c ollama -n __fish_use_subcommand -f -a rm -d "Remove a model"
+complete -c ollama -n __fish_use_subcommand -f -a help -d "Help about any command"
 
 # Add --help flag for all subcommands
 for subcmd in serve create show run pull push list ls ps cp rm help

@@ -17,4 +17,3 @@ function rgbram
     # Execute rgbram.sh with the provided arguments
     sudo $script_path $argv[1] $argv[2] $argv[3]
 end
-

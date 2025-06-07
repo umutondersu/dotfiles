@@ -6,7 +6,7 @@ function dcta
         return 1
     end
 
-    set template (dctemplates | fzf)  # or `peco` if you have it installed
+    set template (dctemplates | fzf) # or `peco` if you have it installed
 
     if test -n "$template"
         echo "Applying dev container template: $template"

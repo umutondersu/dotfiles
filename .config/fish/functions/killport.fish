@@ -12,7 +12,7 @@ function killport
     end
 
     set -l port $argv[1]
-    
+
     # Check if port is in valid range (1-65535)
     if test $port -lt 1 -o $port -gt 65535
         echo "Error: Port must be between 1 and 65535"
@@ -21,7 +21,7 @@ function killport
 
     # Get process IDs using the port
     set -l pids (lsof -ti :$port)
-    
+
     if test -z "$pids"
         echo "No processes found on port $port"
         return 1

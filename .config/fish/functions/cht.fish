@@ -15,4 +15,3 @@ function cht
 
     curl -s "cht.sh/$topic/$sheet?style=rrt" | less -R
 end
-

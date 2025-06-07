@@ -1,16 +1,16 @@
 function tses --description 'Create or attach to a tmux session in a specified directory'
     # Set the local variable `dir` to the first argument passed to the function.
     set -l dir $argv[1]
-    
+
     # Check if the directory specified by `dir` does not exist.
     # If it doesn't, create the directory (and any necessary parent directories).
     if not test -d $dir
         mkdir -p $dir
     end
-    
+
     # Set the local variable `session_name` to the base name of the directory path stored in `dir`.
     set -l session_name (basename $dir)
-    
+
     # Check if a tmux session with the name `session_name` already exists.
     # If it does, either attach to it or switch to it depending on whether
     # the function is being run inside an existing tmux session.
