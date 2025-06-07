@@ -30,6 +30,8 @@ abbr --add V --position anywhere "&& nvim"
 abbr --add fkill sudo kill -9
 abbr --add Y --position anywhere "| xclip -selection clipboard"
 abbr --add update 'sudo apt update && sudo apt upgrade -y && flatpak update -y'
+abbr --add --set-cursor tzip tar -czvf %.tar.gz ./
+abbr --add --set-cursor tuzip tar -xzf %.tar.gz
 
 # Abbreviations for starting up servers with docker
 if type -q docker
