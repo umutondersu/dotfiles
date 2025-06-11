@@ -10,7 +10,7 @@ git clone https://github.com/umutondersu/nvim.git ~/.config/nvim
 sudo chsh -s /usr/bin/fish "$USER"
 
 # Container Specific Setup
-sudo apt install xclip
+sudo apt install -y xclip
 fish -c 'set -x TERM xterm-256color'
 mkdir -p ~/.gnupg
 echo "use-standard-socket" > ~/.gnupg/gpg-agent.conf
