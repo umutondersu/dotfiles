@@ -11,6 +11,6 @@ sudo chsh -s /usr/bin/fish "$USER"
 
 # Container Specific Setup
 sudo apt install -y xclip
-fish -c 'set -x TERM xterm-256color'
+echo "set -x TERM xterm-256color" >> ~/.config/fish/config.fish
 mkdir -p ~/.gnupg
 echo "use-standard-socket" > ~/.gnupg/gpg-agent.conf
