@@ -25,6 +25,7 @@ abbr --add lS ls -lgSA
 
 abbr --add onedrivelog journalctl --user-unit=onedrive -f
 abbr --add claer clear
+abbr --add clr clear
 abbr --add python python3
 abbr --add v nvim
 abbr --add V --position anywhere "&& nvim"
