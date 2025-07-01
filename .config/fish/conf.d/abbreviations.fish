@@ -23,6 +23,9 @@ abbr --add la ls -A
 abbr --add lla ls -lgA
 abbr --add lS ls -lgSA
 
+abbr c --add cd
+abbr G --add git
+
 abbr --add onedrivelog journalctl --user-unit=onedrive -f
 abbr --add claer clear
 abbr --add clr clear
