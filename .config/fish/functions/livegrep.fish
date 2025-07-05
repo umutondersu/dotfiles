@@ -5,5 +5,5 @@ function livegrep
         --delimiter : \
         --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' \
         --preview-window 'right:50%' \
-        --bind 'enter:become(nvim {1} +{2})'
+        --bind 'enter:become(nvim {1} +{2} -c "normal! zz")'
 end
