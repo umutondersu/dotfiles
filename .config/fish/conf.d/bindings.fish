@@ -1,2 +1,2 @@
-bind -M insert \cg frg
-bind -M default \cg frg
+bind -M insert \cg livegrep
+bind -M default \cg livegrep
