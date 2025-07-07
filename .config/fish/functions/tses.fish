@@ -8,8 +8,40 @@ function tses --description 'Create or attach to a tmux session in a specified d
         mkdir -p $dir
     end
 
-    # Set the local variable `session_name` to the base name of the directory path stored in `dir`.
-    set -l session_name (basename $dir)
+    # Determine session name based on whether we're in a repo
+    set -l session_name
+    set -l current_dir (realpath $dir)
+    set -l repo_root ""
+
+    # Walk up the directory tree to find a git repository
+    set -l check_dir $current_dir
+    while test "$check_dir" != /
+        if test -d "$check_dir/.git"
+            set repo_root $check_dir
+            break
+        end
+        set check_dir (dirname $check_dir)
+    end
+
+    # If we found a repo root, create hierarchical session name
+    if test -n "$repo_root"
+        # Get the repo name
+        set -l repo_name (basename $repo_root)
+        # Get the relative path from repo root to target directory
+        set -l rel_path (string replace "$repo_root/" "" "$current_dir/")
+        set rel_path (string replace -r '/$' '' $rel_path)
+
+        # If we're at the repo root, just use repo name
+        if test "$current_dir" = "$repo_root"
+            set session_name $repo_name
+        else
+            # Create hierarchical name: repo-subdir1-subdir2
+            set session_name (string replace "/" "-" "$repo_name/$rel_path")
+        end
+    else
+        # Not in a repo, use basename as before
+        set session_name (basename $dir)
+    end
 
     # Check if a tmux session with the name `session_name` already exists.
     # If it does, either attach to it or switch to it depending on whether
