@@ -13,6 +13,11 @@ if type -q devpod
     abbr --add dpS devpod stop
 end
 
+if type -q nvim
+    abbr --add nvim-min 'NVIM_APPNAME="nvim-min" nvim'
+    abbr --add vm 'NVIM_APPNAME="nvim-min" nvim'
+end
+
 if type -q lsd
     abbr --add lT ls --tree --depth 2
     abbr --add lt 'ls -I node_modules -I dist -I build -I .idea -I .vscode -I target -I out -I .pytest_cache -I .cache -I tmp -I __pycache__ --tree --depth 2'
