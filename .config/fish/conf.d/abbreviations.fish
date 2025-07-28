@@ -1,8 +1,8 @@
 if type -q rip
-    abbr --add rsd rip search deezer
-    abbr --add rsdt rip search deezer track
-    abbr --add rsda rip search deezer album
-    abbr --add rsdu rip deezer url
+    abbr --add --set-cursor rs "rip search deezer '%'"
+    abbr --add --set-cursor rst "rip search deezer track '%'"
+    abbr --add --set-cursor rsa "rip search deezer album '%'"
+    abbr --add --set-cursor rsu "rip search deezer url '%'"
 end
 
 if type -q devpod
@@ -14,6 +14,8 @@ if type -q devpod
 end
 
 if type -q nvim
+    abbr --add v nvim
+    abbr --add V --position anywhere "&& nvim"
     abbr --add nvim-min 'NVIM_APPNAME="nvim-min" nvim'
     abbr --add vm 'NVIM_APPNAME="nvim-min" nvim'
 end
@@ -35,8 +37,6 @@ abbr --add onedrivelog journalctl --user-unit=onedrive -f
 abbr --add claer clear
 abbr --add clr clear
 abbr --add python python3
-abbr --add v nvim
-abbr --add V --position anywhere "&& nvim"
 abbr --add fkill sudo kill -9
 abbr --add Y --position anywhere "| xclip -selection clipboard"
 abbr --add update 'sudo apt update && sudo apt upgrade -y && flatpak update -y'
