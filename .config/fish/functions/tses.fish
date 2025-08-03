@@ -20,7 +20,7 @@ function tses --description 'Create or attach to a tmux session in a specified d
 
     # Walk up the directory tree to find a git repository
     set -l check_dir $current_dir
-    while test "$check_dir" != "/"
+    while test "$check_dir" != /
         if test -d "$check_dir/.git"
             set repo_root $check_dir
             break
