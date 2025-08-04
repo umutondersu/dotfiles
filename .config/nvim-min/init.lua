@@ -1,3 +1,7 @@
+if vim.fn.has('nvim-0.12') == 0 then
+	error("This configuration requires Neovim version 0.12 or higher.")
+end
+
 require('options')
 require('keymaps')
 
@@ -5,7 +9,6 @@ vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" },
 	{ src = "https://github.com/echasnovski/mini.pick" },
-	{ src = "https://github.com/echasnovski/mini.files" },
 	{ src = "https://github.com/echasnovski/mini.pairs" },
 	{ src = "https://github.com/echasnovski/mini.ai" },
 	{ src = "https://github.com/echasnovski/mini.icons" },
@@ -14,6 +17,7 @@ vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/rmagatti/auto-session" },
 	{ src = "https://github.com/ibhagwan/smartyank.nvim" },
+	{ src = "https://github.com/stevearc/oil.nvim"},
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -37,37 +41,19 @@ require "mini.pick".setup()
 require "mini.ai".setup()
 require "mini.pairs".setup()
 require "mini.icons".setup()
-require "mini.files".setup(
-	{
-		mappings = {
-			close       = '<esc>',
-			go_in       = 'l',
-			go_in_plus  = '<cr>',
-			go_out      = 'h',
-			go_out_plus = '<BS>',
-			mark_goto   = '',
-			mark_set    = '',
-			reset       = 'r',
-			reveal_cwd  = '@',
-			show_help   = 'g?',
-			synchronize = '<leader>w',
-			trim_left   = '<',
-			trim_right  = '>',
-		}
-	}
-)
 require "mason".setup()
 require "nvim-treesitter.configs".setup({
 	highlight = { enable = true }
 })
 require("auto-session").setup()
 require('smartyank').setup({ highlight = { enabled = false } })
+require('oil').setup()
 
 local map = vim.keymap.set
 map('n', '<leader>s', ":Pick files<CR>", { desc = "Search Files" })
 map('n', '<leader>h', ":Pick help<CR>", { desc = "Search Help" })
 map('n', '<leader><space>', ":Pick buffers<CR>", { desc = "Pick Buffer" })
-map('n', '<leader>e', MiniFiles.open, { desc = 'File Explorer' })
+map('n', '<leader>e', ':Oil<CR>', { desc = 'File Explorer' })
 
 local lspServers = {
 	"bashls",

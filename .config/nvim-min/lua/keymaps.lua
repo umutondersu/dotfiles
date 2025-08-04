@@ -15,23 +15,23 @@ map({ 'n', 'v' }, 'x', '"+d')
 map({ 'n', 'v' }, 'X', '"+D')
 map('n', '<leader>f', vim.lsp.buf.format, { desc = "Format Buffer" })
 map('n', '<leader>w', ':w<CR>', { desc = 'Save Buffer' })
-map('n', '<leader>q', ':q<CR>', { desc = 'Quit' })
+map('n', '<leader>q', ':bdelete<CR>', { desc = 'Quit Buffer' })
 map('i', '<C-x>', vim.lsp.completion.get)
 
 -- Buffer Management
 map("n", "<C-a>", '<cmd>enew<cr>', { desc = 'Open a New Buffer' })
 map("n", "<bs>", '<cmd>b#<cr>', { desc = 'Reopen Previous Buffer' })
-map("n", "<M-c>", '<cmd>bdelete<cr>', { desc = 'Delete Buffer' })
 
 -- New line without insert mode
 map('n', '<M-o>', 'o<Esc>', { desc = 'New Line Down' })
 map('n', '<M-O>', 'O<Esc>', { desc = 'New Line Up' })
 
+-- window management
+map("n", '<c-c>', "<cmd>q<cr>", { desc = 'quit window' })
+
 -- Buffer Navigation
-map('n', '<M-.>', vim.cmd.bnext, { desc = 'Next Buffer' })
-map('n', '<M-,>', vim.cmd.bprev, { desc = 'Prev Buffer' })
-map('n', '<M-l>', vim.cmd.bnext, { desc = 'Next Buffer' })
-map('n', '<M-h>', vim.cmd.bprev, { desc = 'Prev Buffer' })
+map('n', '<tab>', vim.cmd.bnext, { desc = 'Next Buffer' })
+map('n', '<S-Tab>', vim.cmd.bprev, { desc = 'Prev Buffer' })
 
 -- Swap r and ctrl+r
 map('n', '<C-r>', 'r', { silent = true }) -- replace a single character

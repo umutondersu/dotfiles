@@ -52,6 +52,10 @@ vim.o.statusline = " "
 vim.o.splitright = true
 vim.o.splitbelow = true
 
+vim.o.winborder = 'rounded'
+
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 -- Custom diagnostic config
 vim.diagnostic.config(
 	{
