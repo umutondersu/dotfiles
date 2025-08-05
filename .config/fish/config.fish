@@ -6,7 +6,6 @@ if status is-interactive
     set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     gpgconf --launch gpg-agent
     fzf_configure_bindings --variables=\e\cv
-    zoxide init --cmd cd fish | source
 end
 
 load_env_vars ~/.env
