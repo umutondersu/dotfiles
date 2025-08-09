@@ -5,4 +5,4 @@ end
 
 bind-both \cg livegrep
 bind -M insert \ca forward-char
-bind-both \cf spf
+bind-both \e\cf spf

@@ -5,7 +5,7 @@ if status is-interactive
     set -x GPG_TTY (tty)
     set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     gpgconf --launch gpg-agent
-    fzf_configure_bindings --variables=\e\cv
+    fzf_configure_bindings --variables=\e\cv --directory=\cf
 end
 
 load_env_vars ~/.env
