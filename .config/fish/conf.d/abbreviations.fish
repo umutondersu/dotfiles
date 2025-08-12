@@ -20,6 +20,10 @@ if type -q nvim
     abbr --add vm 'NVIM_APPNAME="nvim-min" nvim'
 end
 
+if type -q spf
+    abbr --add s spf
+end
+
 if type -q lsd
     abbr --add lT ls --tree --depth 2
     abbr --add lt 'ls -I node_modules -I dist -I build -I .idea -I .vscode -I target -I out -I .pytest_cache -I .cache -I tmp -I __pycache__ --tree --depth 2'
@@ -42,6 +46,7 @@ abbr --add Y --position anywhere "| xclip -selection clipboard"
 abbr --add update 'sudo apt update && sudo apt upgrade -y && flatpak update -y'
 abbr --add --set-cursor tzip tar -czvf %.tar.gz ./
 abbr --add --set-cursor tuzip tar -xzf %.tar.gz
+abbr --add src source
 
 # Abbreviations for starting up servers with docker
 if type -q docker
