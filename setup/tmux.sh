@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt install -y tmux
+
 TPM_DIR=~/.tmux/plugins/tpm
 
 # Check if TPM directory exists if not clone it

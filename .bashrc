@@ -87,7 +87,6 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -122,3 +121,6 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 . "/home/qorcialwolf/.deno/env"
 . "$HOME/.cargo/env"
+
+# Added by ProtonUp-Qt on 23-08-2025 02:39:03
+if [ -d "/home/qorcialwolf/stl/prefix" ]; then export PATH="$PATH:/home/qorcialwolf/stl/prefix"; fi
