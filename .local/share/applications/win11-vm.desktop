@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Windows 11 VM
 Comment=Launch Windows 11 Virtual Machine
-Exec=fish -c "source ~/.config/fish/functions/win11.fish && win11"
+Exec=fish -c "source ~/.config/fish/functions/win11docker.fish && win11docker"
 Icon=windows
 Terminal=false
 Type=Application
