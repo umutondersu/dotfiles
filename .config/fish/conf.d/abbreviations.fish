@@ -18,6 +18,7 @@ if type -q nvim
     abbr --add V --position anywhere "&& nvim"
     abbr --add nvim-min 'NVIM_APPNAME="nvim-min" nvim'
     abbr --add vm 'NVIM_APPNAME="nvim-min" nvim'
+    abbr --add avante 'nvim . -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
 end
 
 if type -q spf
@@ -35,7 +36,7 @@ abbr --add lla ls -lgA
 abbr --add lS ls -lgSA
 
 abbr c --add cd
-abbr G --add git
+abbr g --add git
 
 abbr --add onedrivelog journalctl --user-unit=onedrive -f
 abbr --add claer clear
