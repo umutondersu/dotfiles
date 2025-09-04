@@ -10,4 +10,5 @@ uv python install --default --preview 3.10
 # install Posting (will also quickly install Python 3.12 if needed)
 uv tool install --python 3.12 posting
 uv tool install thefuck --python=python3.11
+uv tool install tldr
 
