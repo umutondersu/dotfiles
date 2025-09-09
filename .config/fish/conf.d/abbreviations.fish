@@ -44,6 +44,7 @@ abbr --add clr clear
 abbr --add python python3
 abbr --add fkill sudo kill -9
 abbr --add Y --position anywhere "| xclip -selection clipboard"
+abbr --add P "xclip -selection clipboard -o >"
 abbr --add B --position anywhere ">/dev/null &"
 abbr --add update 'sudo apt update && sudo apt upgrade -y && flatpak update -y'
 abbr --add --set-cursor tzip tar -czvf %.tar.gz ./
