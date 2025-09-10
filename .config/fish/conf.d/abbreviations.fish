@@ -18,7 +18,6 @@ if type -q nvim
     abbr --add V --position anywhere "&& nvim"
     abbr --add nvim-min 'NVIM_APPNAME="nvim-min" nvim'
     abbr --add vm 'NVIM_APPNAME="nvim-min" nvim'
-    abbr --add avante 'nvim . -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
 end
 
 if type -q spf
