@@ -1,8 +1,8 @@
 if type -q rip
     abbr --add --set-cursor rs "rip search deezer '%'"
-    abbr --add --set-cursor rst "rip search deezer track '%'"
-    abbr --add --set-cursor rsa "rip search deezer album '%'"
-    abbr --add --set-cursor rsu "rip search deezer url '%'"
+    abbr --add --set-cursor rt "rip search deezer track '%'"
+    abbr --add --set-cursor ra "rip search deezer album '%'"
+    abbr --add --set-cursor ru "rip search deezer url '%'"
 end
 
 if type -q devpod
