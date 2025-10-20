@@ -1,0 +1,6 @@
+{
+    "device": "alsa_output.usb-FiiO_FiiO_BTR5-00.3.analog-stereo",
+    "device-description": "FiiO BTR5 Analog Stereo",
+    "device-profile": "analog-output",
+    "preset-name": "Bass Boost"
+}
