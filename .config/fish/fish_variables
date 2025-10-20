@@ -3,6 +3,7 @@
 SETUVAR --export EDITOR:nvim
 SETUVAR --export GOTOOLCHAIN:auto
 SETUVAR --export OLLAMA_API_BASE:http\x3a//127\x2e0\x2e0\x2e1\x3a11434
+SETUVAR --export TERM:xterm\x2d256color
 SETUVAR --export TMPDIR:/tmp
 SETUVAR VIRTUAL_ENV_DISABLE_PROMPT:true
 SETUVAR --export XDG_RUNTIME_DIR:/tmp/
