@@ -11,3 +11,6 @@ install.sh
 devpod-install.sh
 /setup
 /gnome
+
+# Flatpaks
+^\.var/app/
