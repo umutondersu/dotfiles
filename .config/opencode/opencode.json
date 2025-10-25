@@ -36,10 +36,6 @@
 		"browsermcp": {
 			"type": "local",
 			"command": ["npx", "@browsermcp/mcp@latest"]
-		},
-		"next-devtools": {
-			"type": "local",
-			"command": ["npx", "-y", "next-devtools-mcp@latest"]
 		}
 	}
 }
