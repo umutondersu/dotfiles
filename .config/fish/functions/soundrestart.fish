@@ -1,11 +1,22 @@
 function soundrestart
+    set -l discord_was_running false
+    set -l easyeffects_was_running false
     echo "Restarting sound system..."
 
     # Find and kill EasyEffects process
     if set -l pid (pgrep easyeffects)
+        set easyeffects_was_running true
         kill $pid
         sleep 2 # Wait for EasyEffects to fully close
         echo "EasyEffects stopped"
+    end
+
+    # Find and kill Discord process
+    if set -l pid (pgrep -i discord)
+        set discord_was_running true
+        kill $pid
+        sleep 2 # Wait for Discord to fully close
+        echo "Discord stopped"
     end
 
     # Restart sound system services
@@ -22,9 +33,16 @@ function soundrestart
     # Check if services are running
     if systemctl --user is-active pipewire >/dev/null
         echo "Sound services restarted successfully"
-        echo "Starting EasyEffects..."
-        flatpak run com.github.wwmm.easyeffects --gapplication-service >/dev/null 2>&1 &
-        disown
+        if $easyeffects_was_running
+            echo "Starting EasyEffects..."
+            flatpak run com.github.wwmm.easyeffects --gapplication-service --start-minimized >/dev/null 2>&1 &
+            disown
+        end
+        if $discord_was_running
+            echo "Starting Discord..."
+            flatpak run com.discordapp.Discord >/dev/null 2>&1 &
+            disown
+        end
     else
         echo "Error: PipeWire service failed to start"
         return 1

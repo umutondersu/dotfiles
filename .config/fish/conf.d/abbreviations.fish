@@ -28,6 +28,10 @@ if type -q lazygit
     abbr --add lg lazygit
 end
 
+if type -q bunx
+    abbr --add shad bunx --bun shadcn@latest
+end
+
 if type -q lsd
     abbr --add lT ls --tree --depth 2
     abbr --add lt 'ls -I node_modules -I dist -I build -I .idea -I .vscode -I target -I out -I .pytest_cache -I .cache -I tmp -I __pycache__ --tree --depth 2'
