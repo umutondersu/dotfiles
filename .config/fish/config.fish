@@ -8,4 +8,5 @@ if status is-interactive
     fzf_configure_bindings --variables=\e\cv --directory=\cf
 end
 
+direnv hook fish | source
 load_env_vars ~/.env
