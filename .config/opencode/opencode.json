@@ -3,7 +3,11 @@
 	"theme": "tokyonight",
 	"keybinds": {
 		"leader": "ctrl+x",
-		"input_submit": "enter,ctrl+s"
+		"input_submit": "enter,ctrl+s",
+		"messages_half_page_up": "alt+u",
+		"messages_half_page_down": "alt+d",
+		"messages_first": "ctrl+alt+g,home",
+		"messages_last": "ctrl+g,end"
 	},
 	"mcp": {
 		"context7": {
