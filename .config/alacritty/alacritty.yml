@@ -23,12 +23,6 @@ font:
     family: JetBrains Mono Nerd Font
     style: MediumItalic
 
-shell:
-  program: /usr/bin/fish
-  args:
-    - -c
-    - "tmux a || tmux new-session -s default"
-
 schemes:
   # Tokyo Night theme, based on both:
   #   https://github.com/ghifarit53/tokyonight-vim
