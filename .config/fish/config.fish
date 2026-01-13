@@ -1,7 +1,7 @@
 set fish_greeting
 
-# Set vi key bindings as default (migrated from Fish 4.3 frozen file)
-set --global fish_key_bindings fish_vi_key_bindings
+# Key bindings (vi mode)
+set -g fish_key_bindings fish_vi_key_bindings
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
