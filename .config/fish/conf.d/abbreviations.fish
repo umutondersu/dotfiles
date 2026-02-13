@@ -5,12 +5,10 @@ if type -q rip
     abbr --add --set-cursor ru "rip search deezer url '%'"
 end
 
-if type -q devpod
-    abbr --add dp devpod
-    abbr --add dps devpod ssh
-    abbr --add dpu devpod up .
-    abbr --add dpd devpod delete
-    abbr --add dpS devpod stop
+if type -q devbox
+    abbr --add db devbox
+    abbr --add dbs devbox shell
+    abbr --add dg devbox global
 end
 
 if type -q nvim

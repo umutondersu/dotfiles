@@ -1,36 +1,119 @@
-# My Dotfiles for Pop!\_OS Desktop
+# My Dotfiles for Pop!\_OS Desktop (Devbox-based)
 
-This Repository contains my Pop!\_OS configuration files symlinked with stow. Should be able to work the same in any Ubuntu or Debian Based Linux Distro that has apt
+This repository contains my Linux configuration files managed with [Devbox](https://www.jetify.com/devbox) for distro-agnostic package management and [GNU Stow](https://www.gnu.org/software/stow/) for dotfile symlinking.
+
+## ✨ Devbox-based Installation
+
+The installation process uses Devbox as a global package manager. This makes the setup:
+
+- **Distro-agnostic(mostly)**: Works on any Linux distribution (Ubuntu, Debian, Fedora, Arch, NixOS, etc.)
+- **Reproducible**: Same package versions across all machines via `devbox.json`
+- **Isolated**: Doesn't interfere with system package manager
+- **Simple**: One command to install everything
 
 ## Requirements
 
-- Git
+- **Git**
+- **curl**
 
-```bash
-sudo apt install git
-```
-
-- Tmux
-
-```bash
-sudo apt install tmux
-```
-
-All other requirements will be installed with the install script
+That's it! The install script handles everything else, including devbox installation.
 
 ## Installation
 
-### Development Environment
+This repository offers two installation modes depending on your environment:
 
-Just run the install script in your home directory after cloning the repository
+### 1. Desktop Installation (Full Setup)
+
+For workstations and desktop environments with GUI applications:
 
 ```bash
-$ cd
-$ git clone https://github.com/umutondersu/dotfiles.git
-$ ./dotfiles/install.sh
+cd ~
+git clone https://github.com/umutondersu/dotfiles.git
+cd dotfiles
+./install.sh
 ```
 
-⚠️ This will also clone my neovim configuration inside `~/.config/nvim`
+### 2. DevPod/Remote Installation (Minimal Setup)
+
+For SSH sessions, remote environments, containers, and DevPods:
+
+```bash
+cd ~
+git clone https://github.com/umutondersu/dotfiles.git
+cd dotfiles
+./devpod-install.sh
+```
+
+## What Gets Installed
+
+### Core Development Tools (21 packages - in both installations)
+
+**Shell & CLI Tools:**
+
+- fish, stow, fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, fish-lsp
+
+**Development:**
+
+- neovim, go, nodejs_22, python312, deno
+
+**Utilities:**
+
+- dysk (disk usage)
+- superfile (file manager)
+- curlie (HTTP client)
+- posting (API client)
+- vegeta (load testing)
+- lazygit (git client)
+- lazydocker (docker client)
+
+### Desktop-Only Additions (3 packages - only in `./install.sh`)
+
+- **tmux**: Terminal multiplexer
+- **streamrip**: Media downloader
+- **yt-dlp**: Video downloader
+
+### Manual Installations (Desktop only)
+
+- **kitty**: Terminal emulator (script in `setup/kitty.sh`)
+- **nerd-dictation**: Voice input (script in `setup/nerd-dictation.sh`)
+- **vosk**: Speech recognition library (script in `setup/vosk-install.sh`)
+- **TPM**: Tmux Plugin Manager (git clone to `~/.tmux/plugins/tpm`)
+
+See `.local/share/devbox/global/default/devbox.json` for the core package configuration.
+
+## Package Management
+
+```bash
+# Add new package
+devbox global add <package-name>
+
+# Remove package
+devbox global rm <package-name>
+
+# List installed packages
+devbox global list
+
+# Update all packages
+devbox global update
+
+# Search for packages
+devbox search <query>
+```
+
+Package configuration is stored in `.local/share/devbox/global/default/devbox.json` and is automatically synced via stow.
+
+## Shell Integration
+
+Fish shell is automatically configured to load devbox global packages via `.config/fish/conf.d/devbox.fish`.
+
+When you start a new Fish shell, all devbox packages are immediately available.
+
+## Notes
+
+- ⚠️ **Neovim config**: Clones my personal neovim configuration from umutondersu/nvim
+- 🔄 **Shell change**: After installation, log out and log back in for Fish shell to become active
+- 📌 **Version pinning**: Core packages are pinned to specific versions. Desktop: tmux pinned, streamrip/yt-dlp use @latest
+- 🔌 **nvm.fish**: You have nvm.fish plugin installed. Since devbox provides nodejs_22, nvm is optional but won't conflict
 
 ### Gnome Desktop Environment
 
@@ -45,17 +128,3 @@ Themes have to be in the `~/.themes` and Icons have to be in the `~/.icons` dire
 - Wallpaper: [eberhardgross](https://unsplash.com/photos/a-bird-flying-through-a-cloudy-blue-sky-xC7Ho08RYF4)
 
 For restoring the entire desktop environment (Icons, Themes, Fonts, Background, Extensions, Desktop and Flatpak apps) you can use your own configuration with [SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by using the `gnome/.settings.rc` config with dconf by using `dconf load / < ~/dotfiles/gnome/.settings.rc` I keep my SaveDesktop backup on cloud due to its size
-
-## Notes
-
-If you are going to use the dotfiles inside a devcontainer with neovim, you must add the following lines below to your `devcontainer/.devcontainer.json` for the clipboards to be synced
-
-```json
-  "runArgs": [
-        "--env", "DISPLAY",
-        "--mount",
-        "type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix"
-  ]
-```
-
-This will be added automatically if the dcta function is used to create the devcontainer file. Additionaly you can use the dcconfig if `devcontainer/.devcontainer.json` already exists
