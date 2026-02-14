@@ -19,7 +19,7 @@
     "curlie@1.8.2",
     "posting@2.9.2",
     "vegeta@12.13.0",
-    "fish-lsp@1.0.10",
+    "fish-lsp@1.0.9-1",
     "thefuck@3.32",
     "tldr@3.4.3",
     "direnv@2.36.0"
