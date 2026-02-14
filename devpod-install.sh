@@ -26,7 +26,8 @@ echo ""
 echo "Step 2: Checking for devbox installation..."
 if ! command -v devbox &> /dev/null; then
     echo "  devbox not found. Installing devbox..."
-    curl -fsSL https://get.jetify.com/devbox | bash
+    # Use -f flag to skip interactive prompts (required for non-TTY environments like Docker)
+    curl -fsSL https://get.jetify.com/devbox | bash -s -- -f
     
     # Source devbox in current shell
     export PATH="$HOME/.local/bin:$PATH"
