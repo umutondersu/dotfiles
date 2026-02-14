@@ -3,7 +3,8 @@ set -e
 
 # Get script directory and source common functions
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$SCRIPT_DIR/setup/common.sh"
+SETUP_DIR="$SCRIPT_DIR/setup"
+source "$SETUP_DIR/common.sh"
 
 echo "=========================================="
 echo "DevPod/Remote Dotfiles Installation"
@@ -12,8 +13,17 @@ echo "This script installs a minimal development environment"
 echo "suitable for SSH sessions, remote environments, and containers."
 echo ""
 
-# Step 1: Check if devbox is installed, install if not
-echo "Step 1: Checking for devbox installation..."
+# Step 1: Install Fish shell (required before devbox)
+echo "Step 1: Installing Fish shell..."
+if ! command -v fish &> /dev/null; then
+    bash "$SETUP_DIR/fish.sh"
+else
+    echo "  ✓ Fish already installed: $(fish --version)"
+fi
+echo ""
+
+# Step 2: Check if devbox is installed, install if not
+echo "Step 2: Checking for devbox installation..."
 if ! command -v devbox &> /dev/null; then
     echo "  devbox not found. Installing devbox..."
     curl -fsSL https://get.jetify.com/devbox | bash
@@ -32,8 +42,8 @@ else
 fi
 echo ""
 
-# Step 2: Install stow if not present
-echo "Step 2: Checking for stow..."
+# Step 3: Install stow if not present
+echo "Step 3: Checking for stow..."
 if ! command -v stow &> /dev/null; then
     echo "  stow not found. Installing via apt..."
     sudo apt-get update -qq
@@ -44,8 +54,8 @@ else
 fi
 echo ""
 
-# Step 3: Stow dotfiles and install devbox packages
-echo "Step 3: Symlinking dotfiles with stow..."
+# Step 4: Stow dotfiles and install devbox packages
+echo "Step 4: Symlinking dotfiles with stow..."
 cd "$SCRIPT_DIR"
 
 # Use --adopt to handle existing files (user's preferred method)
@@ -54,7 +64,7 @@ stow . --adopt
 echo "  ✓ Dotfiles symlinked"
 echo ""
 
-echo "Step 4: Installing devbox packages..."
+echo "Step 5: Installing devbox packages..."
 echo "  This will install 21 core development packages via Nix..."
 echo "  (This may take several minutes on first run)"
 echo ""
@@ -66,8 +76,8 @@ echo ""
 echo "  ✓ Devbox packages installed"
 echo ""
 
-# Step 5: Post-installation setup
-echo "Step 5: Post-installation setup..."
+# Step 6: Post-installation setup
+echo "Step 6: Post-installation setup..."
 echo ""
 
 # Setup Neovim configuration
@@ -81,7 +91,7 @@ echo "DevPod/Remote Installation Complete!"
 echo "=========================================="
 echo ""
 echo "Core packages installed (21):"
-echo "  Shell: fish, fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr"
+echo "  Shell: fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, direnv"
 echo "  Editor: neovim"
 echo "  Development: go, nodejs_22, python312, deno, fish-lsp"
 echo "  Git tools: lazygit, lazydocker"

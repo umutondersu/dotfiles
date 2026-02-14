@@ -36,25 +36,27 @@ From the dotfiles directory:
 
 ```
 install.sh
-├── Auto-install devbox (if needed)
-├── 1/7: apt install stow          → Ensure stow is available
-├── 2/7: stow . --adopt            → Symlink devbox.json + all dotfiles
-├── 3/7: devbox global install     → Install 21 core packages from devbox.json
-├── 4/7: devbox global add         → Add 3 desktop packages (tmux, streamrip, yt-dlp)
-├── 5/7: kitty.sh                  → Curl installer + update-alternatives
-├── 6/7: nerd-dictation + vosk     → Git clone + pip install
-└── 7/7: post-install.sh           → Neovim clone + TPM install + chsh to fish
+├── 1/8: setup/fish.sh              → Install Fish shell via distro package manager
+├── 2/8: Auto-install devbox        → Install devbox (if needed)
+├── 3/8: apt install stow           → Ensure stow is available
+├── 4/8: stow . --adopt             → Symlink devbox.json + all dotfiles
+├── 5/8: devbox global install      → Install 21 core packages from devbox.json
+├── 6/8: devbox global add          → Add 4 desktop packages (tmux, streamrip, yt-dlp, dysk)
+├── 7/8: setup/kitty.sh             → Curl installer + update-alternatives
+├── 8/8: setup/nerd-dictation.sh    → Git clone + pip install vosk
+└── Post: setup/common.sh           → Neovim clone + TPM install + chsh to fish
 ```
 
 ### DevPod/Remote Installation Flow
 
 ```
 devpod-install.sh
-├── Auto-install devbox (if needed)
-├── 1/5: apt install stow          → Ensure stow is available
-├── 2/5: stow . --adopt            → Symlink devbox.json + all dotfiles
-├── 3/5: devbox global install     → Install 21 core packages from devbox.json
-└── 4/5: post-install-devpod.sh    → Neovim clone + xclip + chsh to fish
+├── 1/6: setup/fish.sh              → Install Fish shell via distro package manager
+├── 2/6: Auto-install devbox        → Install devbox (if needed)
+├── 3/6: apt install stow           → Ensure stow is available
+├── 4/6: stow . --adopt             → Symlink devbox.json + all dotfiles
+├── 5/6: devbox global install      → Install 21 core packages from devbox.json
+└── 6/6: setup/common.sh            → Neovim clone + chsh to fish
                                       (NO tmux, NO TPM, NO desktop apps)
 ```
 
@@ -99,13 +101,13 @@ devbox global list
 Used by **both** installation modes:
 
 **Shell & Terminal:**
-- fish, stow, fzf
+- stow, fzf
 
 **Search & Navigation:**
 - ripgrep, fd, zoxide
 
 **File Utilities:**
-- bat, lsd, dysk, superfile
+- bat, lsd, superfile
 
 **Development Tools:**
 - neovim, go, nodejs_22, python312, deno
@@ -118,15 +120,22 @@ Used by **both** installation modes:
 - curlie, posting, vegeta
 
 **Shell Enhancements:**
-- thefuck, tldr
+- thefuck, tldr, direnv
 
-### Desktop-Only Packages (3) - Added via `devbox global add`
+### Desktop-Only Packages (4) - Added via `devbox global add`
 
 Only installed by `./install.sh`:
 
 - **tmux**: Terminal multiplexer
 - **streamrip**: Media downloader
 - **yt-dlp**: Video downloader
+- **dysk**: Disk usage analyzer
+
+### Manual Installations - Both Installations
+
+Installed before devbox (via system package manager):
+
+- **fish**: Shell (setup/fish.sh - uses PPA on Ubuntu/Pop!_OS, OBS repo on Debian)
 
 ### Manual Installations - Desktop Only
 

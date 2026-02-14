@@ -46,11 +46,17 @@ cd dotfiles
 
 ## What Gets Installed
 
+### Prerequisites (Installed First)
+
+- **fish**: Shell (installed via distro package manager before devbox)
+  - Ubuntu/Pop!_OS: PPA `ppa:fish-shell/release-4`
+  - Debian: OpenSUSE Build Service repository
+
 ### Core Development Tools (21 packages - in both installations)
 
 **Shell & CLI Tools:**
 
-- fish, stow, fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, fish-lsp
+- stow, fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, fish-lsp, direnv
 
 **Development:**
 
@@ -71,6 +77,10 @@ cd dotfiles
 - **tmux**: Terminal multiplexer
 - **streamrip**: Media downloader
 - **yt-dlp**: Video downloader
+
+### Manual Installations (Both installations)
+
+- **fish**: Shell (script in `setup/fish.sh`) - installed before devbox
 
 ### Manual Installations (Desktop only)
 

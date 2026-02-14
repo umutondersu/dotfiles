@@ -12,7 +12,21 @@ echo "║  Dotfiles Installation (Devbox-based) ║"
 echo "╚════════════════════════════════════════╝"
 echo ""
 
-# Check if devbox is installed, install if needed
+# Step 1: Install Fish shell (required before devbox)
+echo "═══════════════════════════════════════"
+echo "Step 1/8: Installing Fish shell"
+echo "═══════════════════════════════════════"
+if ! command -v fish &> /dev/null; then
+    bash "$SETUP_DIR/fish.sh"
+else
+    echo "✅ Fish already installed: $(fish --version)"
+fi
+echo ""
+
+# Step 2: Check if devbox is installed, install if needed
+echo "═══════════════════════════════════════"
+echo "Step 2/8: Checking for devbox"
+echo "═══════════════════════════════════════"
 if ! command -v devbox &> /dev/null; then
     echo "📦 Devbox not found, installing..."
     curl -fsSL https://get.jetify.com/devbox | bash
@@ -33,9 +47,9 @@ else
 fi
 echo ""
 
-# Step 1: Install stow if not present
+# Step 3: Install stow if not present
 echo "═══════════════════════════════════════"
-echo "Step 1/7: Ensuring stow is installed"
+echo "Step 3/8: Ensuring stow is installed"
 echo "═══════════════════════════════════════"
 if ! command -v stow &> /dev/null; then
     echo "Installing stow via apt..."
@@ -46,9 +60,9 @@ else
 fi
 echo ""
 
-# Step 2: Stow dotfiles (this will symlink devbox.json and all dotfiles)
+# Step 4: Stow dotfiles (this will symlink devbox.json and all dotfiles)
 echo "═══════════════════════════════════════"
-echo "Step 2/7: Symlinking dotfiles with stow"
+echo "Step 4/8: Symlinking dotfiles with stow"
 echo "═══════════════════════════════════════"
 export XDG_CONFIG_HOME="$HOME/.config"
 mkdir -p "$XDG_CONFIG_HOME"
@@ -60,9 +74,9 @@ stow . --adopt
 echo "✅ Dotfiles symlinked (including devbox.json)"
 echo ""
 
-# Step 3: Install devbox packages
+# Step 5: Install devbox packages
 echo "═══════════════════════════════════════"
-echo "Step 3/7: Installing devbox packages"
+echo "Step 5/8: Installing devbox packages"
 echo "═══════════════════════════════════════"
 echo "📦 Installing 21 core packages from devbox.json..."
 
@@ -72,9 +86,9 @@ devbox global install
 echo "✅ Core devbox packages installed"
 echo ""
 
-# Step 4: Install desktop-specific packages
+# Step 6: Install desktop-specific packages
 echo "═══════════════════════════════════════"
-echo "Step 4/7: Installing desktop packages"
+echo "Step 6/8: Installing desktop packages"
 echo "═══════════════════════════════════════"
 echo "📦 Adding desktop-specific packages"
 
@@ -86,24 +100,24 @@ echo "All installed packages:"
 devbox global list
 echo ""
 
-# Step 5: Install kitty
+# Step 7: Install kitty
 echo "═══════════════════════════════════════"
-echo "Step 5/7: Setting up Kitty terminal"
+echo "Step 7/8: Setting up Kitty terminal"
 echo "═══════════════════════════════════════"
 bash "$SETUP_DIR/kitty.sh"
 echo ""
 
-# Step 6: Install nerd-dictation + vosk
+# Step 8: Install nerd-dictation + vosk
 echo "═══════════════════════════════════════"
-echo "Step 6/7: Setting up nerd-dictation"
+echo "Step 8/8: Setting up nerd-dictation"
 echo "═══════════════════════════════════════"
 bash "$SETUP_DIR/nerd-dictation.sh"
 bash "$SETUP_DIR/vosk-install.sh"
 echo ""
 
-# Step 7: Post-installation
+# Post-installation
 echo "═══════════════════════════════════════"
-echo "Step 7/7: Post-installation setup"
+echo "Post-installation setup"
 echo "═══════════════════════════════════════"
 
 # Setup Neovim configuration
