@@ -112,6 +112,23 @@ devbox search <query>
 
 Package configuration is stored in `.local/share/devbox/global/default/devbox.json` and is automatically synced via stow.
 
+## Testing
+
+Automated Docker tests are available to verify the installation in a clean environment:
+
+```bash
+# Automated test (recommended)
+./setup/.test/test-in-docker-automated.sh
+
+# Manual/interactive test
+./setup/.test/test-in-docker-manual.sh
+
+# Standalone verification
+./setup/.test/verify-installation.sh
+```
+
+See [`setup/.test/TESTING.md`](setup/.test/TESTING.md) for detailed documentation.
+
 ## Shell Integration
 
 Fish shell is automatically configured to load devbox global packages via `.config/fish/conf.d/devbox.fish`.
