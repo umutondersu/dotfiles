@@ -83,7 +83,8 @@ These might be old if i forgot to update readme after adding packages
 - **tmux**: Terminal multiplexer
 - **streamrip**: Media downloader
 - **yt-dlp**: Video downloader
-- **dysk**: Disk usage analyzer (also in base config)
+- **dysk**: Disk usage analyzer
+- **sesh**: Smart Session Manager
 
 #### Manual Installations with scripts
 
