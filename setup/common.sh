@@ -46,6 +46,18 @@ setup_fish_shell() {
     else
         echo "  ⚠️  Fish not found in PATH"
     fi
+    
+    # Configure git to ignore local changes to fish_variables (Tide prompt cache)
+    echo "  Configuring git to ignore fish_variables cache changes..."
+    DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    if [ -f "$DOTFILES_DIR/.config/fish/fish_variables" ]; then
+        if git -C "$DOTFILES_DIR" update-index --assume-unchanged .config/fish/fish_variables 2>/dev/null; then
+            echo "  ✅ Git will ignore fish_variables cache changes"
+        else
+            echo "  ⚠️  Could not set git assume-unchanged (non-fatal)"
+        fi
+    fi
+    
     echo ""
 }
 

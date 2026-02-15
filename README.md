@@ -141,6 +141,7 @@ When you start a new Fish shell, all devbox packages are immediately available.
 - 🔄 **Shell change**: After installation, log out and log back in for Fish shell to become active
 - 📌 **Version pinning**: Core packages are pinned to specific versions. Desktop: tmux pinned, streamrip/yt-dlp use @latest
 - 🔌 **nvm.fish**: You have nvm.fish plugin installed. Since devbox provides nodejs_22, nvm is optional but won't conflict
+- 🐠 **Fish variables**: The install script automatically configures git to ignore local changes to `.config/fish/fish_variables` (Tide prompt cache) using `git update-index --assume-unchanged`. This prevents hundreds of cache lines from cluttering git status while keeping the baseline Tide configuration in the repo for new clones.
 
 ### Gnome Desktop Environment
 
