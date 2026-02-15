@@ -1,11 +1,9 @@
 # My Dotfiles for Pop!\_OS Desktop
 
-This repository contains my Linux configuration files managed with [Devbox](https://www.jetify.com/devbox) and [GNU Stow](https://www.gnu.org/software/stow/) for dotfile symlinking.
+This repository contains my Linux configuration files managed with
+[GNU Stow](https://www.gnu.org/software/stow/) for dotfile symlinking.
 
-## ✨ Devbox-based Installation
-
-The installation process uses Devbox as a global package manager. This makes the setup:
-
+- **Distro-agnostic**: Works on any Linux distribution with [Devbox](https://www.jetify.com/devbox)
 - **Reproducible**: Same package versions across all machines via `devbox.json`
 - **Isolated**: Doesn't interfere with system package manager
 - **Simple**: One command to install everything
@@ -16,7 +14,7 @@ The installation process uses Devbox as a global package manager. This makes the
 - **curl**
 - **sudo**
 
-The install script should handle everything else
+The install script should handle everything else (check [Prerequisites](#prerequisites))
 
 ## Installation
 
@@ -46,9 +44,12 @@ cd dotfiles
 
 ## What Gets Installed
 
-### Prerequisites (Installed First If not already present)
+### Prerequisites
 
-- **fish 4.4.0**: Shell (installed via distro package manager before devbox)
+**These are only installed with the script if you have apt. Otherwise, get
+them before installation**
+
+- **fish 4.4.0**
   - Ubuntu/Pop!\_OS: PPA `ppa:fish-shell/release-4`
   - Debian: OpenSUSE Build Service repository
 
@@ -56,7 +57,9 @@ cd dotfiles
 
 ### Devbox Packages
 
-**These might be old if i forgot to update readme after adding packages**
+#### Package Inventory Note
+
+These might be old if i forgot to update readme after adding packages
 
 **Shell & CLI Tools:**
 
@@ -96,12 +99,15 @@ See `.devbox/devbox.json` for the core package template.
 The devbox configuration uses a **template-based approach** rather than direct symlinking:
 
 - **Template Location**: `.devbox/devbox.json` (tracked in git)
-- **Working Location**: `~/.local/share/devbox/global/default/devbox.json` (copied during installation)
+- **Working Location**: `~/.local/share/devbox/global/default/devbox.json`
+  (copied during installation)
 
 ### Why Copy Instead of Stow (Symlink)?
 
-1. **Desktop-specific packages**: `install.sh` adds extra packages using `devbox global add` which creates a permanent dirty git with stow
-2. **Environment flexibility**: DevPod environments get the base config, desktop environments get base + extras
+1. **Desktop-specific packages**: `install.sh` adds extra packages using
+   `devbox global add` which creates a permanent dirty git with stow
+2. **Environment flexibility**: DevPod environments get the base config,
+   desktop environments get base + extras
 
 ## Package Management
 
@@ -122,7 +128,9 @@ devbox global update
 devbox search <query>
 ```
 
-**Permanent changes must be synced with `sync-devbox`. This fish functions sync the packages from the working location to the repository. Excluding the desktop only packages**
+**Permanent changes must be synced with `sync-devbox`. This fish functions sync
+the packages from the working location to the repository. Excluding the desktop
+only packages**
 
 ## Testing
 
@@ -132,9 +140,16 @@ See [`setup/.test/TESTING.md`](setup/.test/TESTING.md) for detailed documentatio
 
 ## Notes
 
-- ⚠️ **Neovim config**: Clones my personal neovim configuration from umutondersu/nvim
-- 🔄 **Shell change**: After installation, log out and log back in for Fish shell to become active
-- 🐠 **Fish variables**: The install script automatically configures git to ignore local changes to `.config/fish/fish_variables` (Tide prompt cache) using `git update-index --assume-unchanged`. This prevents hundreds of cache lines from cluttering git status while keeping the baseline Tide configuration in the repo for new clones. Use `fzf_variables_git` to unlock/lock this behavior
+- ⚠️ **Neovim config**: Clones my personal neovim configuration from
+  umutondersu/nvim
+- 🔄 **Shell change**: After installation, log out and log back in for Fish
+  shell to become active
+- 🐠 **Fish variables**: The install script automatically configures git to
+  ignore local changes to `.config/fish/fish_variables` (Tide prompt cache)
+  using `git update-index --assume-unchanged`. This prevents hundreds of cache
+  lines from cluttering git status while keeping the baseline Tide configuration
+  in the repo for new clones. Use `fzf_variables_git` to unlock/lock this
+  behavior
 
 ## Gnome Desktop Environment
 
@@ -142,10 +157,16 @@ See [`setup/.test/TESTING.md`](setup/.test/TESTING.md) for detailed documentatio
 
 Themes have to be in the `~/.themes` and Icons have to be in the `~/.icons` directory
 
-- Themes: [Dracula](https://github.com/dracula/gtk/archive/refs/heads/master.zip), [Sweet Dark](https://www.gnome-look.org/p/1253385)
+- Themes: [Dracula](https://github.com/dracula/gtk/archive/refs/heads/master.zip),
+  [Sweet Dark](https://www.gnome-look.org/p/1253385)
 
 - Icons: [Flatery Indigo Dark](https://www.gnome-look.org/p/1332404)
 
 - Wallpaper: [eberhardgross](https://unsplash.com/photos/a-bird-flying-through-a-cloudy-blue-sky-xC7Ho08RYF4)
 
-For restoring the entire desktop environment (Icons, Themes, Fonts, Background, Extensions, Desktop and Flatpak apps) you can use your own configuration with [SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by using the `gnome/.settings.rc` config with dconf by using `dconf load / < ~/dotfiles/gnome/.settings.rc` I keep my SaveDesktop backup on cloud due to its size
+For restoring the entire desktop environment (Icons, Themes, Fonts, Background,
+Extensions, Desktop and Flatpak apps) you can use your own configuration with
+[SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by
+using the `gnome/.settings.rc` config with dconf by using
+`dconf load / < ~/dotfiles/gnome/.settings.rc` I keep my SaveDesktop backup on
+cloud due to its size

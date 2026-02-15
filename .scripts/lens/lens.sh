@@ -1,4 +1,6 @@
 #!/bin/bash 
+# WARN: Depreciated, use NormCap
+
 # Dependencies: tesseract-ocr imagemagick scrot xsel gnome-screenshot libnotify-bin
 REQUIRED_PACKAGES=("tesseract-ocr" "imagemagick" "scrot" "xsel" "gnome-screenshot" "libnotify-bin")
 MISSING_PACKAGES=()

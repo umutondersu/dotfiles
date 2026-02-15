@@ -36,6 +36,11 @@ ensure_devbox_installed() {
 # Check and install stow if needed
 ensure_stow_installed() {
     if ! command -v stow &> /dev/null; then
+        if ! command -v apt-get &> /dev/null; then
+            echo "❌ Error: apt-get not found. This script requires a Debian-based system (Ubuntu, Debian, etc.)"
+            echo "Please install stow manually for your distribution"
+            exit 1
+        fi
         echo "Installing stow via apt..."
         sudo apt-get update -qq
         sudo apt-get install -y stow
@@ -47,7 +52,7 @@ ensure_stow_installed() {
 
 # Run stow to symlink dotfiles
 stow_dotfiles() {
-    cd "$SCRIPT_DIR"
+    cd "$SCRIPT_DIR" || exit
     stow . --adopt
     echo "✅ Dotfiles symlinked"
 }

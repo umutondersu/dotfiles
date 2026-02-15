@@ -121,7 +121,6 @@ if [ -f /home/qorcialwolf/.config/synth-shell/synth-shell-prompt.sh ] && [ "$( e
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-. "$HOME/.cargo/env"
 
 # Added by ProtonUp-Qt on 23-08-2025 02:39:03
 if [ -d "/home/qorcialwolf/stl/prefix" ]; then export PATH="$PATH:/home/qorcialwolf/stl/prefix"; fi
