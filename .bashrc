@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -31,7 +33,7 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+if [ "${debian_chroot:-}" = "" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -45,7 +47,7 @@ esac
 # should be on the output of commands, not on the prompt
 force_color_prompt=yes
 
-if [ -n "$force_color_prompt" ]; then
+if [ "$force_color_prompt" != "" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
@@ -114,12 +116,11 @@ fi
 
 ##-----------------------------------------------------
 ## synth-shell-prompt.sh
-if [ -f /home/qorcialwolf/.config/synth-shell/synth-shell-prompt.sh ] && [ -n "$( echo $- | grep i )" ]; then
+if [ -f /home/qorcialwolf/.config/synth-shell/synth-shell-prompt.sh ] && [ "$( echo "$-" | grep i )" != "" ]; then
 	source /home/qorcialwolf/.config/synth-shell/synth-shell-prompt.sh
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-. "/home/qorcialwolf/.deno/env"
 . "$HOME/.cargo/env"
 
 # Added by ProtonUp-Qt on 23-08-2025 02:39:03
