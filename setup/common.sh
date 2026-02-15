@@ -1,6 +1,79 @@
 #!/bin/bash
 # Common functions shared between install.sh and devpod-install.sh
 
+# Check and install Fish shell if needed
+ensure_fish_installed() {
+    if ! command -v fish &> /dev/null; then
+        bash "$SETUP_DIR/fish.sh"
+    else
+        echo "✅ Fish already installed: $(fish --version)"
+    fi
+}
+
+# Check and install devbox if needed
+ensure_devbox_installed() {
+    if ! command -v devbox &> /dev/null; then
+        echo "📦 Devbox not found, installing..."
+        # Use -f flag to skip interactive prompts (required for non-TTY environments)
+        curl -fsSL https://get.jetify.com/devbox | bash -s -- -f
+        
+        # Source the devbox environment
+        export PATH="$HOME/.local/bin:$PATH"
+        
+        # Verify installation
+        if ! command -v devbox &> /dev/null; then
+            echo "❌ Error: Devbox installation failed"
+            echo "Please install manually: https://www.jetify.com/devbox/docs/installing_devbox/"
+            exit 1
+        fi
+        
+        echo "✅ Devbox installed successfully: $(devbox version)"
+    else
+        echo "✅ Devbox found: $(devbox version)"
+    fi
+}
+
+# Check and install stow if needed
+ensure_stow_installed() {
+    if ! command -v stow &> /dev/null; then
+        echo "Installing stow via apt..."
+        sudo apt-get update -qq
+        sudo apt-get install -y stow
+        echo "✅ Stow installed"
+    else
+        echo "✅ Stow already installed"
+    fi
+}
+
+# Run stow to symlink dotfiles
+stow_dotfiles() {
+    cd "$SCRIPT_DIR"
+    stow . --adopt
+    echo "✅ Dotfiles symlinked"
+}
+
+# Setup devbox configuration from template
+# Copies the devbox.json template to the working directory
+setup_devbox_config() {
+    local devbox_global_dir="$HOME/.local/share/devbox/global/default"
+    mkdir -p "$devbox_global_dir"
+    
+    # Copy devbox template (don't symlink - scripts may modify it)
+    if [ -f "$SCRIPT_DIR/.devbox/devbox.json" ]; then
+        cp "$SCRIPT_DIR/.devbox/devbox.json" "$devbox_global_dir/devbox.json"
+        echo "✅ Devbox configuration copied from template"
+    else
+        echo "⚠️  Warning: devbox.json template not found at $SCRIPT_DIR/.devbox/devbox.json"
+    fi
+}
+
+# Install devbox global packages from devbox.json
+install_devbox_packages() {
+    echo "📦 Installing devbox packages from devbox.json..."
+    devbox global install
+    echo "✅ Devbox packages installed"
+}
+
 # Clone Neovim configuration
 setup_neovim_config() {
     echo "⚙️  Setting up Neovim configuration..."
@@ -18,7 +91,7 @@ setup_neovim_config() {
 setup_fish_shell() {
     echo "🐚 Setting Fish as default shell..."
     FISH_PATH=$(command -v fish 2>/dev/null || true)
-    if [ -n "$FISH_PATH" ]; then
+    if [ "$FISH_PATH" != "" ]; then
         # Add Fish to /etc/shells if not already there
         if ! grep -q "$FISH_PATH" /etc/shells 2>/dev/null; then
             echo "  Adding Fish to /etc/shells..."

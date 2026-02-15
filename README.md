@@ -1,22 +1,22 @@
-# My Dotfiles for Pop!\_OS Desktop (Devbox-based)
+# My Dotfiles for Pop!\_OS Desktop
 
-This repository contains my Linux configuration files managed with [Devbox](https://www.jetify.com/devbox) for distro-agnostic package management and [GNU Stow](https://www.gnu.org/software/stow/) for dotfile symlinking.
+This repository contains my Linux configuration files managed with [Devbox](https://www.jetify.com/devbox) and [GNU Stow](https://www.gnu.org/software/stow/) for dotfile symlinking.
 
 ## ✨ Devbox-based Installation
 
 The installation process uses Devbox as a global package manager. This makes the setup:
 
-- **Distro-agnostic(mostly)**: Works on any Linux distribution (Ubuntu, Debian, Fedora, Arch, NixOS, etc.)
 - **Reproducible**: Same package versions across all machines via `devbox.json`
 - **Isolated**: Doesn't interfere with system package manager
 - **Simple**: One command to install everything
 
 ## Requirements
 
-- **Git**
+- **git**
 - **curl**
+- **sudo**
 
-That's it! The install script handles everything else, including devbox installation.
+The install script should handle everything else
 
 ## Installation
 
@@ -46,17 +46,21 @@ cd dotfiles
 
 ## What Gets Installed
 
-### Prerequisites (Installed First)
+### Prerequisites (Installed First If not already present)
 
-- **fish**: Shell (installed via distro package manager before devbox)
-  - Ubuntu/Pop!_OS: PPA `ppa:fish-shell/release-4`
+- **fish 4.4.0**: Shell (installed via distro package manager before devbox)
+  - Ubuntu/Pop!\_OS: PPA `ppa:fish-shell/release-4`
   - Debian: OpenSUSE Build Service repository
 
-### Core Development Tools (21 packages - in both installations)
+- **stow**
+
+### Devbox Packages
+
+**These might be old if i forgot to update readme after adding packages**
 
 **Shell & CLI Tools:**
 
-- stow, fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, fish-lsp, direnv
+- fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, fish-lsp, direnv
 
 **Development:**
 
@@ -64,32 +68,39 @@ cd dotfiles
 
 **Utilities:**
 
-- dysk (disk usage)
-- superfile (file manager)
 - curlie (HTTP client)
 - posting (API client)
 - vegeta (load testing)
 - lazygit (git client)
 - lazydocker (docker client)
 
-### Desktop-Only Additions (3 packages - only in `./install.sh`)
+### Desktop-Only Packages (only in `./install.sh`)
 
 - **tmux**: Terminal multiplexer
 - **streamrip**: Media downloader
 - **yt-dlp**: Video downloader
+- **dysk**: Disk usage analyzer (also in base config)
 
-### Manual Installations (Both installations)
-
-- **fish**: Shell (script in `setup/fish.sh`) - installed before devbox
-
-### Manual Installations (Desktop only)
+#### Manual Installations with scripts
 
 - **kitty**: Terminal emulator (script in `setup/kitty.sh`)
 - **nerd-dictation**: Voice input (script in `setup/nerd-dictation.sh`)
 - **vosk**: Speech recognition library (script in `setup/vosk-install.sh`)
 - **TPM**: Tmux Plugin Manager (git clone to `~/.tmux/plugins/tpm`)
 
-See `.local/share/devbox/global/default/devbox.json` for the core package configuration.
+See `.devbox/devbox.json` for the core package template.
+
+## Devbox Configuration Approach
+
+The devbox configuration uses a **template-based approach** rather than direct symlinking:
+
+- **Template Location**: `.devbox/devbox.json` (tracked in git)
+- **Working Location**: `~/.local/share/devbox/global/default/devbox.json` (copied during installation)
+
+### Why Copy Instead of Stow (Symlink)?
+
+1. **Desktop-specific packages**: `install.sh` adds extra packages using `devbox global add` which creates a permanent dirty git with stow
+2. **Environment flexibility**: DevPod environments get the base config, desktop environments get base + extras
 
 ## Package Management
 
@@ -110,22 +121,11 @@ devbox global update
 devbox search <query>
 ```
 
-Package configuration is stored in `.local/share/devbox/global/default/devbox.json` and is automatically synced via stow.
+**Permanent changes must be added to `.devbox/devbox.json` manually**
 
 ## Testing
 
 Automated Docker tests are available to verify the installation in a clean environment:
-
-```bash
-# Automated test (recommended)
-./setup/.test/test-in-docker-automated.sh
-
-# Manual/interactive test
-./setup/.test/test-in-docker-manual.sh
-
-# Standalone verification
-./setup/.test/verify-installation.sh
-```
 
 See [`setup/.test/TESTING.md`](setup/.test/TESTING.md) for detailed documentation.
 
@@ -139,9 +139,7 @@ When you start a new Fish shell, all devbox packages are immediately available.
 
 - ⚠️ **Neovim config**: Clones my personal neovim configuration from umutondersu/nvim
 - 🔄 **Shell change**: After installation, log out and log back in for Fish shell to become active
-- 📌 **Version pinning**: Core packages are pinned to specific versions. Desktop: tmux pinned, streamrip/yt-dlp use @latest
-- 🔌 **nvm.fish**: You have nvm.fish plugin installed. Since devbox provides nodejs_22, nvm is optional but won't conflict
-- 🐠 **Fish variables**: The install script automatically configures git to ignore local changes to `.config/fish/fish_variables` (Tide prompt cache) using `git update-index --assume-unchanged`. This prevents hundreds of cache lines from cluttering git status while keeping the baseline Tide configuration in the repo for new clones.
+- 🐠 **Fish variables**: The install script automatically configures git to ignore local changes to `.config/fish/fish_variables` (Tide prompt cache) using `git update-index --assume-unchanged`. This prevents hundreds of cache lines from cluttering git status while keeping the baseline Tide configuration in the repo for new clones. Use `fzf_variables_git` to unlock/lock this behavior
 
 ### Gnome Desktop Environment
 

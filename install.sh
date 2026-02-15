@@ -16,63 +16,31 @@ echo ""
 echo "═══════════════════════════════════════"
 echo "Step 1/8: Installing Fish shell"
 echo "═══════════════════════════════════════"
-if ! command -v fish &> /dev/null; then
-    bash "$SETUP_DIR/fish.sh"
-else
-    echo "✅ Fish already installed: $(fish --version)"
-fi
+ensure_fish_installed
 echo ""
 
 # Step 2: Check if devbox is installed, install if needed
 echo "═══════════════════════════════════════"
 echo "Step 2/8: Checking for devbox"
 echo "═══════════════════════════════════════"
-if ! command -v devbox &> /dev/null; then
-    echo "📦 Devbox not found, installing..."
-    # Use -f flag to skip interactive prompts (required for non-TTY environments)
-    curl -fsSL https://get.jetify.com/devbox | bash -s -- -f
-    
-    # Source the devbox environment
-    export PATH="$HOME/.local/bin:$PATH"
-    
-    # Verify installation
-    if ! command -v devbox &> /dev/null; then
-        echo "❌ Error: Devbox installation failed"
-        echo "Please install manually: https://www.jetify.com/devbox/docs/installing_devbox/"
-        exit 1
-    fi
-    
-    echo "✅ Devbox installed successfully: $(devbox version)"
-else
-    echo "✅ Devbox found: $(devbox version)"
-fi
+ensure_devbox_installed
 echo ""
 
 # Step 3: Install stow if not present
 echo "═══════════════════════════════════════"
 echo "Step 3/8: Ensuring stow is installed"
 echo "═══════════════════════════════════════"
-if ! command -v stow &> /dev/null; then
-    echo "Installing stow via apt..."
-    sudo apt update
-    sudo apt install stow -y
-else
-    echo "✅ Stow already installed"
-fi
+ensure_stow_installed
 echo ""
 
 # Step 4: Stow dotfiles (this will symlink devbox.json and all dotfiles)
 echo "═══════════════════════════════════════"
 echo "Step 4/8: Symlinking dotfiles with stow"
 echo "═══════════════════════════════════════"
-export XDG_CONFIG_HOME="$HOME/.config"
-mkdir -p "$XDG_CONFIG_HOME"
-mkdir -p "$HOME/.local/share/devbox/global/default"
+stow_dotfiles
 
-cd "$SCRIPT_DIR"
-stow . --adopt
-
-echo "✅ Dotfiles symlinked (including devbox.json)"
+# Setup devbox configuration from template (not symlinked, can be modified)
+setup_devbox_config
 echo ""
 
 # Step 5: Install devbox packages
@@ -81,8 +49,7 @@ echo "Step 5/8: Installing devbox packages"
 echo "═══════════════════════════════════════"
 echo "📦 Installing 21 core packages from devbox.json..."
 
-# Install packages from devbox.json
-devbox global install
+install_devbox_packages
 
 echo "✅ Core devbox packages installed"
 echo ""
@@ -93,7 +60,7 @@ echo "Step 6/8: Installing desktop packages"
 echo "═══════════════════════════════════════"
 echo "📦 Adding desktop-specific packages"
 
-devbox global add tmux@3.2a streamrip@latest yt-dlp@latest dysk@3.4.0
+bash "$SETUP_DIR/install-desktop-packages.sh"
 
 echo "✅ Desktop packages installed"
 echo ""
