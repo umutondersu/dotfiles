@@ -20,7 +20,8 @@
     "fish-lsp@1.0.9-1",
     "thefuck@3.32",
     "tldr@3.4.3",
-    "direnv@2.36.0"
+    "direnv@2.36.0",
+    "jq@1.6"
   ],
   "shell": {
     "init_hook": [],

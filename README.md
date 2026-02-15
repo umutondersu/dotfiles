@@ -73,6 +73,7 @@ cd dotfiles
 - vegeta (load testing)
 - lazygit (git client)
 - lazydocker (docker client)
+- jq (JSON Processor)
 
 ### Desktop-Only Packages (only in `./install.sh`)
 
@@ -121,7 +122,7 @@ devbox global update
 devbox search <query>
 ```
 
-**Permanent changes must be added to `.devbox/devbox.json` manually**
+**Permanent changes must be synced with `sync-devbox`. This fish functions sync the packages from the working location to the repository. Excluding the desktop only packages**
 
 ## Testing
 
@@ -129,19 +130,13 @@ Automated Docker tests are available to verify the installation in a clean envir
 
 See [`setup/.test/TESTING.md`](setup/.test/TESTING.md) for detailed documentation.
 
-## Shell Integration
-
-Fish shell is automatically configured to load devbox global packages via `.config/fish/conf.d/devbox.fish`.
-
-When you start a new Fish shell, all devbox packages are immediately available.
-
 ## Notes
 
 - ⚠️ **Neovim config**: Clones my personal neovim configuration from umutondersu/nvim
 - 🔄 **Shell change**: After installation, log out and log back in for Fish shell to become active
 - 🐠 **Fish variables**: The install script automatically configures git to ignore local changes to `.config/fish/fish_variables` (Tide prompt cache) using `git update-index --assume-unchanged`. This prevents hundreds of cache lines from cluttering git status while keeping the baseline Tide configuration in the repo for new clones. Use `fzf_variables_git` to unlock/lock this behavior
 
-### Gnome Desktop Environment
+## Gnome Desktop Environment
 
 ![Screenshot from 2024-11-01 14-38-56](https://github.com/user-attachments/assets/6fcd937b-5756-43f5-9664-c30c9749169c)
 
