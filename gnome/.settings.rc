@@ -2,41 +2,111 @@
 keyrings-selected=['gnupg://']
 
 [apps/seahorse/windows/key-manager]
-height=2000
-width=1152
+height=966
+width=1920
 
 [com/github/donadigo/eddy]
 mime-types=['application/vnd.debian.binary-package', 'application/x-deb']
 window-width=674
-window-x=207
-window-y=604
+window-x=363
+window-y=253
+
+[com/mattjakeman/ExtensionManager]
+last-used-version='0.3.0'
+
+[com/system76/hidpi]
+enable=true
+mode='hidpi'
+
+[desktop/ibus/panel/emoji]
+favorites=['😍', '😘', '🥰', '❤️', '😋', '✨']
 
 [io/elementary/appcenter/settings]
-cached-drivers=['nvidia-driver-555-open, (kernel modules provided by nvidia-dkms-555-open)', 'nvidia-driver-550-open, (kernel modules provided by nvidia-dkms-550-open)', 'nvidia-driver-555, (kernel modules provided by nvidia-dkms-555)']
-last-refresh-time=int64 1724759163
-window-height=1110
+cached-drivers=@as []
+last-refresh-time=int64 1771203169
+window-height=640
 window-maximized=false
-window-width=1024
+window-width=910
+
+[io/github/vikdevelop/SaveDesktop]
+filename='gnomedesktop'
+maximized=false
+window-size=(1012, 1094)
 
 [org/blueman/general]
-window-properties=[1024, 1110, 2176, 534]
+last-adapter='hci1'
+window-properties=[2544, 1376, 8, 8]
+
+[org/blueman/plugins/autoconnect]
+services=[('/org/bluez/hci0/dev_90_B6_85_09_9D_EB', '00000000-0000-0000-0000-000000000000'), ('/org/bluez/hci1/dev_90_B6_85_09_9D_EB', '00000000-0000-0000-0000-000000000000')]
 
 [org/blueman/plugins/powermanager]
 auto-power-on=@mb true
 
+[org/blueman/plugins/recentconns]
+recent-connections=[{'adapter': 'C8:5E:A9:D1:6B:58', 'address': '90:B6:85:09:9D:EB', 'alias': 'DualSense Wireless Controller', 'icon': 'input-gaming', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1769885246.0451143'}, {'adapter': 'D8:44:89:CA:FE:C5', 'address': '90:B6:85:09:9D:EB', 'alias': 'DualSense Wireless Controller', 'icon': 'input-gaming', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1769886347.3714497'}]
+
 [org/gnome/GWeather]
 temperature-unit='centigrade'
+
+[org/gnome/Geary]
+migrated-config=true
+window-height=1376
+window-maximize=false
+window-width=1268
+
+[org/gnome/Totem]
+active-plugins=['screensaver', 'mpris', 'movie-properties', 'apple-trailers', 'screenshot', 'vimeo', 'variable-rate', 'skipto', 'open-directory', 'rotation', 'autoload-subtitles', 'save-file', 'recent']
+subtitle-encoding='UTF-8'
 
 [org/gnome/Weather]
 locations=[<(uint32 2, <('Palma', 'LEPA', true, [(0.69027771916375724, 0.047705660403414167)], [(0.69056861319018725, 0.046251225177849728)])>)>]
 
 [org/gnome/baobab/ui]
-active-chart='treemap'
-window-size=(1152, 2048)
+active-chart='rings'
+window-size=(2544, 1376)
 window-state=87168
 
+[org/gnome/boxes]
+first-run=false
+view='list-view'
+window-maximized=false
+window-position=[0, 0]
+window-size=[1920, 1038]
+
+[org/gnome/calculator]
+accuracy=9
+angle-units='degrees'
+base=10
+button-mode='basic'
+number-format='automatic'
+show-thousands=false
+show-zeroes=false
+source-currency=''
+source-units='degree'
+target-currency=''
+target-units='radian'
+window-position=(709, 129)
+word-size=64
+
+[org/gnome/calendar]
+active-view='month'
+window-maximized=false
+window-position=(1284, 8)
+window-size=(1268, 1376)
+
+[org/gnome/charmap/window-state]
+size=(2032, 1094)
+
 [org/gnome/control-center]
-last-panel='upgrade'
+last-panel='sound'
+
+[org/gnome/desktop/a11y/applications]
+screen-keyboard-enabled=false
+screen-reader-enabled=false
+
+[org/gnome/desktop/a11y/magnifier]
+mouse-tracking='proportional'
 
 [org/gnome/desktop/app-folders/folders/Pop-Office]
 apps=['libreoffice-calc.desktop', 'libreoffice-draw.desktop', 'libreoffice-impress.desktop', 'libreoffice-math.desktop', 'libreoffice-startcenter.desktop', 'libreoffice-writer.desktop']
@@ -57,40 +127,95 @@ translate=true
 color-shading-type='solid'
 picture-options='zoom'
 picture-uri='file:///home/qorcialwolf/.cache/hydrapaper/merged_wallpaper.png'
-picture-uri-dark='file:///home/qorcialwolf/.local/share/backgrounds/2024-08-11-19-13-16-eberhard-grossgasteiger-xC7Ho08RYF4-unsplash.jpg'
+picture-uri-dark='file:///home/qorcialwolf/.local/share/backgrounds/2025-10-18-01-16-26-eberhard-grossgasteiger-xC7Ho08RYF4-unsplash.jpg'
 primary-color='#000000000000'
 secondary-color='#000000000000'
 
 [org/gnome/desktop/calendar]
 show-weekdate=false
 
+[org/gnome/desktop/datetime]
+automatic-timezone=true
+
 [org/gnome/desktop/input-sources]
 current=uint32 0
+mru-sources=[('xkb', 'us+altgr-intl'), ('xkb', 'tr')]
 per-window=false
-sources=[('xkb', 'us')]
+sources=[('xkb', 'us+altgr-intl'), ('xkb', 'tr')]
 xkb-options=@as []
 
 [org/gnome/desktop/interface]
-clock-format='12h'
+clock-format='24h'
 clock-show-seconds=false
 clock-show-weekday=true
 color-scheme='prefer-dark'
+enable-hot-corners=false
 font-antialiasing='grayscale'
 font-hinting='slight'
 gtk-theme='Dracula'
 icon-theme='Flatery-Indigo-Dark'
+toolkit-accessibility=false
 
 [org/gnome/desktop/notifications]
-application-children=['gnome-control-center', 'org-gnome-nautilus', 'org-gnome-gedit', 'org-gnome-terminal', 'firefox', 'simple-scan', 'io-elementary-appcenter', 'gnome-power-panel', 'org-gnome-evolution-alarm-notify', 'org-gnome-tweaks', 'org-gnome-weather', 'com-github-wwmm-easyeffects', 'org-openrgb-openrgb', 'org-gnome-fileroller', 'com-usebottles-bottles', 'com-system76-popsicle', 'flatpak-installer', 'io-github-vikdevelop-savedesktop']
+application-children=['gnome-control-center', 'org-gnome-nautilus', 'org-gnome-gedit', 'org-gnome-terminal', 'firefox', 'simple-scan', 'io-elementary-appcenter', 'gnome-power-panel', 'org-gnome-evolution-alarm-notify', 'org-gnome-tweaks', 'org-gnome-weather', 'com-github-wwmm-easyeffects', 'org-openrgb-openrgb', 'org-gnome-fileroller', 'com-usebottles-bottles', 'com-system76-popsicle', 'flatpak-installer', 'io-github-vikdevelop-savedesktop', 'org-qbittorrent-qbittorrent', 'org-gnome-seahorse-application', 'com-discordapp-discord', 'steam', 'vlc', 'io-github-zen-browser-zen', 'google-chrome', 'gnome-network-panel', 'org-gnome-eog', 'net-lutris-lutris', 'gnome-system-monitor', 'org-gnome-shell-extensions-gsconnect', 'com-stremio-stremio', 'com-github-donadigo-eddy', 'org-gnome-screenshot', 'org-gnome-calculator', 'virt-manager', 'org-telegram-desktop', 'sh-cider-cider', 'sh-cider-genten', 'app-zen-browser-zen', 'org-gnome-totem', 'org-gnome-baobab', 'xdg-desktop-portal-gnome', 'org-gnome-cheese', 'org-gnome-calendar', 'org-gnome-shell-extensions', 'com-mattjakeman-extensionmanager', 'libreoffice-writer', 'com-slack-slack', 'kitty', 'org-videolan-vlc', 'org-audacityteam-audacity', 'com-freerdp-freerdp', 'com-calibre-ebook-calibre', 'moe-launcher-an-anime-game-launcher', 'dev-aunetx-deezer', 'calibre-gui', 'com-obsproject-studio', 'org-gnome-extensions-desktop', 'pavucontrol', 'proton-vpn-app-gtk', 'com-vysp3r-protonplus', 'appimagekit-cc05962c56c2df60e023c4f988cc7711-responsivelyapp', 'moe-launcher-sleepy-launcher', 'cider', 'org-gnome-extensions', 'blueman-manager', 'chrome-cnfkpenpofglpcdmpneolofacooaihpl-default']
+show-banners=false
+
+[org/gnome/desktop/notifications/application/app-zen-browser-zen]
+application-id='app.zen_browser.zen.desktop'
+
+[org/gnome/desktop/notifications/application/appimagekit-cc05962c56c2df60e023c4f988cc7711-responsivelyapp]
+application-id='appimagekit_cc05962c56c2df60e023c4f988cc7711-responsivelyapp.desktop'
+
+[org/gnome/desktop/notifications/application/blueman-manager]
+application-id='blueman-manager.desktop'
+
+[org/gnome/desktop/notifications/application/calibre-gui]
+application-id='calibre-gui.desktop'
+
+[org/gnome/desktop/notifications/application/chrome-cnfkpenpofglpcdmpneolofacooaihpl-default]
+application-id='chrome-cnfkpenpofglpcdmpneolofacooaihpl-Default.desktop'
+
+[org/gnome/desktop/notifications/application/cider]
+application-id='cider.desktop'
+
+[org/gnome/desktop/notifications/application/com-calibre-ebook-calibre]
+application-id='com.calibre_ebook.calibre.desktop'
+
+[org/gnome/desktop/notifications/application/com-discordapp-discord]
+application-id='com.discordapp.Discord.desktop'
+
+[org/gnome/desktop/notifications/application/com-freerdp-freerdp]
+application-id='com.freerdp.FreeRDP.desktop'
+
+[org/gnome/desktop/notifications/application/com-github-donadigo-eddy]
+application-id='com.github.donadigo.eddy.desktop'
 
 [org/gnome/desktop/notifications/application/com-github-wwmm-easyeffects]
 application-id='com.github.wwmm.easyeffects.desktop'
+
+[org/gnome/desktop/notifications/application/com-mattjakeman-extensionmanager]
+application-id='com.mattjakeman.ExtensionManager.desktop'
+
+[org/gnome/desktop/notifications/application/com-obsproject-studio]
+application-id='com.obsproject.Studio.desktop'
+
+[org/gnome/desktop/notifications/application/com-slack-slack]
+application-id='com.slack.Slack.desktop'
+
+[org/gnome/desktop/notifications/application/com-stremio-stremio]
+application-id='com.stremio.Stremio.desktop'
 
 [org/gnome/desktop/notifications/application/com-system76-popsicle]
 application-id='com.system76.Popsicle.desktop'
 
 [org/gnome/desktop/notifications/application/com-usebottles-bottles]
 application-id='com.usebottles.bottles.desktop'
+
+[org/gnome/desktop/notifications/application/com-vysp3r-protonplus]
+application-id='com.vysp3r.ProtonPlus.desktop'
+
+[org/gnome/desktop/notifications/application/dev-aunetx-deezer]
+application-id='dev.aunetx.deezer.desktop'
 
 [org/gnome/desktop/notifications/application/firefox]
 application-id='firefox.desktop'
@@ -101,8 +226,17 @@ application-id='flatpak-installer.desktop'
 [org/gnome/desktop/notifications/application/gnome-control-center]
 application-id='gnome-control-center.desktop'
 
+[org/gnome/desktop/notifications/application/gnome-network-panel]
+application-id='gnome-network-panel.desktop'
+
 [org/gnome/desktop/notifications/application/gnome-power-panel]
 application-id='gnome-power-panel.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-system-monitor]
+application-id='gnome-system-monitor.desktop'
+
+[org/gnome/desktop/notifications/application/google-chrome]
+application-id='google-chrome.desktop'
 
 [org/gnome/desktop/notifications/application/io-elementary-appcenter]
 application-id='io.elementary.appcenter.desktop'
@@ -110,8 +244,50 @@ application-id='io.elementary.appcenter.desktop'
 [org/gnome/desktop/notifications/application/io-github-vikdevelop-savedesktop]
 application-id='io.github.vikdevelop.SaveDesktop.desktop'
 
+[org/gnome/desktop/notifications/application/io-github-zen-browser-zen]
+application-id='io.github.zen_browser.zen.desktop'
+
+[org/gnome/desktop/notifications/application/kitty]
+application-id='kitty.desktop'
+
+[org/gnome/desktop/notifications/application/libreoffice-writer]
+application-id='libreoffice-writer.desktop'
+
+[org/gnome/desktop/notifications/application/moe-launcher-an-anime-game-launcher]
+application-id='moe.launcher.an-anime-game-launcher.desktop'
+
+[org/gnome/desktop/notifications/application/moe-launcher-sleepy-launcher]
+application-id='moe.launcher.sleepy-launcher.desktop'
+
+[org/gnome/desktop/notifications/application/net-lutris-lutris]
+application-id='net.lutris.Lutris.desktop'
+
+[org/gnome/desktop/notifications/application/org-audacityteam-audacity]
+application-id='org.audacityteam.Audacity.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-baobab]
+application-id='org.gnome.baobab.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-calculator]
+application-id='org.gnome.Calculator.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-calendar]
+application-id='org.gnome.Calendar.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-cheese]
+application-id='org.gnome.Cheese.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-eog]
+application-id='org.gnome.eog.desktop'
+
 [org/gnome/desktop/notifications/application/org-gnome-evolution-alarm-notify]
 application-id='org.gnome.Evolution-alarm-notify.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-extensions-desktop]
+application-id='org.gnome.Extensions.desktop.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-extensions]
+application-id='org.gnome.Extensions.desktop'
 
 [org/gnome/desktop/notifications/application/org-gnome-fileroller]
 application-id='org.gnome.FileRoller.desktop'
@@ -122,8 +298,23 @@ application-id='org.gnome.gedit.desktop'
 [org/gnome/desktop/notifications/application/org-gnome-nautilus]
 application-id='org.gnome.Nautilus.desktop'
 
+[org/gnome/desktop/notifications/application/org-gnome-screenshot]
+application-id='org.gnome.Screenshot.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-seahorse-application]
+application-id='org.gnome.seahorse.Application.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-shell-extensions-gsconnect]
+application-id='org.gnome.Shell.Extensions.GSConnect.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-shell-extensions]
+application-id='org.gnome.Shell.Extensions.desktop'
+
 [org/gnome/desktop/notifications/application/org-gnome-terminal]
 application-id='org.gnome.Terminal.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-totem]
+application-id='org.gnome.Totem.desktop'
 
 [org/gnome/desktop/notifications/application/org-gnome-tweaks]
 application-id='org.gnome.tweaks.desktop'
@@ -134,47 +325,123 @@ application-id='org.gnome.Weather.desktop'
 [org/gnome/desktop/notifications/application/org-openrgb-openrgb]
 application-id='org.openrgb.OpenRGB.desktop'
 
+[org/gnome/desktop/notifications/application/org-qbittorrent-qbittorrent]
+application-id='org.qbittorrent.qBittorrent.desktop'
+
+[org/gnome/desktop/notifications/application/org-telegram-desktop]
+application-id='org.telegram.desktop.desktop'
+
+[org/gnome/desktop/notifications/application/org-videolan-vlc]
+application-id='org.videolan.VLC.desktop'
+
+[org/gnome/desktop/notifications/application/pavucontrol]
+application-id='pavucontrol.desktop'
+
+[org/gnome/desktop/notifications/application/proton-vpn-app-gtk]
+application-id='proton.vpn.app.gtk.desktop'
+
+[org/gnome/desktop/notifications/application/sh-cider-cider]
+application-id='sh.cider.Cider.desktop'
+
+[org/gnome/desktop/notifications/application/sh-cider-genten]
+application-id='sh.cider.genten.desktop'
+
 [org/gnome/desktop/notifications/application/simple-scan]
 application-id='simple-scan.desktop'
 
+[org/gnome/desktop/notifications/application/steam]
+application-id='steam.desktop'
+
+[org/gnome/desktop/notifications/application/virt-manager]
+application-id='virt-manager.desktop'
+
+[org/gnome/desktop/notifications/application/vlc]
+application-id='vlc.desktop'
+
+[org/gnome/desktop/notifications/application/xdg-desktop-portal-gnome]
+application-id='xdg-desktop-portal-gnome.desktop'
+
+[org/gnome/desktop/peripherals/keyboard]
+numlock-state=true
+
+[org/gnome/desktop/peripherals/mouse]
+accel-profile='adaptive'
+left-handed=false
+natural-scroll=false
+speed=-0.1063829787234043
+
 [org/gnome/desktop/peripherals/touchpad]
+send-events='enabled'
 two-finger-scrolling-enabled=true
 
 [org/gnome/desktop/privacy]
 old-files-age=uint32 14
+remember-recent-files=false
 remove-old-temp-files=true
 remove-old-trash-files=true
 report-technical-problems=false
 
+[org/gnome/desktop/remote-desktop/rdp]
+enable=false
+tls-cert='/home/qorcialwolf/.local/share/gnome-remote-desktop/rdp-tls.crt'
+tls-key='/home/qorcialwolf/.local/share/gnome-remote-desktop/rdp-tls.key'
+view-only=false
+
+[org/gnome/desktop/remote-desktop/vnc]
+auth-method='password'
+enable=false
+view-only=false
+
 [org/gnome/desktop/screensaver]
 color-shading-type='solid'
+lock-delay=uint32 0
+lock-enabled=true
 picture-options='zoom'
-picture-uri='file:///home/qorcialwolf/.local/share/backgrounds/2024-08-11-19-13-16-eberhard-grossgasteiger-xC7Ho08RYF4-unsplash.jpg'
+picture-uri='file:///home/qorcialwolf/.local/share/backgrounds/2025-10-18-01-16-26-eberhard-grossgasteiger-xC7Ho08RYF4-unsplash.jpg'
 primary-color='#000000000000'
 secondary-color='#000000000000'
 
 [org/gnome/desktop/session]
 idle-delay=uint32 900
 
+[org/gnome/desktop/sound]
+allow-volume-above-100-percent=false
+
 [org/gnome/desktop/wm/keybindings]
 close=['<Alt>F4', '<Super>c']
-maximize=@as []
 minimize=['<Shift><Super>m']
-switch-to-workspace-down=['<Shift><Super>Right', '<Shift><Super>l']
-switch-to-workspace-up=['<Shift><Super>Left', '<Shift><Super>h']
+toggle-fullscreen=['<Alt><Super>m', 'F11']
 
 [org/gnome/desktop/wm/preferences]
 button-layout='appmenu:close'
 
+[org/gnome/eog/plugins]
+active-plugins=['reload', 'fullscreen']
+
+[org/gnome/eog/ui]
+image-gallery=false
+sidebar=false
+statusbar=false
+
+[org/gnome/eog/view]
+autorotate=true
+background-color='rgb(0,0,0)'
+use-background-color=true
+
 [org/gnome/evince/default]
-window-ratio=(1.9354838709677418, 1.2162675788673509)
+window-ratio=(4.2741935483870961, 1.6058532877232992)
 
 [org/gnome/evolution-data-server]
 migrated=true
 network-monitor-gio-name=''
 
 [org/gnome/evolution-data-server/calendar]
-reminders-past=['6abeaeff52f2f9472650a60769e46ab68084a064\n2a073db258a8d28a450403911ac7a8708289ef38\t20240813\n1723453200\n1723507200\n1723593600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230913\r\nDTEND;VALUE=DATE:20230914\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20231112T230803Z\r\nUID:\r\n clhm2o9i70q3gb9gc8rjgb9kcor38b9o60sm4b9j69j3cdhpcgqm4dhnc8@google.com\r\nCREATED:20231112T230751Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20231112T230803Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Nena Marriage September 2023\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63835513683\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:2a073db258a8d28a450403911ac7a8708289ef38\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:1abf874dee3b25d7fb04940b159e05a65d6d826c\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n1abf874dee3b25d7fb04940b159e05a65d6d826c\t20240813\n1723366800\n1723507200\n1723593600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230913\r\nDTEND;VALUE=DATE:20230914\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20231112T230803Z\r\nUID:\r\n clhm2o9i70q3gb9gc8rjgb9kcor38b9o60sm4b9j69j3cdhpcgqm4dhnc8@google.com\r\nCREATED:20231112T230751Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20231112T230803Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Nena Marriage September 2023\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63835513683\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:2a073db258a8d28a450403911ac7a8708289ef38\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:1abf874dee3b25d7fb04940b159e05a65d6d826c\r\nEND:VALARM\r\nEND:VEVENT\r\n']
+notify-window-height=1712
+notify-window-paned-position=52
+notify-window-width=963
+notify-window-x=0
+notify-window-y=0
+reminders-past=['6abeaeff52f2f9472650a60769e46ab68084a064\ncc07f39aeed6af1431ad512b509a55191763b17d\t20251102\n1762074000\n1762041600\n1762128000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:cc07f39aeed6af1431ad512b509a55191763b17d\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n8ef5af1da1752e726098e6441060b58d2a666d32\t20251013\n1760259600\n1760313600\n1760400000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20211013\r\nDTEND;VALUE=DATE:20211014\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20210308T120829Z\r\nUID:\r\n 6orj2cb1c9gm4b9j6pj34b9kckrjcbb161gjgbb170rjepb5c4sm4phjcg@google.com\r\nCREATED:20210308T120819Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20210308T120829Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Anne Doğumgünü\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63750888509\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:8ef5af1da1752e726098e6441060b58d2a666d32\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P2DT15H\r\nX-EVOLUTION-ALARM-UID:f4837b1bb85396d01b89034224bd2fe1c9c8d885\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:741abdbc3a81bad1dea69d4ebda637fedda34425\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nfff0860175d6c437d38039d05e6027e7a4c1e4c7\t20251013\n1760259600\n1760313600\n1760400000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250413\r\nDTEND;VALUE=DATE:20250414\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20250331T235427Z\r\nUID:\r\n 6opj0phh61h38b9o6dgjeb9k6csj4bb174p38b9hckp36ohpc8sjac1h6s@google.com\r\nCREATED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Monthiversary\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63879148467\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:fff0860175d6c437d38039d05e6027e7a4c1e4c7\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nf4837b1bb85396d01b89034224bd2fe1c9c8d885\t20251013\n1760086800\n1760313600\n1760400000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20211013\r\nDTEND;VALUE=DATE:20211014\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20210308T120829Z\r\nUID:\r\n 6orj2cb1c9gm4b9j6pj34b9kckrjcbb161gjgbb170rjepb5c4sm4phjcg@google.com\r\nCREATED:20210308T120819Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20210308T120829Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Anne Doğumgünü\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63750888509\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:8ef5af1da1752e726098e6441060b58d2a666d32\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P2DT15H\r\nX-EVOLUTION-ALARM-UID:f4837b1bb85396d01b89034224bd2fe1c9c8d885\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:741abdbc3a81bad1dea69d4ebda637fedda34425\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n741abdbc3a81bad1dea69d4ebda637fedda34425\t20251013\n1759741200\n1760313600\n1760400000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20211013\r\nDTEND;VALUE=DATE:20211014\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20210308T120829Z\r\nUID:\r\n 6orj2cb1c9gm4b9j6pj34b9kckrjcbb161gjgbb170rjepb5c4sm4phjcg@google.com\r\nCREATED:20210308T120819Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20210308T120829Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Anne Doğumgünü\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63750888509\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:8ef5af1da1752e726098e6441060b58d2a666d32\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P2DT15H\r\nX-EVOLUTION-ALARM-UID:f4837b1bb85396d01b89034224bd2fe1c9c8d885\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:741abdbc3a81bad1dea69d4ebda637fedda34425\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\ncc07f39aeed6af1431ad512b509a55191763b17d\t20251002\n1759395600\n1759363200\n1759449600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:cc07f39aeed6af1431ad512b509a55191763b17d\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n1ea3969d5467fc7b3e6714bfbe6c6d4eab755a3d\t20250929\n1759071600\n1759104000\n1759190400\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20200929\r\nDTEND;VALUE=DATE:20200930\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20200929T221539Z\r\nUID:\r\n 69h36e1g6ko34bb56csj8b9kccs68b9p74qjgb9h6pj30dr374q3gor5cc@google.com\r\nCREATED:20200929T221539Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20200929T221539Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Bıdık\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63737100939\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT9H\r\nX-EVOLUTION-ALARM-UID:1ea3969d5467fc7b3e6714bfbe6c6d4eab755a3d\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nfff0860175d6c437d38039d05e6027e7a4c1e4c7\t20250913\n1757667600\n1757721600\n1757808000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250413\r\nDTEND;VALUE=DATE:20250414\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20250331T235427Z\r\nUID:\r\n 6opj0phh61h38b9o6dgjeb9k6csj4bb174p38b9hckp36ohpc8sjac1h6s@google.com\r\nCREATED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Monthiversary\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63879148467\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:fff0860175d6c437d38039d05e6027e7a4c1e4c7\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\ncc07f39aeed6af1431ad512b509a55191763b17d\t20250902\n1756803600\n1756771200\n1756857600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:cc07f39aeed6af1431ad512b509a55191763b17d\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nfff0860175d6c437d38039d05e6027e7a4c1e4c7\t20250813\n1754989200\n1755043200\n1755129600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250413\r\nDTEND;VALUE=DATE:20250414\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20250331T235427Z\r\nUID:\r\n 6opj0phh61h38b9o6dgjeb9k6csj4bb174p38b9hckp36ohpc8sjac1h6s@google.com\r\nCREATED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Monthiversary\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63879148467\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:fff0860175d6c437d38039d05e6027e7a4c1e4c7\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\ncc07f39aeed6af1431ad512b509a55191763b17d\t20250802\n1754125200\n1754092800\n1754179200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:cc07f39aeed6af1431ad512b509a55191763b17d\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nfff0860175d6c437d38039d05e6027e7a4c1e4c7\t20250713\n1752310800\n1752364800\n1752451200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250413\r\nDTEND;VALUE=DATE:20250414\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20250331T235427Z\r\nUID:\r\n 6opj0phh61h38b9o6dgjeb9k6csj4bb174p38b9hckp36ohpc8sjac1h6s@google.com\r\nCREATED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Monthiversary\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63879148467\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:fff0860175d6c437d38039d05e6027e7a4c1e4c7\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\ncc07f39aeed6af1431ad512b509a55191763b17d\t20250702\n1751446800\n1751414400\n1751500800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:cc07f39aeed6af1431ad512b509a55191763b17d\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nab26c446cf7f0cd05e2048e18736787293e33c20\t20250616\n1749978000\n1750032000\n1750118400\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20240616\r\nDTEND;VALUE=DATE:20240617\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20240708T144534Z\r\nUID:\r\n 6ssmac3470p3eb9i6or66b9k6hi36b9o6hhm2b9ocli36d1j6gs64d9oc4@google.com\r\nCREATED:20240617T202944Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144534Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Fathers day\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133134\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:ab26c446cf7f0cd05e2048e18736787293e33c20\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nfff0860175d6c437d38039d05e6027e7a4c1e4c7\t20250613\n1749718800\n1749772800\n1749859200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250413\r\nDTEND;VALUE=DATE:20250414\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20250331T235427Z\r\nUID:\r\n 6opj0phh61h38b9o6dgjeb9k6csj4bb174p38b9hckp36ohpc8sjac1h6s@google.com\r\nCREATED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Monthiversary\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63879148467\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:fff0860175d6c437d38039d05e6027e7a4c1e4c7\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\ncc07f39aeed6af1431ad512b509a55191763b17d\t20250602\n1748854800\n1748822400\n1748908800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:cc07f39aeed6af1431ad512b509a55191763b17d\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nfff0860175d6c437d38039d05e6027e7a4c1e4c7\t20250513\n1747040400\n1747094400\n1747180800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250413\r\nDTEND;VALUE=DATE:20250414\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20250331T235427Z\r\nUID:\r\n 6opj0phh61h38b9o6dgjeb9k6csj4bb174p38b9hckp36ohpc8sjac1h6s@google.com\r\nCREATED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Monthiversary\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63879148467\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:fff0860175d6c437d38039d05e6027e7a4c1e4c7\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\ncaac633a13dc975e0115e2b5d77341528583d384\t20250511\n1746781200\n1746921600\n1747008000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250511\r\nDTEND;VALUE=DATE:20250512\r\nDTSTAMP:20241207T202637Z\r\nUID:\r\n 61i64ob5cgp34bb471h36b9k70r66bb16cr32bb16gsj0e1hcorjcc9j68@google.com\r\nCREATED:20241207T202637Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20241207T202637Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Vi Birthday\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63869286397\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:caac633a13dc975e0115e2b5d77341528583d384\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\ncc07f39aeed6af1431ad512b509a55191763b17d\t20250502\n1746176400\n1746144000\n1746230400\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:cc07f39aeed6af1431ad512b509a55191763b17d\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n54b29282ae7277b6620c6a2e27e32140561e15eb\t20250421\n1745139600\n1745193600\n1745280000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20210421\r\nDTEND;VALUE=DATE:20210422\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20210308T120851Z\r\nUID:\r\n c8r32d9kc4oj4b9occp30b9kcpi3gbb16hhj0b9kc8q34oho61i6cd1i64@google.com\r\nCREATED:20210308T120726Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20210308T120851Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Yüksel Doğumgünü\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63750888531\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:54b29282ae7277b6620c6a2e27e32140561e15eb\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P2DT15H\r\nX-EVOLUTION-ALARM-UID:9c9df09f8f0807ee8d0724b68d47d9a46d475a63\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:b1ee0edb2786830e038ed1e889d1a28f4d15255a\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n9c9df09f8f0807ee8d0724b68d47d9a46d475a63\t20250421\n1744966800\n1745193600\n1745280000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20210421\r\nDTEND;VALUE=DATE:20210422\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20210308T120851Z\r\nUID:\r\n c8r32d9kc4oj4b9occp30b9kcpi3gbb16hhj0b9kc8q34oho61i6cd1i64@google.com\r\nCREATED:20210308T120726Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20210308T120851Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Yüksel Doğumgünü\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63750888531\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:54b29282ae7277b6620c6a2e27e32140561e15eb\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P2DT15H\r\nX-EVOLUTION-ALARM-UID:9c9df09f8f0807ee8d0724b68d47d9a46d475a63\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:b1ee0edb2786830e038ed1e889d1a28f4d15255a\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nb1ee0edb2786830e038ed1e889d1a28f4d15255a\t20250421\n1744621200\n1745193600\n1745280000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20210421\r\nDTEND;VALUE=DATE:20210422\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20210308T120851Z\r\nUID:\r\n c8r32d9kc4oj4b9occp30b9kcpi3gbb16hhj0b9kc8q34oho61i6cd1i64@google.com\r\nCREATED:20210308T120726Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20210308T120851Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Yüksel Doğumgünü\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63750888531\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:54b29282ae7277b6620c6a2e27e32140561e15eb\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P2DT15H\r\nX-EVOLUTION-ALARM-UID:9c9df09f8f0807ee8d0724b68d47d9a46d475a63\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:b1ee0edb2786830e038ed1e889d1a28f4d15255a\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nfff0860175d6c437d38039d05e6027e7a4c1e4c7\t20250413\n1744448400\n1744502400\n1744588800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250413\r\nDTEND;VALUE=DATE:20250414\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20250331T235427Z\r\nUID:\r\n 6opj0phh61h38b9o6dgjeb9k6csj4bb174p38b9hckp36ohpc8sjac1h6s@google.com\r\nCREATED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20250331T235427Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Monthiversary\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63879148467\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:fff0860175d6c437d38039d05e6027e7a4c1e4c7\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nf9f02ee683a142b2f393b63e55c0c9751f2aacec\t20250410\n1744189200\n1744243200\n1744329600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250410\r\nDTEND;VALUE=DATE:20250411\r\nDTSTAMP:20240910T082407Z\r\nUID:\r\n 74r68o9o61i3ib9jc8qm4b9k6oq32b9pcgoj8b9n61i64chjcgr3cp9o74@google.com\r\nCREATED:20240910T082407Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240910T082407Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Liv Birthday\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63861639847\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:f9f02ee683a142b2f393b63e55c0c9751f2aacec\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\ncc07f39aeed6af1431ad512b509a55191763b17d\t20250402\n1743584400\n1743552000\n1743638400\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:cc07f39aeed6af1431ad512b509a55191763b17d\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n9ec3079c7ff69b6c28761d561135091a61e241b8\t20250313T090000Z\n1741855800\n1741856400\n1741861800\nBEGIN:VEVENT\r\nDTSTART:20250313T090000Z\r\nDTEND:20250313T103000Z\r\nDTSTAMP:20250305T164911Z\r\nORGANIZER;CN=Talento Air Europa:mailto:noreply@calendly.com\r\nUID:calendly-1218341673\r\nATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;\r\n CN=umutsonder@gmail.com;X-NUM-GUESTS=0:mailto:umutsonder@gmail.com\r\nCREATED:20250305T164632Z\r\nDESCRIPTION:Nombre del evento: Convocatoria de Selección - Técnico/a de \r\n Soporte IT\\nDescripción del evento: Elige 1 de las 3 posibilidades \r\n disponibles:\\n\\nMIERCOLES 12 DE MARZO - 10:00.\\n\\nJUEVES 13 DE MARZO - 10:\r\n 00 ó 15:30.\\nCada sesión\\, tendrá una duración aproximada de 70 - 90 \r\n minutos.¡Gracias por tu tiempo y disponibilidad!Equipo de Talento de Air \r\n Europa\\nFecha y hora: 10:00 - 11:30 (Europa Central) el jueves\\, 13 de \r\n marzo de 2025\\n\\n¿Necesitas realizar algún cambio a este \r\n evento?\\nCancelar: https:\r\n //calendly.com/cancellations/4658f932-547e-40b6-a805-45dbf41821ec\\nReprogr\r\n amar: https:\r\n //calendly.com/reschedulings/4658f932-547e-40b6-a805-45dbf41821ec\\n\r\nLAST-MODIFIED:20250305T164911Z\r\nLOCATION:Polígono Industrial Son Noguera\\, 07609 Llucmajor - (EDIFICIO \r\n DE GLOBALIA FORMACIÓN)\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Convocatoria de Selección - Técnico/a de Soporte IT con Talento \r\n Air Europa\r\nTRANSP:OPAQUE\r\nX-EVOLUTION-CALDAV-ETAG:63876876551\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT10M\r\nX-EVOLUTION-ALARM-UID:9ec3079c7ff69b6c28761d561135091a61e241b8\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT30M\r\nX-EVOLUTION-ALARM-UID:e5117ca8f61e6d3baabe24b2e44926ffbff9c754\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\ne5117ca8f61e6d3baabe24b2e44926ffbff9c754\t20250313T090000Z\n1741854600\n1741856400\n1741861800\nBEGIN:VEVENT\r\nDTSTART:20250313T090000Z\r\nDTEND:20250313T103000Z\r\nDTSTAMP:20250305T164911Z\r\nORGANIZER;CN=Talento Air Europa:mailto:noreply@calendly.com\r\nUID:calendly-1218341673\r\nATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;\r\n CN=umutsonder@gmail.com;X-NUM-GUESTS=0:mailto:umutsonder@gmail.com\r\nCREATED:20250305T164632Z\r\nDESCRIPTION:Nombre del evento: Convocatoria de Selección - Técnico/a de \r\n Soporte IT\\nDescripción del evento: Elige 1 de las 3 posibilidades \r\n disponibles:\\n\\nMIERCOLES 12 DE MARZO - 10:00.\\n\\nJUEVES 13 DE MARZO - 10:\r\n 00 ó 15:30.\\nCada sesión\\, tendrá una duración aproximada de 70 - 90 \r\n minutos.¡Gracias por tu tiempo y disponibilidad!Equipo de Talento de Air \r\n Europa\\nFecha y hora: 10:00 - 11:30 (Europa Central) el jueves\\, 13 de \r\n marzo de 2025\\n\\n¿Necesitas realizar algún cambio a este \r\n evento?\\nCancelar: https:\r\n //calendly.com/cancellations/4658f932-547e-40b6-a805-45dbf41821ec\\nReprogr\r\n amar: https:\r\n //calendly.com/reschedulings/4658f932-547e-40b6-a805-45dbf41821ec\\n\r\nLAST-MODIFIED:20250305T164911Z\r\nLOCATION:Polígono Industrial Son Noguera\\, 07609 Llucmajor - (EDIFICIO \r\n DE GLOBALIA FORMACIÓN)\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Convocatoria de Selección - Técnico/a de Soporte IT con Talento \r\n Air Europa\r\nTRANSP:OPAQUE\r\nX-EVOLUTION-CALDAV-ETAG:63876876551\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT10M\r\nX-EVOLUTION-ALARM-UID:9ec3079c7ff69b6c28761d561135091a61e241b8\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT30M\r\nX-EVOLUTION-ALARM-UID:e5117ca8f61e6d3baabe24b2e44926ffbff9c754\r\nEND:VALARM\r\nEND:VEVENT\r\n', "6abeaeff52f2f9472650a60769e46ab68084a064\n923f419b2062719d828e856e91a9dc96b1a6abf9\t20250310T113000\n1741602000\n1741602600\n1741604400\nBEGIN:VEVENT\r\nDTSTART;TZID=Europe/Madrid:20250310T113000\r\nDTEND;TZID=Europe/Madrid:20250310T120000\r\nDTSTAMP:20250306T132349Z\r\nUID:650atfg5ivjn0qt0gp3viefd7a@google.com\r\nCREATED:20250306T132349Z\r\nDESCRIPTION:Umut Sahin\\,\\n\\nThanks for submitting your availability for \r\n the Senior Mobile Engineer (React Native/Typescript) position.\\n\\nYou're \r\n confirmed for your interview on:\\n\\nDate/Time: Mar 10\\, 2025 11:30am-12:\r\n 00pm CET\\nInterviewers: Guch Singh\\n\\nZoom: https:\r\n //datacamp.zoom.us/j/98508260689?pwd=E7ArEMzZ7r70MLXZwSoymSv0DFdQbO.1\\nLet\r\n  us know if you have any other questions before your \r\n interview.\\n\\nThanks\\,\\nGuch\\n\\n--------------\\nBelow are the video \r\n conferencing details for this specific calendar \r\n invite\\n--------------\\n\\nGuch Singh is inviting you to a scheduled Zoom \r\n meeting.\\n\\nTopic: Interview Umut Sahin Onder\\nTime: Mar 10\\, 2025 11:30 \r\n AM Madrid\\nJoin Zoom Meeting\\nhttps:\r\n //datacamp.zoom.us/j/98508260689?pwd=E7ArEMzZ7r70MLXZwSoymSv0DFdQbO.1\\n\\nM\r\n eeting ID: 985 0826 0689\\nPasscode: 569436\\n\\n---\\n\\nOne tap \r\n mobile\\n+16469313860\\,\\,98508260689# US\\n+13017158592\\,\\,98508260689# US \r\n (Washington DC)\\n\\n---\\n\\nDial by your location...\r\nLAST-MODIFIED:20250306T132349Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Interview with DataCamp\r\nTRANSP:OPAQUE\r\nX-EVOLUTION-CALDAV-ETAG:63876950629\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT10M\r\nX-EVOLUTION-ALARM-UID:923f419b2062719d828e856e91a9dc96b1a6abf9\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT30M\r\nX-EVOLUTION-ALARM-UID:b59c0b34f23abb50e1576a9575d62ddd386899e1\r\nEND:VALARM\r\nEND:VEVENT\r\n", "6abeaeff52f2f9472650a60769e46ab68084a064\nb59c0b34f23abb50e1576a9575d62ddd386899e1\t20250310T113000\n1741600800\n1741602600\n1741604400\nBEGIN:VEVENT\r\nDTSTART;TZID=Europe/Madrid:20250310T113000\r\nDTEND;TZID=Europe/Madrid:20250310T120000\r\nDTSTAMP:20250306T132349Z\r\nUID:650atfg5ivjn0qt0gp3viefd7a@google.com\r\nCREATED:20250306T132349Z\r\nDESCRIPTION:Umut Sahin\\,\\n\\nThanks for submitting your availability for \r\n the Senior Mobile Engineer (React Native/Typescript) position.\\n\\nYou're \r\n confirmed for your interview on:\\n\\nDate/Time: Mar 10\\, 2025 11:30am-12:\r\n 00pm CET\\nInterviewers: Guch Singh\\n\\nZoom: https:\r\n //datacamp.zoom.us/j/98508260689?pwd=E7ArEMzZ7r70MLXZwSoymSv0DFdQbO.1\\nLet\r\n  us know if you have any other questions before your \r\n interview.\\n\\nThanks\\,\\nGuch\\n\\n--------------\\nBelow are the video \r\n conferencing details for this specific calendar \r\n invite\\n--------------\\n\\nGuch Singh is inviting you to a scheduled Zoom \r\n meeting.\\n\\nTopic: Interview Umut Sahin Onder\\nTime: Mar 10\\, 2025 11:30 \r\n AM Madrid\\nJoin Zoom Meeting\\nhttps:\r\n //datacamp.zoom.us/j/98508260689?pwd=E7ArEMzZ7r70MLXZwSoymSv0DFdQbO.1\\n\\nM\r\n eeting ID: 985 0826 0689\\nPasscode: 569436\\n\\n---\\n\\nOne tap \r\n mobile\\n+16469313860\\,\\,98508260689# US\\n+13017158592\\,\\,98508260689# US \r\n (Washington DC)\\n\\n---\\n\\nDial by your location...\r\nLAST-MODIFIED:20250306T132349Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Interview with DataCamp\r\nTRANSP:OPAQUE\r\nX-EVOLUTION-CALDAV-ETAG:63876950629\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT10M\r\nX-EVOLUTION-ALARM-UID:923f419b2062719d828e856e91a9dc96b1a6abf9\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT30M\r\nX-EVOLUTION-ALARM-UID:b59c0b34f23abb50e1576a9575d62ddd386899e1\r\nEND:VALARM\r\nEND:VEVENT\r\n", '6abeaeff52f2f9472650a60769e46ab68084a064\n7f9c1f291aeec4e1cbcd9e8b80be3c87c9320b57\t20250220\n1740042000\n1740009600\n1740096000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250220\r\nDTEND;VALUE=DATE:20250221\r\nDTSTAMP:20250206T090308Z\r\nUID:\r\n 6dj36o9hccq64b9l70ojcb9k74pjabb2ccq3ibb1cphmce1pcdhj6ob26k@google.com\r\nCREATED:20250206T090308Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20250206T090308Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:no school\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63874515788\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:7f9c1f291aeec4e1cbcd9e8b80be3c87c9320b57\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nc78a52f9c0140fa0bc740a1bde74c31aa2876af0\t20250214T130000\n1739533800\n1739534400\n1739538000\nBEGIN:VEVENT\r\nDTSTART;TZID=Europe/Madrid:20250214T130000\r\nDTEND;TZID=Europe/Madrid:20250214T140000\r\nDTSTAMP:20250214T110228Z\r\nORGANIZER;CN=atena@boxfish.studio:mailto:atena@boxfish.studio\r\nUID:42jmomhoakucd48frvdk97kla9@google.com\r\nATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;\r\n CN=atena@boxfish.studio;X-NUM-GUESTS=0:mailto:atena@boxfish.studio\r\nATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;\r\n CN=umutsonder@gmail.com;X-NUM-GUESTS=0:mailto:umutsonder@gmail.com\r\nX-GOOGLE-CONFERENCE:https://meet.google.com/hus-chzm-pnv\r\nCREATED:20250212T093322Z\r\nDESCRIPTION:-::~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:\r\n ~:~:~:~:~:~:~:~:~::~:~::-\\nJoin with Google Meet: https:\r\n //meet.google.com/hus-chzm-pnv\\nOr dial: (ES) +34 960 46 29 08 PIN: \r\n 106878056#\\nMore phone numbers: https:\r\n //tel.meet/hus-chzm-pnv?pin=8631321836843&hs=7\\n\\nLearn more about Meet \r\n at: https://support.google.com/a/users/answer/9282720\\n\\nPlease do not \r\n edit this section.\\n-::~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:\r\n ~:~:~:~:~:~:~:~:~:~:~:~:~::~:~::-\r\nLAST-MODIFIED:20250214T110228Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Boxfish x Umut Sahin - Web3 Fullstack Engineer\r\nTRANSP:OPAQUE\r\nX-EVOLUTION-CALDAV-ETAG:63875214148\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT10M\r\nX-EVOLUTION-ALARM-UID:c78a52f9c0140fa0bc740a1bde74c31aa2876af0\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT30M\r\nX-EVOLUTION-ALARM-UID:f600ae7adba743a6e657c8e44a94eb4e9054084b\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nf600ae7adba743a6e657c8e44a94eb4e9054084b\t20250214T130000\n1739532600\n1739534400\n1739538000\nBEGIN:VEVENT\r\nDTSTART;TZID=Europe/Madrid:20250214T130000\r\nDTEND;TZID=Europe/Madrid:20250214T140000\r\nDTSTAMP:20250214T110228Z\r\nORGANIZER;CN=atena@boxfish.studio:mailto:atena@boxfish.studio\r\nUID:42jmomhoakucd48frvdk97kla9@google.com\r\nATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;\r\n CN=atena@boxfish.studio;X-NUM-GUESTS=0:mailto:atena@boxfish.studio\r\nATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;\r\n CN=umutsonder@gmail.com;X-NUM-GUESTS=0:mailto:umutsonder@gmail.com\r\nX-GOOGLE-CONFERENCE:https://meet.google.com/hus-chzm-pnv\r\nCREATED:20250212T093322Z\r\nDESCRIPTION:-::~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:\r\n ~:~:~:~:~:~:~:~:~::~:~::-\\nJoin with Google Meet: https:\r\n //meet.google.com/hus-chzm-pnv\\nOr dial: (ES) +34 960 46 29 08 PIN: \r\n 106878056#\\nMore phone numbers: https:\r\n //tel.meet/hus-chzm-pnv?pin=8631321836843&hs=7\\n\\nLearn more about Meet \r\n at: https://support.google.com/a/users/answer/9282720\\n\\nPlease do not \r\n edit this section.\\n-::~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:\r\n ~:~:~:~:~:~:~:~:~:~:~:~:~::~:~::-\r\nLAST-MODIFIED:20250214T110228Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Boxfish x Umut Sahin - Web3 Fullstack Engineer\r\nTRANSP:OPAQUE\r\nX-EVOLUTION-CALDAV-ETAG:63875214148\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT10M\r\nX-EVOLUTION-ALARM-UID:c78a52f9c0140fa0bc740a1bde74c31aa2876af0\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT30M\r\nX-EVOLUTION-ALARM-UID:f600ae7adba743a6e657c8e44a94eb4e9054084b\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n6899f835ce88c4efc5e428bc9b9b92788c67cdaa\t20250206\n1738659600\n1738800000\n1738886400\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20250206\r\nDTEND;VALUE=DATE:20250207\r\nDTSTAMP:20241207T202607Z\r\nUID:\r\n 6crm8d1g6dh38b9l6tij0b9k6phjcb9o75h32bb56crjcp9n71j3gdpp6k@google.com\r\nCREATED:20241207T202552Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20241207T202607Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:CJ Birthday\r\nTRANSP:OPAQUE\r\nX-EVOLUTION-CALDAV-ETAG:63869286367\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:6899f835ce88c4efc5e428bc9b9b92788c67cdaa\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n89cc3d98748fccdcd38e78ca15c1e9f9ef368120\t20250202\n1738486800\n1738454400\n1738540800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:89cc3d98748fccdcd38e78ca15c1e9f9ef368120\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n5e2ced25a5b63fcd4045b69a6f98214301bfac58\t20241106\n1730883600\n1730851200\n1730937600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240907T143520Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240907T143520Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63861402920\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:5e2ced25a5b63fcd4045b69a6f98214301bfac58\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:3e2b5cdf02d7d78c2de3b6cca868727d1408f246\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:08d87153a30b92bf78ffd52623b83e56ed52c283\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:82fa5eaaa1b8a6c4309777803f1b0417799b76d2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:f882ff6c3379c200abd56c5f5ade57a3f66b24f0\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n3e2b5cdf02d7d78c2de3b6cca868727d1408f246\t20241106\n1730847600\n1730851200\n1730937600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240907T143520Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240907T143520Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63861402920\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:5e2ced25a5b63fcd4045b69a6f98214301bfac58\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:3e2b5cdf02d7d78c2de3b6cca868727d1408f246\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:08d87153a30b92bf78ffd52623b83e56ed52c283\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:82fa5eaaa1b8a6c4309777803f1b0417799b76d2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:f882ff6c3379c200abd56c5f5ade57a3f66b24f0\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n08d87153a30b92bf78ffd52623b83e56ed52c283\t20241106\n1730797200\n1730851200\n1730937600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240907T143520Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240907T143520Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63861402920\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:5e2ced25a5b63fcd4045b69a6f98214301bfac58\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:3e2b5cdf02d7d78c2de3b6cca868727d1408f246\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:08d87153a30b92bf78ffd52623b83e56ed52c283\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:82fa5eaaa1b8a6c4309777803f1b0417799b76d2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:f882ff6c3379c200abd56c5f5ade57a3f66b24f0\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n82fa5eaaa1b8a6c4309777803f1b0417799b76d2\t20241106\n1730710800\n1730851200\n1730937600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240907T143520Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240907T143520Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63861402920\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:5e2ced25a5b63fcd4045b69a6f98214301bfac58\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:3e2b5cdf02d7d78c2de3b6cca868727d1408f246\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:08d87153a30b92bf78ffd52623b83e56ed52c283\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:82fa5eaaa1b8a6c4309777803f1b0417799b76d2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:f882ff6c3379c200abd56c5f5ade57a3f66b24f0\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n3987be6210fee912da7816b145860fccdcebfb98\t20241102\n1730538000\n1730505600\n1730592000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:3987be6210fee912da7816b145860fccdcebfb98\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nf882ff6c3379c200abd56c5f5ade57a3f66b24f0\t20241106\n1730278800\n1730851200\n1730937600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240907T143520Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240907T143520Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63861402920\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:5e2ced25a5b63fcd4045b69a6f98214301bfac58\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:3e2b5cdf02d7d78c2de3b6cca868727d1408f246\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:08d87153a30b92bf78ffd52623b83e56ed52c283\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:82fa5eaaa1b8a6c4309777803f1b0417799b76d2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:f882ff6c3379c200abd56c5f5ade57a3f66b24f0\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n2a073db258a8d28a450403911ac7a8708289ef38\t20241013\n1728723600\n1728777600\n1728864000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230913\r\nDTEND;VALUE=DATE:20230914\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20231112T230803Z\r\nUID:\r\n clhm2o9i70q3gb9gc8rjgb9kcor38b9o60sm4b9j69j3cdhpcgqm4dhnc8@google.com\r\nCREATED:20231112T230751Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20231112T230803Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Nena Marriage September 2023\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63835513683\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:2a073db258a8d28a450403911ac7a8708289ef38\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:1abf874dee3b25d7fb04940b159e05a65d6d826c\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n8ef5af1da1752e726098e6441060b58d2a666d32\t20241013\n1728723600\n1728777600\n1728864000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20211013\r\nDTEND;VALUE=DATE:20211014\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20210308T120829Z\r\nUID:\r\n 6orj2cb1c9gm4b9j6pj34b9kckrjcbb161gjgbb170rjepb5c4sm4phjcg@google.com\r\nCREATED:20210308T120819Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20210308T120829Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Anne Doğumgünü\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63750888509\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:8ef5af1da1752e726098e6441060b58d2a666d32\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P2DT15H\r\nX-EVOLUTION-ALARM-UID:f4837b1bb85396d01b89034224bd2fe1c9c8d885\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:741abdbc3a81bad1dea69d4ebda637fedda34425\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n1abf874dee3b25d7fb04940b159e05a65d6d826c\t20241013\n1728637200\n1728777600\n1728864000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230913\r\nDTEND;VALUE=DATE:20230914\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20231112T230803Z\r\nUID:\r\n clhm2o9i70q3gb9gc8rjgb9kcor38b9o60sm4b9j69j3cdhpcgqm4dhnc8@google.com\r\nCREATED:20231112T230751Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20231112T230803Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Nena Marriage September 2023\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63835513683\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:2a073db258a8d28a450403911ac7a8708289ef38\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:1abf874dee3b25d7fb04940b159e05a65d6d826c\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nf4837b1bb85396d01b89034224bd2fe1c9c8d885\t20241013\n1728550800\n1728777600\n1728864000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20211013\r\nDTEND;VALUE=DATE:20211014\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20210308T120829Z\r\nUID:\r\n 6orj2cb1c9gm4b9j6pj34b9kckrjcbb161gjgbb170rjepb5c4sm4phjcg@google.com\r\nCREATED:20210308T120819Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20210308T120829Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Anne Doğumgünü\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63750888509\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:8ef5af1da1752e726098e6441060b58d2a666d32\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P2DT15H\r\nX-EVOLUTION-ALARM-UID:f4837b1bb85396d01b89034224bd2fe1c9c8d885\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:741abdbc3a81bad1dea69d4ebda637fedda34425\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n741abdbc3a81bad1dea69d4ebda637fedda34425\t20241013\n1728205200\n1728777600\n1728864000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20211013\r\nDTEND;VALUE=DATE:20211014\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20210308T120829Z\r\nUID:\r\n 6orj2cb1c9gm4b9j6pj34b9kckrjcbb161gjgbb170rjepb5c4sm4phjcg@google.com\r\nCREATED:20210308T120819Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20210308T120829Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Anne Doğumgünü\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63750888509\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:8ef5af1da1752e726098e6441060b58d2a666d32\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P2DT15H\r\nX-EVOLUTION-ALARM-UID:f4837b1bb85396d01b89034224bd2fe1c9c8d885\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:741abdbc3a81bad1dea69d4ebda637fedda34425\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n5e2ced25a5b63fcd4045b69a6f98214301bfac58\t20241006\n1728205200\n1728172800\n1728259200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240907T143520Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240907T143520Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63861402920\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:5e2ced25a5b63fcd4045b69a6f98214301bfac58\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:3e2b5cdf02d7d78c2de3b6cca868727d1408f246\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:08d87153a30b92bf78ffd52623b83e56ed52c283\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:82fa5eaaa1b8a6c4309777803f1b0417799b76d2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:f882ff6c3379c200abd56c5f5ade57a3f66b24f0\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n3e2b5cdf02d7d78c2de3b6cca868727d1408f246\t20241006\n1728169200\n1728172800\n1728259200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240907T143520Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240907T143520Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63861402920\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:5e2ced25a5b63fcd4045b69a6f98214301bfac58\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:3e2b5cdf02d7d78c2de3b6cca868727d1408f246\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:08d87153a30b92bf78ffd52623b83e56ed52c283\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:82fa5eaaa1b8a6c4309777803f1b0417799b76d2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:f882ff6c3379c200abd56c5f5ade57a3f66b24f0\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n08d87153a30b92bf78ffd52623b83e56ed52c283\t20241006\n1728118800\n1728172800\n1728259200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240907T143520Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240907T143520Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63861402920\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:5e2ced25a5b63fcd4045b69a6f98214301bfac58\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:3e2b5cdf02d7d78c2de3b6cca868727d1408f246\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:08d87153a30b92bf78ffd52623b83e56ed52c283\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:82fa5eaaa1b8a6c4309777803f1b0417799b76d2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:f882ff6c3379c200abd56c5f5ade57a3f66b24f0\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n82fa5eaaa1b8a6c4309777803f1b0417799b76d2\t20241006\n1728032400\n1728172800\n1728259200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240907T143520Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240907T143520Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63861402920\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:5e2ced25a5b63fcd4045b69a6f98214301bfac58\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:3e2b5cdf02d7d78c2de3b6cca868727d1408f246\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:08d87153a30b92bf78ffd52623b83e56ed52c283\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:82fa5eaaa1b8a6c4309777803f1b0417799b76d2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:f882ff6c3379c200abd56c5f5ade57a3f66b24f0\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nf882ff6c3379c200abd56c5f5ade57a3f66b24f0\t20241006\n1727600400\n1728172800\n1728259200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240907T143520Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240907T143520Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63861402920\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:5e2ced25a5b63fcd4045b69a6f98214301bfac58\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:3e2b5cdf02d7d78c2de3b6cca868727d1408f246\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:08d87153a30b92bf78ffd52623b83e56ed52c283\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:82fa5eaaa1b8a6c4309777803f1b0417799b76d2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:f882ff6c3379c200abd56c5f5ade57a3f66b24f0\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n1ea3969d5467fc7b3e6714bfbe6c6d4eab755a3d\t20240929\n1727535600\n1727568000\n1727654400\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20200929\r\nDTEND;VALUE=DATE:20200930\r\nRRULE:FREQ=YEARLY;WKST=TU\r\nDTSTAMP:20200929T221539Z\r\nUID:\r\n 69h36e1g6ko34bb56csj8b9kccs68b9p74qjgb9h6pj30dr374q3gor5cc@google.com\r\nCREATED:20200929T221539Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20200929T221539Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Bıdık\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63737100939\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT9H\r\nX-EVOLUTION-ALARM-UID:1ea3969d5467fc7b3e6714bfbe6c6d4eab755a3d\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n2a073db258a8d28a450403911ac7a8708289ef38\t20240913\n1726131600\n1726185600\n1726272000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230913\r\nDTEND;VALUE=DATE:20230914\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20231112T230803Z\r\nUID:\r\n clhm2o9i70q3gb9gc8rjgb9kcor38b9o60sm4b9j69j3cdhpcgqm4dhnc8@google.com\r\nCREATED:20231112T230751Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20231112T230803Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Nena Marriage September 2023\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63835513683\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:2a073db258a8d28a450403911ac7a8708289ef38\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:1abf874dee3b25d7fb04940b159e05a65d6d826c\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n1abf874dee3b25d7fb04940b159e05a65d6d826c\t20240913\n1726045200\n1726185600\n1726272000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230913\r\nDTEND;VALUE=DATE:20230914\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20231112T230803Z\r\nUID:\r\n clhm2o9i70q3gb9gc8rjgb9kcor38b9o60sm4b9j69j3cdhpcgqm4dhnc8@google.com\r\nCREATED:20231112T230751Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20231112T230803Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Nena Marriage September 2023\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63835513683\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:2a073db258a8d28a450403911ac7a8708289ef38\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:1abf874dee3b25d7fb04940b159e05a65d6d826c\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\nfc4001d8943254110573f4d0d021ce2a221cfe84\t20240906\n1725526800\n1725580800\n1725667200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240708T144533Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144533Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133133\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:37ab3315fb63282d979e57764d09b2c9f45532d3\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:79d54d6f5e80a234b31761096fc2fcda3e925181\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:fc4001d8943254110573f4d0d021ce2a221cfe84\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:266398b9fc65195671f309d81501ed962c5780e2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:36803b4115d8561034df35a12a48e6b7a50f6239\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n266398b9fc65195671f309d81501ed962c5780e2\t20240906\n1725440400\n1725580800\n1725667200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240708T144533Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144533Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133133\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:37ab3315fb63282d979e57764d09b2c9f45532d3\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:79d54d6f5e80a234b31761096fc2fcda3e925181\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:fc4001d8943254110573f4d0d021ce2a221cfe84\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:266398b9fc65195671f309d81501ed962c5780e2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:36803b4115d8561034df35a12a48e6b7a50f6239\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\ne2ddbad96a896cdbb3fef7b8e2fd6bf00b36dad1\t20240902\n1725267600\n1725235200\n1725321600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20220502\r\nDTEND;VALUE=DATE:20220503\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=2\r\nDTSTAMP:20240708T144532Z\r\nUID:0bljcm85hctlon5m063boi3o1k@google.com\r\nCREATED:20220411T125404Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144532Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Prime gaming Reset\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133132\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:e2ddbad96a896cdbb3fef7b8e2fd6bf00b36dad1\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n36803b4115d8561034df35a12a48e6b7a50f6239\t20240906\n1725008400\n1725580800\n1725667200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230606\r\nDTEND;VALUE=DATE:20230607\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=6;WKST=TU\r\nDTSTAMP:20240708T144533Z\r\nUID:\r\n 68qmacj365hmab9n6sp36b9kcgomcbb26op66b9nckq34pb4corjidj170_R20230606@googl\r\n e.com\r\nCREATED:20211003T224200Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240708T144533Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Aya Date September 2021\r\nTRANSP:TRANSPARENT\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63856133133\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT9H\r\nX-EVOLUTION-ALARM-UID:37ab3315fb63282d979e57764d09b2c9f45532d3\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT1H\r\nX-EVOLUTION-ALARM-UID:79d54d6f5e80a234b31761096fc2fcda3e925181\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:fc4001d8943254110573f4d0d021ce2a221cfe84\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:266398b9fc65195671f309d81501ed962c5780e2\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6DT15H\r\nX-EVOLUTION-ALARM-UID:36803b4115d8561034df35a12a48e6b7a50f6239\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n2a073db258a8d28a450403911ac7a8708289ef38\t20240813\n1723453200\n1723507200\n1723593600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230913\r\nDTEND;VALUE=DATE:20230914\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20231112T230803Z\r\nUID:\r\n clhm2o9i70q3gb9gc8rjgb9kcor38b9o60sm4b9j69j3cdhpcgqm4dhnc8@google.com\r\nCREATED:20231112T230751Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20231112T230803Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Nena Marriage September 2023\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63835513683\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:2a073db258a8d28a450403911ac7a8708289ef38\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:1abf874dee3b25d7fb04940b159e05a65d6d826c\r\nEND:VALARM\r\nEND:VEVENT\r\n', '6abeaeff52f2f9472650a60769e46ab68084a064\n1abf874dee3b25d7fb04940b159e05a65d6d826c\t20240813\n1723366800\n1723507200\n1723593600\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20230913\r\nDTEND;VALUE=DATE:20230914\r\nRRULE:FREQ=MONTHLY;BYMONTHDAY=13;WKST=TU\r\nDTSTAMP:20231112T230803Z\r\nUID:\r\n clhm2o9i70q3gb9gc8rjgb9kcor38b9o60sm4b9j69j3cdhpcgqm4dhnc8@google.com\r\nCREATED:20231112T230751Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20231112T230803Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Nena Marriage September 2023\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63835513683\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15H\r\nX-EVOLUTION-ALARM-UID:2a073db258a8d28a450403911ac7a8708289ef38\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1DT15H\r\nX-EVOLUTION-ALARM-UID:1abf874dee3b25d7fb04940b159e05a65d6d826c\r\nEND:VALARM\r\nEND:VEVENT\r\n']
 
 [org/gnome/file-roller/listing]
 list-mode='as-folder'
@@ -185,8 +452,8 @@ sort-type='ascending'
 
 [org/gnome/file-roller/ui]
 sidebar-width=200
-window-height=507
-window-width=1024
+window-height=1328
+window-width=1268
 
 [org/gnome/gedit/plugins]
 active-plugins=['sort', 'filebrowser', 'openlinks', 'modelines', 'spell', 'docinfo']
@@ -194,48 +461,94 @@ active-plugins=['sort', 'filebrowser', 'openlinks', 'modelines', 'spell', 'docin
 [org/gnome/gedit/plugins/filebrowser]
 root='file:///'
 tree-view=true
-virtual-root='file:///home/qorcialwolf/.themes/Dracula'
+virtual-root='file:///home/qorcialwolf/Downloads/extra'
 
 [org/gnome/gedit/preferences/ui]
 show-tabs-mode='auto'
+side-panel-visible=true
 
 [org/gnome/gedit/state/window]
 bottom-panel-size=140
 side-panel-active-page='GeditWindowDocumentsPanel'
-side-panel-size=200
-size=(576, 976)
-state=87168
+side-panel-size=175
+size=(1268, 1328)
+state=87040
+
+[org/gnome/gnome-screenshot]
+delay=0
+include-pointer=false
+last-save-directory='file:///home/qorcialwolf/Pictures'
 
 [org/gnome/gnome-system-monitor]
-current-tab='processes'
+current-tab='resources'
+maximized=false
 network-total-in-bits=false
 show-dependencies=false
 show-whose-processes='user'
+window-state=(1268, 1376, 1284, 8)
 
 [org/gnome/gnome-system-monitor/disktreenew]
 col-6-visible=true
-col-6-width=0
+col-6-width=858
+
+[org/gnome/gnome-system-monitor/proctree]
+columns-order=[0, 1, 2, 3, 4, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+sort-col=15
+sort-order=0
+
+[org/gnome/libgnomekbd/preview]
+height=831
+width=1944
+x=256
+y=144
 
 [org/gnome/mutter]
 edge-tiling=false
-experimental-features=['x11-randr-fractional-scaling']
+experimental-features=['scale-monitor-framebuffer']
 
 [org/gnome/mutter/keybindings]
 toggle-tiled-left=@as []
 toggle-tiled-right=@as []
 
+[org/gnome/nautilus/compression]
+default-compression-format='zip'
+
+[org/gnome/nautilus/icon-view]
+default-zoom-level='larger'
+
+[org/gnome/nautilus/list-view]
+default-zoom-level='larger'
+use-tree-view=true
+
 [org/gnome/nautilus/preferences]
 default-folder-viewer='icon-view'
+recursive-search='always'
 search-filter-time-type='last_modified'
 search-view='list-view'
+show-create-link=true
+show-delete-permanently=true
+show-directory-item-counts='always'
+show-image-thumbnails='always'
 
 [org/gnome/nautilus/window-state]
-initial-size=(1024, 1110)
+initial-size=(2544, 1376)
 maximized=false
-sidebar-width=234
+sidebar-width=279
+
+[org/gnome/nm-applet/eap/4a9149d8-3d6d-36a9-adfe-487b01ebced1]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
+
+[org/gnome/power-manager]
+info-history-type='charge'
+info-stats-type='discharge-accuracy'
+
+[org/gnome/settings-daemon/plugins/color]
+night-light-enabled=false
+night-light-temperature=uint32 4677
 
 [org/gnome/settings-daemon/plugins/media-keys]
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/PopLaunch1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/']
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/PopLaunch1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom9/']
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/PopLaunch1]
 binding='Launch1'
@@ -243,62 +556,79 @@ command='gnome-control-center wifi'
 name='WiFi'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
-binding='<Primary>F9'
-command='sh /home/qorcialwolf/.foobarscripts/next.sh'
+binding='<Primary><Alt>l'
+command='/home/qorcialwolf/.scripts/foobar/run.sh next'
 name='FoobarNext'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
-binding='<Primary>F8'
-command='sh /home/qorcialwolf/.foobarscripts/playpause.sh'
+binding='<Primary><Alt>k'
+command='/home/qorcialwolf/.scripts/foobar/run.sh playpause'
 name='FoobarPlayPause'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2]
-binding='<Primary>F7'
-command='sh /home/qorcialwolf/.foobarscripts/prev.sh'
+binding='<Primary><Alt>j'
+command='/home/qorcialwolf/.scripts/foobar/run.sh prev'
 name='FoobarPrev'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3]
-binding='<Primary>F6'
-command='sh /home/qorcialwolf/.foobarscripts/stop.sh'
-name='FoobarStop'
+binding='<Super>n'
+command='sh /home/qorcialwolf/.scripts/nerd-dictation/toggle.sh'
+name='NerdDictation'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4]
-binding='<Primary>F11'
-command='sh /home/qorcialwolf/.foobarscripts/voldown.sh'
+binding='<Primary><Alt>comma'
+command='/home/qorcialwolf/.scripts/foobar/run.sh voldown'
 name='FoobarVoldown'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5]
-binding='<Primary>F12'
-command='sh /home/qorcialwolf/.foobarscripts/volup.sh'
+binding='<Primary><Alt>period'
+command='/home/qorcialwolf/.scripts/foobar/run.sh volup'
 name='FoobarVolUp'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6]
-binding='<Primary>F5'
-command='sh wine home/qorcialwolf/foobar2000/fobar2000.exe'
-name='Foobar'
+binding='<Shift><Super>s'
+command="fish -c 'soundrestart'"
+name='Soundrestart'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7]
-binding='<Primary>F10'
-command='sh /home/qorcialwolf/.foobarscripts/rand.sh'
-name='FoobarRand'
+binding='<Primary><Alt>r'
+command='/home/qorcialwolf/.scripts/foobar/run.sh shuffle'
+name='FoobarShuffle'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8]
+binding='<Super>Print'
+command='flatpak run com.github.dynobo.normcap'
+name='Lens'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom9]
+binding='<Primary><Alt>s'
+command='flatpak run com.github.dynobo.normcap'
+name='Lens2'
 
 [org/gnome/settings-daemon/plugins/power]
 sleep-inactive-ac-timeout=1800
-sleep-inactive-ac-type='suspend'
+sleep-inactive-ac-type='nothing'
 sleep-inactive-battery-timeout=1800
 sleep-inactive-battery-type='suspend'
 
 [org/gnome/shell]
-command-history=['restart', 'xklill', 'xklill', 'x', 'x', 'xkill']
-disabled-extensions=['cosmic-dock@system76.com']
-enabled-extensions=['ding@rastersoft.com', 'pop-cosmic@system76.com', 'pop-shell@system76.com', 'system76-power@system76.com', 'ubuntu-appindicators@ubuntu.com', 'cosmic-workspaces@system76.com', 'popx11gestures@system76.com', 'clipboard-history@alexsaveau.dev', 'audio-output-switcher@anduchs', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-panel@jderose9.github.com', 'gnome-clipboard@b00f.github.io', 'blur-my-shell@aunetx']
-had-bluetooth-devices-setup=false
+app-picker-layout=[{'org.gnome.Geary.desktop': <{'position': <0>}>, 'org.gnome.Contacts.desktop': <{'position': <1>}>, 'org.gnome.Weather.desktop': <{'position': <2>}>, 'com.alacritty.Alacritty.desktop': <{'position': <3>}>, 'anydesk.desktop': <{'position': <4>}>, 'org.gnome.Calendar.desktop': <{'position': <5>}>, 'Crypt of the NecroDancer.desktop': <{'position': <6>}>, 'dev.aunetx.deezer.desktop': <{'position': <7>}>, 'org.gnome.Calculator.desktop': <{'position': <8>}>, 'org.gnome.gedit.desktop': <{'position': <9>}>, 'com.discordapp.Discord.desktop': <{'position': <10>}>, 'com.github.wwmm.easyeffects.desktop': <{'position': <11>}>, 'org.fedoraproject.MediaWriter.desktop': <{'position': <12>}>, 'fish.desktop': <{'position': <13>}>, 'foobar2000.desktop': <{'position': <14>}>, 'chrome-gjljknijpnfibppaijefibndmiabonep-Profile_2.desktop': <{'position': <15>}>, 'google-chrome.desktop': <{'position': <16>}>, 'display-im6.q16.desktop': <{'position': <17>}>, 'net.lutris.Lutris.desktop': <{'position': <18>}>, 'com.microsoft.Edge.desktop': <{'position': <19>}>, 'setup-mozc.desktop': <{'position': <20>}>, 'my-distrobox.desktop': <{'position': <21>}>, 'Pop-Office': <{'position': <22>}>, 'OpenRGB.desktop': <{'position': <23>}>}, {'net.davidotek.pupgui2.desktop': <{'position': <0>}>, 'org.qbittorrent.qBittorrent.desktop': <{'position': <1>}>, 'org.rncbc.qsynth.desktop': <{'position': <2>}>, 'remote-viewer.desktop': <{'position': <3>}>, 'repoman.desktop': <{'position': <4>}>, 'io.github.vikdevelop.SaveDesktop.desktop': <{'position': <5>}>, 'steam.desktop': <{'position': <6>}>, 'Pop-System': <{'position': <7>}>, 'timeshift-gtk.desktop': <{'position': <8>}>, 'org.gnome.tweaks.desktop': <{'position': <9>}>, 'Pop-Utility': <{'position': <10>}>, 'virt-manager.desktop': <{'position': <11>}>, 'vlc.desktop': <{'position': <12>}>, 'io.github.mimbrero.WhatsAppDesktop.desktop': <{'position': <13>}>, 'winetricks.desktop': <{'position': <14>}>, 'io.github.zen_browser.zen.desktop': <{'position': <15>}>}]
+command-history=['restart', 'xklill', 'xklill', 'weston', 'xkil', 'x', 'x', 'xkill\\', 'r', 'xkill']
+disable-user-extensions=false
+disabled-extensions=['ding@rastersoft.com', 'ShutdownTimer@deminder', 'cosmic-dock@system76.com']
+enabled-extensions=['pop-cosmic@system76.com', 'pop-shell@system76.com', 'system76-power@system76.com', 'ubuntu-appindicators@ubuntu.com', 'cosmic-workspaces@system76.com', 'popx11gestures@system76.com', 'clipboard-history@alexsaveau.dev', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-panel@jderose9.github.com', 'gnome-clipboard@b00f.github.io', 'blur-my-shell@aunetx', 'audio-output-switcher@anduchs', 'gsconnect@andyholmes.github.io', 'appindicatorsupport@rgcjonas.gmail.com', 'trayIconsReloaded@selfmade.pl']
+favorite-apps=['pop-cosmic-launcher.desktop', 'pop-cosmic-workspaces.desktop', 'pop-cosmic-applications.desktop', 'firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'io.elementary.appcenter.desktop', 'gnome-control-center.desktop']
+had-bluetooth-devices-setup=true
 welcome-dialog-last-shown-version='42.9'
 
+[org/gnome/shell/extensions/appindicator]
+legacy-tray-enabled=true
+
 [org/gnome/shell/extensions/blur-my-shell/applications]
-whitelist=['Alacritty']
+whitelist=['kitty']
 
 [org/gnome/shell/extensions/clipboard-history]
+display-mode=3
 private-mode=false
 toggle-menu=['<Super>v']
 
@@ -309,35 +639,89 @@ intellihide=true
 manualhide=true
 
 [org/gnome/shell/extensions/dash-to-panel]
+animate-appicon-hover=false
 animate-appicon-hover-animation-extent={'RIPPLE': 4, 'PLANK': 4, 'SIMPLE': 1}
 appicon-margin=8
 appicon-padding=4
-available-monitors=[1, 0]
+available-monitors=[0]
 dot-position='BOTTOM'
 group-apps=true
-hotkeys-overlay-combo='TEMPORARILY'
+hot-keys=true
+hotkeys-overlay-combo='NEVER'
+intellihide=false
+intellihide-hide-from-windows=false
+intellihide-show-in-fullscreen=false
 isolate-monitors=false
 leftbox-padding=-1
 multi-monitors=false
 panel-anchors='{"0":"MIDDLE","1":"MIDDLE"}'
-panel-element-positions='{"0":[{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"activitiesButton","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}],"1":[{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"activitiesButton","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}'
+panel-element-positions='{"0":[{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"activitiesButton","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}],"1":[{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"activitiesButton","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}'
 panel-element-positions-monitors-sync=true
 panel-lengths='{"0":100,"1":100}'
 panel-positions='{"0":"BOTTOM","1":"BOTTOM"}'
-panel-sizes='{"0":42,"1":42}'
-primary-monitor=1
+panel-sizes='{"0":48,"1":42}'
+primary-monitor=0
 progress-show-count=true
 show-appmenu=false
 show-favorites=false
 show-running-apps=true
 show-tooltip=true
 status-icon-padding=-1
+stockgs-keep-dash=false
+stockgs-keep-top-panel=false
 trans-panel-opacity=0.95000000000000007
 trans-use-custom-bg=false
 trans-use-custom-gradient=true
 trans-use-custom-opacity=false
 tray-padding=-1
+tray-size=16
 window-preview-title-position='TOP'
+
+[org/gnome/shell/extensions/ding]
+add-volumes-opposite=true
+dark-text-in-labels=false
+show-drop-place=true
+show-home=false
+show-link-emblem=true
+show-network-volumes=false
+show-trash=false
+show-volumes=false
+start-corner='bottom-left'
+use-nemo=false
+
+[org/gnome/shell/extensions/gsconnect]
+devices=['8454f739b5aa4b56a6449b789844b095']
+enabled=true
+id='bc0d58ef-2caa-404e-a626-8da9b3ea0e2f'
+name='PopOS'
+show-indicators=false
+
+[org/gnome/shell/extensions/gsconnect/device/8454f739b5aa4b56a6449b789844b095]
+certificate-pem='-----BEGIN CERTIFICATE-----\nMIIBjDCCATGgAwIBAgIBATAKBggqhkjOPQQDBDBPMSkwJwYDVQQDDCA4NDU0Zjcz\nOWI1YWE0YjU2YTY0NDliNzg5ODQ0YjA5NTEUMBIGA1UECwwLS0RFIENvbm5lY3Qx\nDDAKBgNVBAoMA0tERTAeFw0yNTAxMjMyMzAwMDBaFw0zNjAxMjMyMzAwMDBaME8x\nKTAnBgNVBAMMIDg0NTRmNzM5YjVhYTRiNTZhNjQ0OWI3ODk4NDRiMDk1MRQwEgYD\nVQQLDAtLREUgQ29ubmVjdDEMMAoGA1UECgwDS0RFMFkwEwYHKoZIzj0CAQYIKoZI\nzj0DAQcDQgAE62hVoSpd4rpHLb7qbVWOJUnllj/A5j5et4OiiJrJqtJ0cWEoUKvn\nO2T0lSatWZFfEawI6olMOTe1hDZRzmaA/TAKBggqhkjOPQQDBANJADBGAiEAnOyP\nc3XS3MEOtrq5B0ZJilxoXw5PUIo0v/xP2KgsMZgCIQDOJQL0tU2jE1YEkCove6Yo\nqHsyRHtCLT9qXUvyqEL2Pg==\n-----END CERTIFICATE-----\n'
+incoming-capabilities=['kdeconnect.battery', 'kdeconnect.clipboard', 'kdeconnect.clipboard.connect', 'kdeconnect.contacts.request_all_uids_timestamps', 'kdeconnect.contacts.request_vcards_by_uid', 'kdeconnect.findmyphone.request', 'kdeconnect.mousepad.keyboardstate', 'kdeconnect.mousepad.request', 'kdeconnect.mpris', 'kdeconnect.mpris.request', 'kdeconnect.notification', 'kdeconnect.notification.action', 'kdeconnect.notification.reply', 'kdeconnect.notification.request', 'kdeconnect.ping', 'kdeconnect.runcommand', 'kdeconnect.sftp.request', 'kdeconnect.share.request', 'kdeconnect.share.request.update', 'kdeconnect.sms.request', 'kdeconnect.sms.request_attachment', 'kdeconnect.sms.request_conversation', 'kdeconnect.sms.request_conversations', 'kdeconnect.systemvolume', 'kdeconnect.telephony.request_mute']
+last-connection='lan://192.168.1.50:1716'
+name='Galaxy S24+'
+outgoing-capabilities=['kdeconnect.battery', 'kdeconnect.clipboard', 'kdeconnect.clipboard.connect', 'kdeconnect.connectivity_report', 'kdeconnect.contacts.response_uids_timestamps', 'kdeconnect.contacts.response_vcards', 'kdeconnect.digitizer', 'kdeconnect.digitizer.session', 'kdeconnect.findmyphone.request', 'kdeconnect.mousepad.echo', 'kdeconnect.mousepad.keyboardstate', 'kdeconnect.mousepad.request', 'kdeconnect.mpris', 'kdeconnect.mpris.request', 'kdeconnect.notification', 'kdeconnect.notification.request', 'kdeconnect.ping', 'kdeconnect.presenter', 'kdeconnect.runcommand.request', 'kdeconnect.sftp', 'kdeconnect.share.request', 'kdeconnect.sms.attachment_file', 'kdeconnect.sms.messages', 'kdeconnect.systemvolume.request', 'kdeconnect.telephony']
+paired=true
+supported-plugins=['battery', 'clipboard', 'connectivity_report', 'contacts', 'findmyphone', 'mousepad', 'mpris', 'notification', 'ping', 'presenter', 'runcommand', 'sftp', 'share', 'sms', 'systemvolume', 'telephony']
+type='phone'
+
+[org/gnome/shell/extensions/gsconnect/device/8454f739b5aa4b56a6449b789844b095/plugin/battery]
+custom-battery-notification-value=uint32 80
+
+[org/gnome/shell/extensions/gsconnect/device/8454f739b5aa4b56a6449b789844b095/plugin/notification]
+applications='{"Printers":{"iconName":"printer","enabled":true},"Bottles":{"iconName":"com.usebottles.bottles","enabled":true},"Evolution Alarm Notify":{"iconName":"appointment-soon","enabled":true},"Support":{"iconName":"pop-support","enabled":true},"Date & Time":{"iconName":"preferences-system-time","enabled":true},"Lutris":{"iconName":"lutris","enabled":true},"Network":{"iconName":"nm-device-wireless","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Geary":{"iconName":"org.gnome.Geary","enabled":true},"Power":{"iconName":"gnome-power-manager","enabled":true},"Pop!_Shop":{"iconName":"io.elementary.appcenter","enabled":true},"Color":{"iconName":"preferences-color","enabled":true},"Firmware":{"iconName":"firmware-manager","enabled":true},"Archive Manager":{"iconName":"org.gnome.ArchiveManager","enabled":true},"Deezer":{"iconName":"dev.aunetx.deezer","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Eddy":{"iconName":"com.github.donadigo.eddy","enabled":true},"Slack":{"iconName":"com.slack.Slack","enabled":true},"OS Upgrade & Recovery":{"iconName":"software-update-available-symbolic","enabled":true},"Snapd User Session Agent":{"iconName":"/usr/share/snapd/snapcraft-logo-bird.svg","enabled":true}}'
+
+[org/gnome/shell/extensions/gsconnect/device/8454f739b5aa4b56a6449b789844b095/plugin/share]
+receive-directory='/home/qorcialwolf/Downloads'
+
+[org/gnome/shell/extensions/gsconnect/messaging]
+window-maximized=false
+window-size=(1268, 1328)
+
+[org/gnome/shell/extensions/gsconnect/preferences]
+window-maximized=false
+window-size=(1268, 1328)
 
 [org/gnome/shell/extensions/pop-cosmic]
 clock-alignment='LEFT'
@@ -347,8 +731,8 @@ show-workspaces-button=false
 [org/gnome/shell/extensions/pop-shell]
 active-hint=false
 active-hint-border-radius=uint32 1
-gap-inner=uint32 0
-gap-outer=uint32 0
+gap-inner=uint32 2
+gap-outer=uint32 2
 hint-color-rgba='rgb(21,33,128)'
 pop-monitor-left=@as []
 pop-monitor-right=@as []
@@ -357,13 +741,22 @@ tile-by-default=true
 tile-move-down-global=@as []
 tile-move-left-global=['<Primary><Super>Left', '<Primary><Super>h']
 tile-move-right-global=['<Primary><Super>Right', '<Primary><Super>l']
-tile-move-up-global=['<Primary><Super>Up', '<Primary><Super>k']
+
+[org/gnome/shell/extensions/shutdowntimer-deminder]
+preferences-selected-page-value=4
+shutdown-slider-value=33.384052998310807
+shutdown-timestamp-value=-1
+
+[org/gnome/shell/extensions/trayIconsReloaded]
+applications='[{"id":"wooting-container.desktop","hidden":true},{"id":"appimagekit_ec313dc87b26ef56c3261fa33536bb75-Wooting_Background_Service.desktop","hidden":true},{"id":"chrome-cnfkpenpofglpcdmpneolofacooaihpl-Default.desktop","hidden":true}]'
 
 [org/gnome/shell/extensions/user-theme]
 name='Sweet-Dark-v40'
 
 [org/gnome/shell/keybindings]
+focus-active-notification=['<Shift><Super>n']
 toggle-message-tray=['<Shift><Super>v']
+toggle-overview=['<Super>d', '<Super>w']
 
 [org/gnome/shell/weather]
 automatic-location=true
@@ -381,35 +774,35 @@ location-mode='path-bar'
 show-hidden=true
 show-size-column=true
 show-type-column=true
-sidebar-width=157
+sidebar-width=149
 sort-column='name'
 sort-directories-first=false
-sort-order='ascending'
+sort-order='descending'
 type-format='category'
-window-size=(1152, 842)
+window-size=(1266, 1375)
 
 [org/gtk/settings/color-chooser]
 custom-colors=[(0.11764705882352941, 1.0, 0.0, 1.0), (0.0, 0.0, 1.0, 1.0), (1.0, 0.0, 0.28235294117647058, 1.0), (0.76470588235294112, 0.0, 1.0, 1.0), (0.082211111111111124, 0.12821605975723607, 0.50333333333333341, 1.0), (0.094117647058823528, 0.14509803921568629, 0.5607843137254902, 1.0), (0.093333333333333379, 0.14378378378378376, 0.56000000000000005, 1.0), (0.98431372549019602, 0.72156862745098038, 0.42352941176470588, 1.0)]
 selected-color=(true, 1.0, 0.0, 0.28235294117647058, 1.0)
 
 [org/gtk/settings/file-chooser]
-clock-format='12h'
+clock-format='24h'
 date-format='regular'
 location-mode='path-bar'
-show-hidden=true
+show-hidden=false
 show-size-column=true
 show-type-column=true
 sidebar-width=164
 sort-column='name'
 sort-directories-first=true
-sort-order='descending'
+sort-order='ascending'
 type-format='category'
-window-position=(2091, 653)
-window-size=(1096, 822)
+window-position=(732, 261)
+window-size=(1095, 822)
 
 [org/virt-manager/virt-manager]
-manager-window-height=1110
-manager-window-width=2048
+manager-window-height=1094
+manager-window-width=1012
 system-tray=true
 xmleditor-enabled=true
 
@@ -430,14 +823,41 @@ show-toolbar=true
 graphics-type='system'
 
 [org/virt-manager/virt-manager/paths]
+image-default='/home/qorcialwolf/Downloads'
 media-default='/home/qorcialwolf/Downloads'
 
 [org/virt-manager/virt-manager/urls]
-isos=['/home/qorcialwolf/Downloads/PrimeOS-2.1.3-64-bit-20220719-BETA.iso', '/home/qorcialwolf/Downloads/Win11_23H2_English_x64v2.iso']
+isos=['/home/qorcialwolf/Downloads/dim-4-0-9.qcow2', '/home/qorcialwolf/Downloads/win11/Win11_24H2_English_x64.iso', '/home/qorcialwolf/Downloads/PrimeOS-2.1.3-64-bit-20220719-BETA.iso', '/home/qorcialwolf/Downloads/Win11_23H2_English_x64v2.iso']
 
 [org/virt-manager/virt-manager/vmlist-fields]
 disk-usage=false
 network-traffic=false
+
+[org/virt-manager/virt-manager/vms/01f3ff52c8b1491ab1fc3bba0dda551f]
+autoconnect=1
+scaling=2
+vm-window-size=(1012, 543)
+
+[org/virt-manager/virt-manager/vms/48511eb2522f489b9f3aaee71fe1ae87]
+autoconnect=1
+resize-guest=1
+scaling=2
+vm-window-size=(1024, 1110)
+
+[org/virt-manager/virt-manager/vms/72a89406861f432d8688ed9c5d979a69]
+autoconnect=1
+scaling=2
+vm-window-size=(1012, 1094)
+
+[org/virt-manager/virt-manager/vms/76ebfc3f3d124538b9a14334212c116f]
+autoconnect=1
+scaling=2
+vm-window-size=(1012, 1094)
+
+[org/virt-manager/virt-manager/vms/81347396d7154242b3e77cddc5b35159]
+autoconnect=1
+scaling=2
+vm-window-size=(1012, 1094)
 
 [org/virt-manager/virt-manager/vms/ae37a956850c412395489406524868e5]
 autoconnect=1
@@ -453,3 +873,9 @@ vm-window-size=(2048, 1110)
 autoconnect=1
 scaling=2
 vm-window-size=(2048, 1110)
+
+[system/locale]
+region='en_GB.UTF-8'
+
+[system/proxy]
+mode='none'
