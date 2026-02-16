@@ -1,6 +1,29 @@
 #!/bin/bash
 set -e
 
+# Check if Fish is already installed
+if command -v fish &> /dev/null; then
+    FISH_VERSION=$(fish --version 2>/dev/null | grep -oP 'fish, version \K[0-9]+\.[0-9]+' || echo "unknown")
+    echo "✅ Fish shell is already installed: $(fish --version)"
+    
+    # Check if version is 4.4.x
+    if [[ "$FISH_VERSION" != "unknown" ]]; then
+        MAJOR=$(echo "$FISH_VERSION" | cut -d'.' -f1)
+        MINOR=$(echo "$FISH_VERSION" | cut -d'.' -f2)
+        
+        if [[ "$MAJOR" != "4" ]] || [[ "$MINOR" != "4" ]]; then
+            echo ""
+            echo "⚠️  WARNING: This dotfiles configuration is designed for Fish 4.4.x"
+            echo "   Your version: $FISH_VERSION"
+            echo "   Some features might not function properly with this version."
+            echo "   Consider upgrading to Fish 4.4.x for the best experience."
+            echo ""
+        fi
+    fi
+    
+    exit 0
+fi
+
 echo "Installing Fish shell..."
 
 # Check the distribution
