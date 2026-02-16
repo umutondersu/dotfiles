@@ -1,5 +1,5 @@
 #!/bin/bash
-# Common functions shared between install.sh and devpod-install.sh
+# Common functions shared between installation scripts
 
 # Check and install Fish shell if needed
 ensure_fish_installed() {
@@ -151,6 +151,18 @@ setup_tpm() {
         echo "   2. Press <Ctrl-Space> + I to install plugins"
     else
         echo "✅ TPM already installed, skipping..."
+    fi
+    echo ""
+}
+
+# Setup OpenCode
+setup_opencode() {
+    echo "💻 Setting up OpenCode..."
+    if command -v opencode &> /dev/null; then
+        echo "✅ OpenCode already installed: $(opencode --version 2>/dev/null || echo 'installed')"
+    else
+        bash "$SETUP_DIR/opencode.sh"
+        echo "✅ OpenCode installed"
     fi
     echo ""
 }

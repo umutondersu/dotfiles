@@ -1,11 +1,11 @@
 #!/bin/bash
-# Verification script to test devpod installation
+# Verification script to test development environment installation
 # This script checks that the installation completed successfully
 
 set -e
 
 echo "╔══════════════════════════════════════════════════╗"
-echo "║  DevPod Installation Verification               ║"
+echo "║  Dev Environment Installation Verification      ║"
 echo "╚══════════════════════════════════════════════════╝"
 echo ""
 

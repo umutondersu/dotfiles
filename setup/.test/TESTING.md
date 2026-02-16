@@ -1,6 +1,6 @@
 # Docker Testing Scripts
 
-This directory (`setup/.test/`) contains scripts to test the devpod installation in a clean Ubuntu 22.04 Docker container.
+This directory (`setup/.test/`) contains scripts to test the development environment installation in a clean Ubuntu 22.04 Docker container.
 
 ## Location
 
@@ -24,7 +24,7 @@ Fully automated test that runs installation and verification automatically.
 1. Starts an Ubuntu 22.04 container
 2. Installs prerequisites (git, curl, sudo)
 3. Copies dotfiles into the container
-4. Runs `devpod-install.sh`
+4. Runs `install.sh` (dev environment mode)
 5. Runs `verify-installation.sh`
 6. Reports test results
 7. Exits with appropriate status code (0 = success, 1 = failure)
@@ -58,7 +58,7 @@ Interactive test where you manually run installation steps.
 apt-get update && apt-get install -y git curl sudo
 cp -r /dotfiles /root/dotfiles
 cd /root/dotfiles
-./devpod-install.sh
+./install.sh  # Runs dev environment mode by default
 ./setup/.test/verify-installation.sh  # Optional: verify installation
 exec fish                              # Test Fish shell
 ```

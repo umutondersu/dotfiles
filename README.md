@@ -18,9 +18,22 @@ The install script should handle everything else (check [Prerequisites](#prerequ
 
 ## Installation
 
-This repository offers two installation modes depending on your environment:
+This repository offers two installation modes via a unified install script:
 
-### 1. Desktop Installation (Full Setup)
+### Development Environment Installation (Default)
+
+For development environments, SSH sessions, remote environments, containers, and DevPods:
+
+```bash
+cd ~
+git clone https://github.com/umutondersu/dotfiles.git
+cd dotfiles
+./install.sh
+# or explicitly: ./install.sh --devenv
+# or use the convenience wrapper: ./devpod-install.sh
+```
+
+### Desktop Installation (Full Setup)
 
 For workstations and desktop environments with GUI applications:
 
@@ -28,19 +41,12 @@ For workstations and desktop environments with GUI applications:
 cd ~
 git clone https://github.com/umutondersu/dotfiles.git
 cd dotfiles
-./install.sh
+./install.sh --desktop
 ```
 
-### 2. DevPod/Remote Installation (Minimal Setup)
-
-For SSH sessions, remote environments, containers, and DevPods:
-
-```bash
-cd ~
-git clone https://github.com/umutondersu/dotfiles.git
-cd dotfiles
-./devpod-install.sh
-```
+**Installation Options:**
+- `--devenv` (default): Development environment with CLI tools
+- `--desktop`: Full desktop environment with GUI tools
 
 ## What Gets Installed
 
@@ -67,7 +73,7 @@ These might be old if i forgot to update readme after adding packages
 
 **Development:**
 
-- neovim, go, nodejs_22, python312, deno
+- neovim, opencode, go, nodejs_22, python312, deno
 
 **Utilities:**
 

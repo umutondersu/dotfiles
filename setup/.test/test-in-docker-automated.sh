@@ -14,7 +14,7 @@ echo "╚═══════════════════════�
 echo ""
 echo "This script will:"
 echo "  1. Start an Ubuntu 22.04 container"
-echo "  2. Run devpod-install.sh automatically"
+echo "  2. Run install.sh (dev environment mode)"
 echo "  3. Verify the installation"
 echo "  4. Report results"
 echo ""
@@ -44,9 +44,9 @@ cd /root/dotfiles
 
 echo ""
 echo "=========================================="
-echo "Step 3: Running devpod-install.sh"
+echo "Step 3: Running install.sh (dev environment)"
 echo "=========================================="
-./devpod-install.sh
+./install.sh
 
 echo ""
 echo "=========================================="
