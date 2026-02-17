@@ -64,11 +64,11 @@ setup_devbox_config() {
     mkdir -p "$devbox_global_dir"
     
     # Copy devbox template (don't symlink - scripts may modify it)
-    if [ -f "$SCRIPT_DIR/.devbox/devbox.json" ]; then
-        cp "$SCRIPT_DIR/.devbox/devbox.json" "$devbox_global_dir/devbox.json"
+    if [ -f "$SCRIPT_DIR/devbox.json" ]; then
+        cp "$SCRIPT_DIR/devbox.json" "$devbox_global_dir/devbox.json"
         echo "✅ Devbox configuration copied from template"
     else
-        echo "⚠️  Warning: devbox.json template not found at $SCRIPT_DIR/.devbox/devbox.json"
+        echo "⚠️  Warning: devbox.json template not found at $SCRIPT_DIR/devbox.json"
     fi
 }
 

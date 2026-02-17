@@ -99,13 +99,13 @@ These might be old if i forgot to update readme after adding packages
 - **vosk**: Speech recognition library (script in `setup/vosk-install.sh`)
 - **TPM**: Tmux Plugin Manager (git clone to `~/.tmux/plugins/tpm`)
 
-See `.devbox/devbox.json` for the core package template.
+See `devbox.json` for the core package template.
 
 ## Devbox Configuration Approach
 
 The devbox configuration uses a **template-based approach** rather than direct symlinking:
 
-- **Template Location**: `.devbox/devbox.json` (tracked in git)
+- **Template Location**: `devbox.json` (tracked in git)
 - **Working Location**: `~/.local/share/devbox/global/default/devbox.json`
   (copied during installation)
 
