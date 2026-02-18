@@ -111,6 +111,16 @@ install them
 - **dysk**: Disk usage analyzer
 - **sesh**: Smart Session Manager
 
+### Desktop-Only Flatpak Applications
+
+Desktop installation includes 30 Flatpak applications for productivity,
+development, and entertainment. During `./install.sh --desktop`, you'll be
+prompted to install applications listed in `flatpak-apps.txt`.
+
+Categories include browsers, development tools, media players, gaming
+emulators, and utilities. To customize, edit `flatpak-apps.txt` before
+running the installer.
+
 #### Manual Installations with scripts
 
 - **kitty**: Terminal emulator (script in `setup/kitty.sh`)

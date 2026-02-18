@@ -1,0 +1,48 @@
+# Flatpak Applications
+# This file contains a list of Flatpak applications to install
+# Lines starting with # are comments and will be ignored
+# Empty lines are also ignored
+
+# Browsers & Internet
+app.zen_browser.zen
+com.discordapp.Discord
+com.slack.Slack
+
+# Development Tools
+io.dbeaver.DBeaverCommunity
+com.usebottles.bottles
+com.github.Matoking.protontricks
+com.vysp3r.ProtonPlus
+
+# Remote Access & Virtualization
+com.anydesk.Anydesk
+com.freerdp.FreeRDP
+org.tigervnc.vncviewer
+
+# Security & Privacy
+com.bitwarden.desktop
+
+# Media & Entertainment
+com.obsproject.Studio
+com.stremio.Service
+com.stremio.Stremio
+dev.aunetx.deezer
+io.github.nate_xyz.Resonance
+org.audacityteam.Audacity
+org.gnome.Snapshot
+org.qbittorrent.qBittorrent
+org.strawberrymusicplayer.strawberry
+org.videolan.VLC
+
+# Gaming & Emulation
+app.twintaillauncher.ttl
+com.steamgriddb.steam-rom-manager
+moe.launcher.sleepy-launcher
+net.davidotek.pupgui2
+net.shadps4.shadPS4
+
+# Utilities
+com.github.dynobo.normcap
+com.github.johnfactotum.Foliate
+com.github.wwmm.easyeffects
+me.timschneeberger.GalaxyBudsClient

@@ -111,6 +111,12 @@ if [ "$INSTALL_MODE" = "desktop" ]; then
     bash "$SETUP_DIR/nerd-dictation.sh"
     bash "$SETUP_DIR/vosk-install.sh"
     echo ""
+    
+    echo "═══════════════════════════════════════"
+    echo "Step 9: Installing Flatpak applications"
+    echo "═══════════════════════════════════════"
+    bash "$SETUP_DIR/install-flatpaks.sh"
+    echo ""
 fi
 
 # Post-installation (common to both modes)
