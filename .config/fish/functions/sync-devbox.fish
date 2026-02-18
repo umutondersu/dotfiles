@@ -2,11 +2,11 @@
 # - Default: working → template (excludes desktop packages)
 # - --from-template: template → working (includes desktop packages via add-desktop)
 function sync-devbox -d "Sync devbox configs bidirectionally"
-    argparse 'from-template' 'f/force' -- $argv
+    argparse from-template f/force -- $argv
     or return
 
     set -l working_config ~/.local/share/devbox/global/default/devbox.json
-    set -l template_config ~/dotfiles/.devbox/devbox.json
+    set -l template_config ~/dotfiles/devbox.json
     set -l desktop_script ~/dotfiles/setup/install-desktop-packages.sh
 
     # Sync FROM template TO working (re-copy from template + add desktop)
@@ -28,7 +28,7 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
                 echo "  $working_config"
                 echo ""
                 read -P "Continue? [y/N] " -l confirm
-                if not string match -qi "y" $confirm
+                if not string match -qi y $confirm
                     echo "Aborted."
                     return 1
                 end
