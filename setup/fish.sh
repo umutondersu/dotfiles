@@ -73,9 +73,48 @@ case $DISTRO in
             exit 1
         fi
         ;;
+    fedora|rhel|centos|rocky|almalinux)
+        # Fedora/RHEL-based distributions
+        echo "  Detected $DISTRO, installing fish..."
+        if command -v dnf &> /dev/null; then
+            sudo dnf install -y fish
+        elif command -v yum &> /dev/null; then
+            sudo yum install -y fish
+        else
+            echo "❌ Neither dnf nor yum found"
+            exit 1
+        fi
+        ;;
+    arch|manjaro|endeavouros)
+        # Arch-based distributions
+        echo "  Detected $DISTRO, installing fish..."
+        sudo pacman -Sy --noconfirm fish
+        ;;
+    opensuse*|sles)
+        # openSUSE and SUSE Linux Enterprise
+        echo "  Detected $DISTRO, installing fish..."
+        sudo zypper install -y fish
+        ;;
+    alpine)
+        # Alpine Linux
+        echo "  Detected Alpine Linux, installing fish..."
+        sudo apk add --no-cache fish
+        ;;
     *)
         echo "❌ Unsupported distribution: $DISTRO"
-        echo "Please install Fish manually from: https://fishshell.com/"
+        echo ""
+        echo "Please install Fish manually for your distribution:"
+        echo "  - Visit: https://fishshell.com/"
+        echo "  - Or check your distribution's package manager:"
+        echo "    - Fedora/RHEL: sudo dnf install fish"
+        echo "    - Arch: sudo pacman -S fish"
+        echo "    - openSUSE: sudo zypper install fish"
+        echo "    - Alpine: sudo apk add fish"
+        echo "    - Gentoo: sudo emerge app-shells/fish"
+        echo "    - Void: sudo xbps-install fish-shell"
+        echo ""
+        echo "⚠️  Note: This dotfiles configuration is designed for Fish 4.4.x"
+        echo "   Make sure to install a compatible version for the best experience."
         exit 1
         ;;
 esac

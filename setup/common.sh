@@ -1,6 +1,35 @@
 #!/bin/bash
 # Common functions shared between installation scripts
 
+# Detect the package manager of the current distribution
+detect_package_manager() {
+    if command -v apt-get &> /dev/null; then
+        echo "apt"
+    elif command -v dnf &> /dev/null; then
+        echo "dnf"
+    elif command -v yum &> /dev/null; then
+        echo "yum"
+    elif command -v pacman &> /dev/null; then
+        echo "pacman"
+    elif command -v zypper &> /dev/null; then
+        echo "zypper"
+    elif command -v apk &> /dev/null; then
+        echo "apk"
+    else
+        echo "unknown"
+    fi
+}
+
+# Get distribution info
+get_distro_info() {
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        echo "$ID"
+    else
+        echo "unknown"
+    fi
+}
+
 # Check and install Fish shell if needed
 ensure_fish_installed() {
     if ! command -v fish &> /dev/null; then
@@ -36,15 +65,55 @@ ensure_devbox_installed() {
 # Check and install stow if needed
 ensure_stow_installed() {
     if ! command -v stow &> /dev/null; then
-        if ! command -v apt-get &> /dev/null; then
-            echo "❌ Error: apt-get not found. This script requires a Debian-based system (Ubuntu, Debian, etc.)"
-            echo "Please install stow manually for your distribution"
+        echo "📦 Stow not found, installing..."
+        local pkg_manager=$(detect_package_manager)
+        
+        case $pkg_manager in
+            apt)
+                echo "Installing stow via apt..."
+                sudo apt-get update -qq
+                sudo apt-get install -y stow
+                ;;
+            dnf)
+                echo "Installing stow via dnf..."
+                sudo dnf install -y stow
+                ;;
+            yum)
+                echo "Installing stow via yum..."
+                sudo yum install -y stow
+                ;;
+            pacman)
+                echo "Installing stow via pacman..."
+                sudo pacman -Sy --noconfirm stow
+                ;;
+            zypper)
+                echo "Installing stow via zypper..."
+                sudo zypper install -y stow
+                ;;
+            apk)
+                echo "Installing stow via apk..."
+                sudo apk add --no-cache stow
+                ;;
+            *)
+                echo "❌ Error: Could not detect package manager"
+                echo "Please install stow manually for your distribution:"
+                echo "  - Debian/Ubuntu: sudo apt-get install stow"
+                echo "  - Fedora/RHEL: sudo dnf install stow"
+                echo "  - Arch: sudo pacman -S stow"
+                echo "  - openSUSE: sudo zypper install stow"
+                echo "  - Alpine: sudo apk add stow"
+                echo "  - Or build from source: https://www.gnu.org/software/stow/"
+                exit 1
+                ;;
+        esac
+        
+        # Verify installation
+        if command -v stow &> /dev/null; then
+            echo "✅ Stow installed successfully"
+        else
+            echo "❌ Error: Stow installation failed"
             exit 1
         fi
-        echo "Installing stow via apt..."
-        sudo apt-get update -qq
-        sudo apt-get install -y stow
-        echo "✅ Stow installed"
     else
         echo "✅ Stow already installed"
     fi

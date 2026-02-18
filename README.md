@@ -3,10 +3,23 @@
 This repository contains my Linux configuration files managed with
 [GNU Stow](https://www.gnu.org/software/stow/) for dotfile symlinking.
 
-- **Distro-agnostic**: Works on any Linux distribution with [Devbox](https://www.jetify.com/devbox)
+- **Distro-agnostic**: Works on all major Linux distribution with [Devbox](https://www.jetify.com/devbox)
 - **Reproducible**: Same package versions across all machines via `devbox.json`
 - **Isolated**: Doesn't interfere with system package manager
 - **Simple**: One command to install everything
+
+## Supported Distributions
+
+The installation script automatically detects and supports:
+
+- **Debian/Ubuntu-based**: Ubuntu, Pop!\_OS, Debian, Linux Mint, elementary OS
+- **RHEL-based**: Fedora, RHEL, CentOS, Rocky Linux, AlmaLinux
+- **Arch-based**: Arch Linux, Manjaro, EndeavourOS
+- **SUSE-based**: openSUSE, SLES
+- **Alpine Linux**
+- Other distributions work with manual prerequisites
+
+**For now It is only reliably tested on Pop!\_OS**
 
 ## Requirements
 
@@ -22,7 +35,8 @@ This repository offers two installation modes via a unified install script:
 
 ### Development Environment Installation (Default)
 
-For development environments, SSH sessions, remote environments, containers, and DevPods:
+For development environments, SSH sessions, remote environments, containers,
+and DevPods:
 
 ```bash
 cd ~
@@ -45,6 +59,7 @@ cd dotfiles
 ```
 
 **Installation Options:**
+
 - `--devenv` (default): Development environment with CLI tools
 - `--desktop`: Full desktop environment with GUI tools
 
@@ -52,20 +67,24 @@ cd dotfiles
 
 ### Prerequisites
 
-**These are only installed with the script if you have apt. Otherwise, get
-them before installation**
+The installation script automatically installs these prerequisites on
+supported distributions:
 
-- **fish 4.4.0**
+- **Fish shell 4.4.x** (or latest available)
   - Ubuntu/Pop!\_OS: PPA `ppa:fish-shell/release-4`
   - Debian: OpenSUSE Build Service repository
+  - Fedora/RHEL/Arch/openSUSE/Alpine: Via native package manager
 
-- **stow**
+- **GNU Stow**
+
+**For unsupported distributions:**
+
+If your distribution is not automatically detected, you'll need to manually
+install them
 
 ### Devbox Packages
 
-#### Package Inventory Note
-
-These might be old if i forgot to update readme after adding packages
+#### These might be old if i forgot to update readme after adding packages
 
 **Shell & CLI Tools:**
 
@@ -135,9 +154,18 @@ devbox global update
 devbox search <query>
 ```
 
-**Permanent changes must be synced with `sync-devbox`. This fish functions sync
-the packages from the working location to the repository. Excluding the desktop
-only packages**
+**Permanent changes must be synced with `sync-devbox`.**
+
+- 📦 **sync-devbox**: Fish function to sync devbox configurations bidirectionally.
+  Default usage (`sync-devbox`) syncs working config → template, excluding desktop
+  packages. Use `sync-devbox --from-template` to restore working config from
+  template and add desktop packages (requires confirmation unless `-f` or `--force`
+  is used)
+
+- 🖥️ **add-desktop**: Fish function to install desktop-specific devbox packages
+  defined in `setup/install-desktop-packages.sh`. Automatically called by
+  `sync-devbox --from-template` and in `./install.sh`. It can also be run
+  manually to add desktop packages to current devbox config
 
 ## Testing
 

@@ -14,7 +14,13 @@
 # sudo ./rgbram.sh 00 00 00 # lights out
 
 if ! i2cdetect -l | grep -q I801; then
-  echo "Intel I801 not detected! use sudo apt install i2c-tools"
+  echo "Intel I801 not detected!"
+  echo "Please install i2c-tools for your distribution:"
+  echo "  - Debian/Ubuntu: sudo apt install i2c-tools"
+  echo "  - Fedora/RHEL: sudo dnf install i2c-tools"
+  echo "  - Arch: sudo pacman -S i2c-tools"
+  echo "  - openSUSE: sudo zypper install i2c-tools"
+  echo "  - Alpine: sudo apk add i2c-tools"
   exit 2
 fi
 

@@ -22,6 +22,10 @@ if type -q nvim
     abbr --add vm 'NVIM_APPNAME="nvim-min" nvim'
 end
 
+if type -q opencode
+    abbr --add o opencode
+end
+
 if type -q spf
     abbr --add s spf
 end
