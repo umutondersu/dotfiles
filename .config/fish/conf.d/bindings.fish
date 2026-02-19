@@ -3,6 +3,5 @@ function bind-both
     bind -M insert $argv
 end
 
-bind-both \cg livegrep
+bind-both \cg fz
 bind -M insert \ca forward-char
-bind-both \e\cf spf
