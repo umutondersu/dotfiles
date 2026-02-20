@@ -1,0 +1,2 @@
+# Disable Intel AX201 Bluetooth (use TP-Link instead)
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="8087", ATTRS{idProduct}=="0026", ATTR{authorized}="0

@@ -126,6 +126,50 @@ stow_dotfiles() {
     echo "✅ Dotfiles symlinked"
 }
 
+# Stow system configuration files (requires sudo)
+stow_system_config() {
+    echo "🔒 Stowing system configuration files..."
+    cd "$SCRIPT_DIR" || exit
+    
+    # Check if etc directory exists
+    if [ ! -d "etc" ]; then
+        echo "⚠️  No etc directory found, skipping system config stow"
+        return
+    fi
+    
+    # Check for conflicts: directories in dotfiles/etc/ that already exist in /etc/
+    local conflicts_found=false
+    for dir in etc/*/; do
+        if [ -d "$dir" ]; then
+            local dirname=$(basename "$dir")
+            if [ -e "/etc/$dirname" ] && [ ! -L "/etc/$dirname" ]; then
+                if [ ! "$conflicts_found" = true ]; then
+                    echo ""
+                    echo "⚠️  WARNING: The following directories already exist in /etc:"
+                    conflicts_found=true
+                fi
+                echo "  - /etc/$dirname"
+            fi
+        fi
+    done
+    
+    if [ "$conflicts_found" = true ]; then
+        echo ""
+        echo "These existing directories will prevent stow from creating symlinks."
+        echo "Skipping system configuration stow to avoid conflicts."
+        echo ""
+        echo "To manually stow system configuration later:"
+        echo "  1. Backup/remove conflicting directories (e.g., sudo mv /etc/udev /etc/udev.backup)"
+        echo "  2. Run: sudo stow --target=/etc --dir=$SCRIPT_DIR etc"
+        echo ""
+        return
+    fi
+    
+    # No conflicts, proceed with stow
+    sudo stow --target=/etc etc
+    echo "✅ System configuration stowed to /etc"
+}
+
 # Setup devbox configuration from template
 # Copies the devbox.json template to the working directory
 setup_devbox_config() {

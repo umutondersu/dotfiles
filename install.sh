@@ -88,7 +88,13 @@ echo ""
 # Desktop-specific installation steps
 if [ "$INSTALL_MODE" = "desktop" ]; then
     echo "═══════════════════════════════════════"
-    echo "Step 6: Installing desktop packages"
+    echo "Step 6: Stowing system configuration"
+    echo "═══════════════════════════════════════"
+    stow_system_config
+    echo ""
+    
+    echo "═══════════════════════════════════════"
+    echo "Step 7: Installing desktop packages"
     echo "═══════════════════════════════════════"
     echo "📦 Adding desktop-specific packages"
     bash "$SETUP_DIR/install-desktop-packages.sh"
@@ -100,20 +106,20 @@ if [ "$INSTALL_MODE" = "desktop" ]; then
     echo ""
     
     echo "═══════════════════════════════════════"
-    echo "Step 7: Setting up Kitty terminal"
+    echo "Step 9: Setting up Kitty terminal"
     echo "═══════════════════════════════════════"
     bash "$SETUP_DIR/kitty.sh"
     echo ""
     
     echo "═══════════════════════════════════════"
-    echo "Step 8: Setting up nerd-dictation"
+    echo "Step 10: Setting up nerd-dictation"
     echo "═══════════════════════════════════════"
     bash "$SETUP_DIR/nerd-dictation.sh"
     bash "$SETUP_DIR/vosk-install.sh"
     echo ""
     
     echo "═══════════════════════════════════════"
-    echo "Step 9: Installing Flatpak applications"
+    echo "Step 11: Installing Flatpak applications"
     echo "═══════════════════════════════════════"
     bash "$SETUP_DIR/install-flatpaks.sh"
     echo ""

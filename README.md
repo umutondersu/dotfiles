@@ -103,7 +103,7 @@ install them
 - lazydocker (docker client)
 - jq (JSON Processor)
 
-### Desktop-Only Packages (only in `./install.sh`)
+### Desktop-Only Packages (with `--desktop`)
 
 - **tmux**: Terminal multiplexer
 - **streamrip**: Media downloader
@@ -183,6 +183,38 @@ devbox search <query>
 Automated Docker tests are available to verify the installation in a clean environment:
 
 See [`setup/.test/TESTING.md`](setup/.test/TESTING.md) for detailed documentation.
+
+## System Configuration
+
+`etc/` and are automatically stowed to `/etc/` during desktop installation
+
+The installation script checks for existing directories in `/etc/` and skips
+stowing if conflicts are found.
+
+You'll need to manually backup/remove conflicting directories first.
+
+### Manual stowing (if skipped during installation)
+
+```bash
+# Stow system configuration
+cd ~/dotfiles
+sudo stow --target=/etc etc
+```
+
+### Udev Rules
+
+Udev device rules are located in `etc/udev/rules.d/`.
+
+**After making changes:**
+
+```bash
+# Edit files in ~/dotfiles/etc/udev/rules.d/
+# Changes are automatically reflected in /etc/udev/ via symlinks
+
+# Reload udev rules
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
 
 ## Notes
 

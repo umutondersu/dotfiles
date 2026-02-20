@@ -17,3 +17,6 @@ desktop-packages.txt
 
 # Flatpaks
 ^\.var/app/
+
+# System configuration (stowed separately with sudo)
+^/etc
