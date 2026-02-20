@@ -1,0 +1,3 @@
+# w3m configuration file
+cgi_bin ~/.w3m/cgi-bin:/usr/lib/w3m/cgi-bin:/usr/local/lib/w3m/cgi-bin
+use_local_cgi 1

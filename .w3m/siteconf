@@ -1,0 +1,3 @@
+# GitHub - Cloudflare bypass
+url m!^https?://github.com/!
+substitute_url "file:///cgi-bin/anti-cf.cgi?"
