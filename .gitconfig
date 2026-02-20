@@ -10,6 +10,7 @@
 	editcommit= commit --amend
 	blist= branch -a
 	yolo = "!git commit -m \"$(curl -s https://whatthecommit.com/index.txt)\""
+	pst = "!f() { \\\n  echo \"Tracked changes:\"; \\\n  git diff --stat; \\\n  echo -e \"\\nUntracked files:\"; \\\n  files=$(git ls-files --others --exclude-standard); \\\n  [ -z \"$files\" ] && echo \"No untracked files\" && return; \\\n  topdirs=$(echo \"$files\" | awk -F/ \"{print \\$1}\" | sort -u); \\\n  for item in $topdirs; do \\\n    if command -v lsd >/dev/null 2>&1; then \\\n      lsd --tree --depth=3 \"$item\"; \\\n    else \\\n      ls -R \"$item\"; \\\n    fi; \\\n  done; \\\n}; f"
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [credential]
