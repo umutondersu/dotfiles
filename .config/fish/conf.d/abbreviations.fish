@@ -58,7 +58,7 @@ abbr --add lS ls -lgSA
 
 abbr c --add cd
 abbr g --add git
-abbr gl --add git pst
+abbr gs --add git s
 
 abbr --add claer clear
 abbr --add clr clear
