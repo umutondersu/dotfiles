@@ -9,6 +9,7 @@ function fz
         echo "  file         - Browse and select files"
         echo "  man          - Search man pages"
         echo "  tldr         - Browse tldr pages"
+        echo "  cht          - Browse cht.sh cheat sheets"
         echo "  make         - List and run Makefile targets"
         echo "  journal      - Browse systemd journal logs"
         echo "  ps           - Browse running processes"
@@ -69,6 +70,31 @@ function fz
         tldr --list | fzf $common_opts \
             --preview 'tldr {} --color' \
             --bind 'enter:become(tldr {})'
+    else if test "$search_type" = cht
+        set -l topic (curl -s cht.sh/:list | fzf $common_opts \
+            --preview "curl -s 'cht.sh/{}?style=rrt'")
+        stty sane
+
+        if test -n "$topic"
+            # Try to get the list of sheets for this topic
+            set -l sheets (curl -s "cht.sh/$topic/:list")
+
+            # If there are sheets available, let user choose one
+            if test -n "$sheets"
+                set -l sheet (printf "%s\n" $sheets | fzf $common_opts \
+                    --preview "curl -s 'cht.sh/$topic/{}?style=rrt'")
+                stty sane
+
+                if test -n "$sheet"
+                    curl -s "cht.sh/$topic/$sheet?style=rrt"
+                else
+                    curl -s "cht.sh/$topic?style=rrt"
+                end
+            else
+                # No sheets, just show the topic directly
+                curl -s "cht.sh/$topic?style=rrt"
+            end
+        end
     else if test "$search_type" = make
         make -pRrq 2>/dev/null | awk -F: '/^[a-zA-Z0-9][^$#\/\\t=]*:([^=]|$)/ {split($1,a," "); print a[1]}' | sort -u | grep -v '^Makefile$' | fzf $common_opts \
             --preview "awk '/^{}[[:space:]]*:/{found=1} found{print; if(/^[^\\t]/ && NR>1 && !/^{}[[:space:]]*:/) exit}' Makefile | bat --style=plain --language=make --color=always" \
@@ -90,6 +116,7 @@ function fz
         echo "  file    - Browse and select files"
         echo "  man     - Search man pages"
         echo "  tldr    - Browse tldr pages"
+        echo "  cht     - Browse cht.sh cheat sheets"
         echo "  make    - List and run Makefile targets"
         echo "  journal - Browse systemd journal logs"
         echo "  ps      - Browse running processes"
