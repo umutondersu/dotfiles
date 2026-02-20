@@ -13,6 +13,7 @@ devpod-install.sh
 /gnome
 devbox.json
 flatpak-apps.txt
+desktop-packages.txt
 
 # Flatpaks
 ^\.var/app/

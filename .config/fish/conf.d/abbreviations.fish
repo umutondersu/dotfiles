@@ -24,6 +24,7 @@ end
 
 if type -q opencode
     abbr --add o opencode
+    abbr --add --set-cursor ? "opencode run --model opencode/glm-5-free '%' | glow -"
 end
 
 if type -q spf

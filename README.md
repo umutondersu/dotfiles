@@ -170,12 +170,13 @@ devbox search <query>
   Default usage (`sync-devbox`) syncs working config → template, excluding desktop
   packages. Use `sync-devbox --from-template` to restore working config from
   template and add desktop packages (requires confirmation unless `-f` or `--force`
-  is used)
+  is used). Also supports `--dry-run` or `-n`
 
 - 🖥️ **add-desktop**: Fish function to install desktop-specific devbox packages
-  defined in `setup/install-desktop-packages.sh`. Automatically called by
+  defined in `desktop-packages.txt`. Automatically called by
   `sync-devbox --from-template` and in `./install.sh`. It can also be run
-  manually to add desktop packages to current devbox config
+  manually to add desktop packages to current devbox config. Also supports `--dry-run`
+  or `-n`
 
 ## Testing
 

@@ -2,12 +2,13 @@
 # - Default: working → template (excludes desktop packages)
 # - --from-template: template → working (includes desktop packages via add-desktop)
 function sync-devbox -d "Sync devbox configs bidirectionally"
-    argparse from-template f/force -- $argv
+    argparse from-template f/force n/dry-run -- $argv
     or return
 
     set -l working_config ~/.local/share/devbox/global/default/devbox.json
     set -l template_config ~/dotfiles/devbox.json
     set -l desktop_script ~/dotfiles/setup/install-desktop-packages.sh
+    set -l desktop_packages_file ~/dotfiles/desktop-packages.txt
 
     # Sync FROM template TO working (re-copy from template + add desktop)
     if set -q _flag_from_template
@@ -21,16 +22,26 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
             return 1
         end
 
+        if not test -f $desktop_packages_file
+            echo "Error: Desktop packages file not found at $desktop_packages_file"
+            return 1
+        end
+
         # Confirmation prompt (unless --force is used)
         if not set -q _flag_force
             if test -f $working_config
-                echo "Warning: This will overwrite your working config at:"
-                echo "  $working_config"
-                echo ""
-                read -P "Continue? [y/N] " -l confirm
-                if not string match -qi y $confirm
-                    echo "Aborted."
-                    return 1
+                if set -q _flag_dry_run
+                    echo "[DRY RUN] Would overwrite working config at:"
+                    echo "  $working_config"
+                else
+                    echo "Warning: This will overwrite your working config at:"
+                    echo "  $working_config"
+                    echo ""
+                    read -P "Continue? [y/N] " -l confirm
+                    if not string match -qi y $confirm
+                        echo "Aborted."
+                        return 1
+                    end
                 end
             end
         end
@@ -47,54 +58,70 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         end
 
         # Copy template to working
-        if not cp $template_config $working_config
-            echo "Error: Failed to copy template to working config"
-            if test -n "$backup_config"
-                rm $backup_config
+        if set -q _flag_dry_run
+            echo "[DRY RUN] Would copy template to working config:"
+            echo "  From: $template_config"
+            echo "  To:   $working_config"
+            echo ""
+        else
+            if not cp $template_config $working_config
+                echo "Error: Failed to copy template to working config"
+                if test -n "$backup_config"
+                    rm $backup_config
+                end
+                return 1
             end
-            return 1
-        end
 
-        echo "✓ Copied template to working config"
-        echo "  From: $template_config"
-        echo "  To:   $working_config"
-        echo ""
+            echo "✓ Copied template to working config"
+            echo "  From: $template_config"
+            echo "  To:   $working_config"
+            echo ""
+        end
 
         # Add desktop packages
         echo "Adding desktop packages..."
-        if not add-desktop
-            echo "Error: Failed to add desktop packages"
-            # Rollback to backup
-            if test -n "$backup_config"
-                echo "Rolling back to previous config..."
-                cp $backup_config $working_config
-                rm $backup_config
-                echo "✓ Restored previous config"
+        if set -q _flag_dry_run
+            if not add-desktop --dry-run
+                echo "Error: Dry run of add-desktop failed"
+                return 1
             end
-            return 1
+        else
+            if not add-desktop
+                echo "Error: Failed to add desktop packages"
+                # Rollback to backup
+                if test -n "$backup_config"
+                    echo "Rolling back to previous config..."
+                    cp $backup_config $working_config
+                    rm $backup_config
+                    echo "✓ Restored previous config"
+                end
+                return 1
+            end
         end
 
         # Validate desktop packages were added
-        echo ""
-        echo "Validating desktop packages..."
-        set -l desktop_packages (grep -oP '^\s+"\K[^"]+(?="@)' $desktop_script)
-        set -l missing_packages
-
-        for pkg in $desktop_packages
-            if not command -v $pkg &>/dev/null
-                set -a missing_packages $pkg
-            end
-        end
-
-        if test (count $missing_packages) -gt 0
-            echo "Warning: Some desktop packages were not found in PATH:"
-            for pkg in $missing_packages
-                echo "  - $pkg"
-            end
+        if not set -q _flag_dry_run
             echo ""
-            echo "Note: They may have been installed but require a shell restart."
-        else
-            echo "✓ All desktop packages validated successfully"
+            echo "Validating desktop packages..."
+            set -l desktop_packages (grep -v '^[[:space:]]*#' $desktop_packages_file | grep -v '^[[:space:]]*$' | awk -F'@' '{print $1}')
+            set -l missing_packages
+
+            for pkg in $desktop_packages
+                if not command -v $pkg &>/dev/null
+                    set -a missing_packages $pkg
+                end
+            end
+
+            if test (count $missing_packages) -gt 0
+                echo "Warning: Some desktop packages were not found in PATH:"
+                for pkg in $missing_packages
+                    echo "  - $pkg"
+                end
+                echo ""
+                echo "Note: They may have been installed but require a shell restart."
+            else
+                echo "✓ All desktop packages validated successfully"
+            end
         end
 
         # Clean up backup
@@ -116,11 +143,16 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         return 1
     end
 
-    # Extract desktop packages from install script
-    set -l desktop_packages (grep -oP '^\s+"\K[^"]+(?="\s*$)' $desktop_script)
+    if not test -f $desktop_packages_file
+        echo "Error: Desktop packages file not found at $desktop_packages_file"
+        return 1
+    end
+
+    # Extract desktop packages from packages file
+    set -l desktop_packages (grep -v '^[[:space:]]*#' $desktop_packages_file | grep -v '^[[:space:]]*$' | xargs)
 
     if test (count $desktop_packages) -eq 0
-        echo "Warning: No desktop packages found in $desktop_script"
+        echo "Warning: No desktop packages found in $desktop_packages_file"
         return 1
     end
 
@@ -137,13 +169,25 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
     end
 
     # Update only the packages array in template, keeping everything else
-    set -l final_temp (mktemp)
-    jq --slurpfile pkgs $temp_file '.packages = $pkgs[0]' $template_config >$final_temp
-    mv $final_temp $template_config
-    rm $temp_file
+    if set -q _flag_dry_run
+        echo "[DRY RUN] Would update template config at:"
+        echo "  $template_config"
+        echo ""
+        echo "[DRY RUN] Packages that would be synced:"
+        jq -r '.[]' $temp_file
+        echo ""
+        echo "[DRY RUN] Desktop packages that would be excluded:"
+        echo "  $desktop_packages"
+        rm $temp_file
+    else
+        set -l final_temp (mktemp)
+        jq --slurpfile pkgs $temp_file '.packages = $pkgs[0]' $template_config >$final_temp
+        mv $final_temp $template_config
+        rm $temp_file
 
-    echo "✓ Synced devbox config to template (excluded desktop packages)"
-    echo "  Template: $template_config"
-    echo ""
-    echo "Desktop packages excluded: $desktop_packages"
+        echo "✓ Synced devbox config to template (excluded desktop packages)"
+        echo "  Template: $template_config"
+        echo ""
+        echo "Desktop packages excluded: $desktop_packages"
+    end
 end

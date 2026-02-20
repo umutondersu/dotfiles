@@ -1,0 +1,9 @@
+# Desktop-specific devbox packages
+# One package per line, with optional version using @ syntax
+# Example: tmux@3.2a
+tmux@3.2a
+streamrip
+yt-dlp
+dysk
+sesh@2.20.0
+git-credential-manager

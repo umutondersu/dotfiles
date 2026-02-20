@@ -22,7 +22,8 @@
     "tldr@latest",
     "direnv@2.36.0",
     "jq@1.6",
-    "gh@latest"
+    "gh@latest",
+    "glow@latest"
   ],
   "shell": {
     "init_hook": [],
