@@ -1,18 +1,19 @@
 function fz
     set -l search_type $argv[1]
-    set -l target_file $argv[2]
+    set -l initial_query ""
+    set -l target_file ""
 
     # Show list of available types
     if test "$search_type" = --list; or test "$search_type" = -l; or test "$search_type" = --help; or test "$search_type" = -h
         echo "Available search types:"
-        echo "  grep [file]  - Search file contents with ripgrep (default)"
-        echo "  file         - Browse and select files"
-        echo "  man          - Search man pages"
-        echo "  tldr         - Browse tldr pages"
-        echo "  cht          - Browse cht.sh cheat sheets"
-        echo "  make         - List and run Makefile targets"
-        echo "  journal      - Browse systemd journal logs"
-        echo "  ps           - Browse running processes"
+        echo "  grep [file] [query]  - Search file contents with ripgrep (default)"
+        echo "  file [query]         - Browse and select files"
+        echo "  man [query]          - Search man pages"
+        echo "  tldr [query]         - Browse tldr pages"
+        echo "  cht [query]          - Browse cht.sh cheat sheets"
+        echo "  make [query]         - List and run Makefile targets"
+        echo "  journal [query]      - Browse systemd journal logs"
+        echo "  ps [query]           - Browse running processes"
         return 0
     end
 
@@ -20,9 +21,18 @@ function fz
     if test -f "$search_type"
         set target_file "$search_type"
         set search_type grep
+        set initial_query "$argv[2]"
         # Default to grep if no argument provided
     else if test -z "$search_type"
         set search_type grep
+    else
+        # Check if second arg is a file (for grep mode) or initial query
+        if test "$search_type" = grep -a -n "$argv[2]" -a -f "$argv[2]"
+            set target_file "$argv[2]"
+            set initial_query "$argv[3]"
+        else
+            set initial_query "$argv[2]"
+        end
     end
 
     set -l cols (tput cols)
@@ -40,6 +50,11 @@ function fz
         --layout=reverse \
         --preview-window $preview_pos \
         --bind 'ctrl-/:change-preview-window(down:50%|right:50%)'
+
+    # Add initial query if provided
+    if test -n "$initial_query"
+        set common_opts $common_opts --query "$initial_query"
+    end
 
     if test "$search_type" = man
         apropos . | fzf $common_opts \
