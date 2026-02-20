@@ -10,7 +10,7 @@
 	editcommit= commit --amend
 	blist= branch -a
 	yolo = "!git commit -m \"$(curl -s https://whatthecommit.com/index.txt)\""
-	pst = "!f() { \\\n  repo_root=$(git rev-parse --show-toplevel); \\\n  cd \"$repo_root\" || return; \\\n  echo \"Tracked changes:\"; \\\n  git diff --stat; \\\n  files=$(git ls-files --others --exclude-standard); \\\n  if [ -n \"$files\" ]; then \\\n    echo -e \"\\nUntracked files:\"; \\\n    echo \"$files\"; \\\n  fi; \\\n}; f"
+	pst = "!f() { \\\n  repo_root=$(git rev-parse --show-toplevel); \\\n  cd \"$repo_root\" || return; \\\n  changes=$(git diff --stat); \\\n  files=$(git ls-files --others --exclude-standard); \\\n  if [ -z \"$changes\" ] && [ -z \"$files\" ]; then \\\n    echo \"Branch is up to date\"; \\\n    return; \\\n  fi; \\\n  if [ -n \"$changes\" ]; then \\\n    echo \"Tracked changes:\"; \\\n    echo \"$changes\"; \\\n  fi; \\\n  if [ -n \"$files\" ]; then \\\n    printf \"\\nUntracked files:\\n\"; \\\n    echo \"$files\"; \\\n  fi; \\\n}; f"
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [credential]
