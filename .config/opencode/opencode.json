@@ -9,6 +9,11 @@
 		"messages_first": "ctrl+alt+g,home",
 		"messages_last": "ctrl+g,end"
 	},
+	"permission": {
+		"bash": {
+			"git commit -m *": "ask"
+		}
+	},
 	"mcp": {
 		"context7": {
 			"type": "local",
