@@ -44,6 +44,14 @@ if type -q lsd
     abbr --add lt 'ls -I node_modules -I dist -I build -I target -I out -I tmp -I __pycache__ --tree --depth 2'
 end
 
+if type -q yt-dlp
+    function _abbr_yt
+        set -l clip (xclip -selection clipboard -o 2>/dev/null)
+        echo "yt-dlp -x --audio-format opus --audio-quality 0 \"$clip\""
+    end
+    abbr --add yt --function _abbr_yt
+end
+
 if type -q xclip
     abbr --add Y --position anywhere "| xclip -selection clipboard"
     abbr --add P "xclip -selection clipboard -o >"
