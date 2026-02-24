@@ -148,8 +148,8 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         return 1
     end
 
-    # Extract desktop packages from packages file
-    set -l desktop_packages (grep -v '^[[:space:]]*#' $desktop_packages_file | grep -v '^[[:space:]]*$' | xargs)
+    # Extract desktop packages from packages file (one entry per list element)
+    set -l desktop_packages (grep -v '^[[:space:]]*#' $desktop_packages_file | grep -v '^[[:space:]]*$')
 
     if test (count $desktop_packages) -eq 0
         echo "Warning: No desktop packages found in $desktop_packages_file"
@@ -157,16 +157,42 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
     end
 
     # Extract packages from working config, excluding desktop packages
-    set -l temp_file (mktemp)
-    jq '.packages' $working_config >$temp_file
-
-    # Remove desktop packages from extracted list
+    set -l temp_filtered (mktemp)
+    jq '.packages' $working_config >$temp_filtered
     for pkg in $desktop_packages
         set -l pkg_name (string split '@' $pkg)[1]
-        set -l temp_file2 (mktemp)
-        jq --arg name "$pkg_name" 'map(select(startswith($name + "@") | not))' $temp_file >$temp_file2
-        mv $temp_file2 $temp_file
+        set -l temp2 (mktemp)
+        jq --arg name "$pkg_name" 'map(select(startswith($name + "@") | not))' $temp_filtered >$temp2
+        mv $temp2 $temp_filtered
     end
+
+    # Compare sorted sets — if identical, nothing to do
+    set -l temp_template_pkgs (mktemp)
+    set -l temp_filtered_sorted (mktemp)
+    jq '.packages | sort' $template_config >$temp_template_pkgs
+    jq 'sort' $temp_filtered >$temp_filtered_sorted
+
+    if diff -q $temp_template_pkgs $temp_filtered_sorted >/dev/null 2>&1
+        echo "✓ Template already up to date, no changes needed"
+        rm $temp_filtered $temp_template_pkgs $temp_filtered_sorted
+        return 0
+    end
+
+    rm $temp_template_pkgs $temp_filtered_sorted
+
+    # Sets differ: build the new package list preserving template order.
+    # Keep template packages that still exist in filtered working set,
+    # then append any new packages (present in filtered working but not in template).
+    set -l temp_t (mktemp)
+    set -l temp_result (mktemp)
+    jq '.packages' $template_config >$temp_t
+    jq -s '
+        .[0] as $template_pkgs |
+        .[1] as $working_pkgs |
+        ($template_pkgs | map(select(. as $p | $working_pkgs | index($p) != null))) +
+        ($working_pkgs | map(select(. as $p | $template_pkgs | index($p) == null)))
+    ' $temp_t $temp_filtered >$temp_result
+    rm $temp_t
 
     # Update only the packages array in template, keeping everything else
     if set -q _flag_dry_run
@@ -174,20 +200,25 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         echo "  $template_config"
         echo ""
         echo "[DRY RUN] Packages that would be synced:"
-        jq -r '.[]' $temp_file
+        jq -r '.[]' $temp_result
         echo ""
         echo "[DRY RUN] Desktop packages that would be excluded:"
-        echo "  $desktop_packages"
-        rm $temp_file
+        for pkg in $desktop_packages
+            echo "  $pkg"
+        end
+        rm $temp_filtered $temp_result
     else
         set -l final_temp (mktemp)
-        jq --slurpfile pkgs $temp_file '.packages = $pkgs[0]' $template_config >$final_temp
+        jq --slurpfile pkgs $temp_result '.packages = $pkgs[0]' $template_config >$final_temp
         mv $final_temp $template_config
-        rm $temp_file
+        rm $temp_filtered $temp_result
 
         echo "✓ Synced devbox config to template (excluded desktop packages)"
         echo "  Template: $template_config"
         echo ""
-        echo "Desktop packages excluded: $desktop_packages"
+        echo "Desktop packages excluded:"
+        for pkg in $desktop_packages
+            echo "  $pkg"
+        end
     end
 end
