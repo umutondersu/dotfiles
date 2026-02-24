@@ -8,7 +8,7 @@
 	uncommit= reset HEAD~1
 	recommit= commit --amend --no-edit
 	editcommit= commit --amend
-	blist= branch -a
+	bls= branch -a
 	yolo = "!git commit -m \"$(curl -s https://whatthecommit.com/index.txt)\""
 	s = "status -s"
 [credential "https://dev.azure.com"]
