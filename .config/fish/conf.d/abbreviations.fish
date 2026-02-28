@@ -77,5 +77,10 @@ abbr --add odlog journalctl --user-unit=onedrive -f
 abbr --add python python3
 abbr --add fkill sudo kill -9
 abbr --add B --position anywhere ">/dev/null &"
-abbr --add update 'sudo apt update && sudo apt upgrade -y && flatpak update -y'
+abbr --add update 'begin 
+sudo apt update && sudo apt upgrade -y & 
+devbox global update & 
+flatpak update -y & disown & 
+wait 
+end'
 abbr --add src source
