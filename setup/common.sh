@@ -30,10 +30,21 @@ get_distro_info() {
     fi
 }
 
-# Check and install Fish shell if needed
+# Check and install Fish shell if needed (via devbox)
 ensure_fish_installed() {
+    # Activate devbox global environment so its packages are on PATH
+    eval "$(devbox global shellenv)" 2>/dev/null || true
+
     if ! command -v fish &> /dev/null; then
-        bash "$SETUP_DIR/fish.sh"
+        echo "📦 Fish not found, installing via devbox..."
+        devbox global install
+        eval "$(devbox global shellenv)" 2>/dev/null || true
+        if command -v fish &> /dev/null; then
+            echo "✅ Fish installed: $(fish --version)"
+        else
+            echo "❌ Fish installation via devbox failed"
+            exit 1
+        fi
     else
         echo "✅ Fish already installed: $(fish --version)"
     fi
@@ -208,36 +219,45 @@ setup_neovim_config() {
 # Set Fish as default shell with resilient error handling
 setup_fish_shell() {
     echo "🐚 Setting Fish as default shell..."
-    FISH_PATH=$(command -v fish 2>/dev/null || true)
-    if [ "$FISH_PATH" != "" ]; then
-        # Add Fish to /etc/shells if not already there
-        if ! grep -q "$FISH_PATH" /etc/shells 2>/dev/null; then
-            echo "  Adding Fish to /etc/shells..."
-            if echo "$FISH_PATH" | sudo tee -a /etc/shells > /dev/null 2>&1; then
-                echo "  ✅ Fish added to /etc/shells"
-            else
-                echo "  ⚠️  Could not add Fish to /etc/shells (non-fatal)"
-            fi
-        fi
-        
-        # Try to change default shell
-        if [ "$SHELL" != "$FISH_PATH" ]; then
-            echo "  Attempting to change default shell to Fish..."
-            if sudo chsh -s "$FISH_PATH" "$USER" 2>/dev/null; then
-                echo "  ✅ Default shell changed to Fish ($FISH_PATH)"
-                echo "  ⚠️  Please log out and log back in for shell change to take effect"
-            else
-                echo "  ⚠️  Could not change default shell automatically"
-                echo "  💡 You can start Fish manually by running: fish"
-                echo "  💡 Or set it as default later with: chsh -s $FISH_PATH"
-            fi
+    FISH_PATH=$(command -v fish)
+
+    # Add Fish to /etc/shells if not already there
+    if ! grep -q "$FISH_PATH" /etc/shells 2>/dev/null; then
+        echo "  Adding Fish to /etc/shells..."
+        if echo "$FISH_PATH" | sudo tee -a /etc/shells > /dev/null 2>&1; then
+            echo "  ✅ Fish added to /etc/shells"
         else
-            echo "  ✅ Fish is already the default shell"
+            echo "  ⚠️  Could not add Fish to /etc/shells (non-fatal)"
+        fi
+    fi
+
+    # Try to change default shell
+    if [ "$SHELL" != "$FISH_PATH" ]; then
+        echo "  Attempting to change default shell to Fish..."
+        if sudo chsh -s "$FISH_PATH" "$USER" 2>/dev/null; then
+            echo "  ✅ Default shell changed to Fish ($FISH_PATH)"
+            echo "  ⚠️  Please log out and log back in for shell change to take effect"
+        else
+            echo "  ⚠️  Could not change default shell automatically"
+            echo "  💡 You can start Fish manually by running: fish"
+            echo "  💡 Or set it as default later with: chsh -s $FISH_PATH"
         fi
     else
-        echo "  ⚠️  Fish not found in PATH"
+        echo "  ✅ Fish is already the default shell"
     fi
-    
+
+    # Create a stable symlink so tools like kitty/tmux can reference a fixed path
+    if [ -L /usr/local/bin/fish ] && [ "$(readlink /usr/local/bin/fish)" = "$FISH_PATH" ]; then
+        echo "  ✅ Symlink /usr/local/bin/fish already points to $FISH_PATH"
+    else
+        echo "  Creating symlink /usr/local/bin/fish -> $FISH_PATH"
+        if sudo ln -sf "$FISH_PATH" /usr/local/bin/fish 2>/dev/null; then
+            echo "  ✅ Symlink created"
+        else
+            echo "  ⚠️  Could not create symlink (non-fatal)"
+        fi
+    fi
+
     # Configure git to ignore local changes to fish_variables (Tide prompt cache)
     echo "  Configuring git to ignore fish_variables cache changes..."
     DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

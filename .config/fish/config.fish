@@ -6,8 +6,10 @@ set -g fish_key_bindings fish_vi_key_bindings
 if status is-interactive
     # Commands to run in interactive sessions can go here
     set -x GPG_TTY (tty)
-    set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-    gpgconf --launch gpg-agent
+    if command -q gpgconf
+        set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+        gpgconf --launch gpg-agent
+    end
     fzf_configure_bindings --variables=\e\cv --directory=\cf
 end
 

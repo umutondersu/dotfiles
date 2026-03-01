@@ -53,36 +53,36 @@ echo ""
 
 # Core installation steps (common to both modes)
 echo "═══════════════════════════════════════"
-echo "Step 1: Installing Fish shell"
-echo "═══════════════════════════════════════"
-ensure_fish_installed
-echo ""
-
-echo "═══════════════════════════════════════"
-echo "Step 2: Checking for devbox"
+echo "Step 1: Checking for devbox"
 echo "═══════════════════════════════════════"
 ensure_devbox_installed
 echo ""
 
 echo "═══════════════════════════════════════"
-echo "Step 3: Ensuring stow is installed"
+echo "Step 2: Ensuring stow is installed"
 echo "═══════════════════════════════════════"
 ensure_stow_installed
 echo ""
 
 echo "═══════════════════════════════════════"
-echo "Step 4: Symlinking dotfiles with stow"
+echo "Step 3: Symlinking dotfiles with stow"
 echo "═══════════════════════════════════════"
 stow_dotfiles
 setup_devbox_config
 echo ""
 
 echo "═══════════════════════════════════════"
-echo "Step 5: Installing devbox packages"
+echo "Step 4: Installing devbox packages"
 echo "═══════════════════════════════════════"
 echo "📦 Installing core packages from devbox.json..."
 install_devbox_packages
 echo "✅ Core devbox packages installed"
+echo ""
+
+echo "═══════════════════════════════════════"
+echo "Step 5: Installing Fish shell"
+echo "═══════════════════════════════════════"
+ensure_fish_installed
 echo ""
 
 # Desktop-specific installation steps

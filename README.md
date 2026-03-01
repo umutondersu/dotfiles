@@ -70,11 +70,6 @@ cd dotfiles
 The installation script automatically installs these prerequisites on
 supported distributions:
 
-- **Fish shell 4.4.x** (or latest available)
-  - Ubuntu/Pop!\_OS: PPA `ppa:fish-shell/release-4`
-  - Debian: OpenSUSE Build Service repository
-  - Fedora/RHEL/Arch/openSUSE/Alpine: Via native package manager
-
 - **GNU Stow**
 
 **For unsupported distributions:**
@@ -86,9 +81,13 @@ install them
 
 #### These might be old if i forgot to update readme after adding packages
 
+**Default Shell:**
+
+- fish
+
 **Shell & CLI Tools:**
 
-- fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, fish-lsp, direnv
+- fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, fish-lsp, direnv, glow, gh
 
 **Development:**
 
@@ -102,6 +101,7 @@ install them
 - lazygit (git client)
 - lazydocker (docker client)
 - jq (JSON Processor)
+- w3m (Terminal Web Browser)
 
 ### Desktop-Only Packages (with `--desktop`)
 
@@ -110,12 +110,13 @@ install them
 - **yt-dlp**: Video downloader
 - **dysk**: Disk usage analyzer
 - **sesh**: Smart Session Manager
+- **gcm**: Git Credential Manager
 
 ### Desktop-Only Flatpak Applications
 
-Desktop installation includes 30 Flatpak applications for productivity,
-development, and entertainment. During `./install.sh --desktop`, you'll be
-prompted to install applications listed in `flatpak-apps.txt`.
+Desktop installation includes Flatpak applications.
+During `./install.sh --desktop`, you'll be prompted to install applications
+listed in `flatpak-apps.txt`.
 
 Categories include browsers, development tools, media players, gaming
 emulators, and utilities. To customize, edit `flatpak-apps.txt` before
@@ -127,6 +128,7 @@ running the installer.
 - **nerd-dictation**: Voice input (script in `setup/nerd-dictation.sh`)
 - **vosk**: Speech recognition library (script in `setup/vosk-install.sh`)
 - **TPM**: Tmux Plugin Manager (git clone to `~/.tmux/plugins/tpm`)
+- **Opencode:** AI Coding agent (script in `setup/opencode.sh` for both environments)
 
 See `devbox.json` for the core package template.
 
@@ -142,7 +144,7 @@ The devbox configuration uses a **template-based approach** rather than direct s
 
 1. **Desktop-specific packages**: `install.sh` adds extra packages using
    `devbox global add` which creates a permanent dirty git with stow
-2. **Environment flexibility**: DevPod environments get the base config,
+2. **Environment flexibility**: Dev environments get the base config,
    desktop environments get base + extras
 
 ## Package Management
@@ -174,9 +176,9 @@ devbox search <query>
 
 - 🖥️ **add-desktop**: Fish function to install desktop-specific devbox packages
   defined in `desktop-packages.txt`. Automatically called by
-  `sync-devbox --from-template` and in `./install.sh`. It can also be run
-  manually to add desktop packages to current devbox config. Also supports `--dry-run`
-  or `-n`
+  `sync-devbox --from-template` and in `./install.sh --desktop`.
+  It can also be run manually to add desktop packages to current devbox config.
+  Also supports `--dry-run` or `-n`
 
 ## Testing
 
@@ -226,7 +228,7 @@ sudo udevadm trigger
   ignore local changes to `.config/fish/fish_variables` (Tide prompt cache)
   using `git update-index --assume-unchanged`. This prevents hundreds of cache
   lines from cluttering git status while keeping the baseline Tide configuration
-  in the repo for new clones. Use `fzf_variables_git` to unlock/lock this
+  in the repo for new clones. Use `fish_variables_git` to toggle this
   behavior
 
 ## Gnome Desktop Environment
