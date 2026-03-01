@@ -87,7 +87,7 @@ install them
 
 **Shell & CLI Tools:**
 
-- fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, fish-lsp, direnv, glow, gh
+- fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, direnv, glow, gh
 
 **Development:**
 
@@ -111,6 +111,7 @@ install them
 - **dysk**: Disk usage analyzer
 - **sesh**: Smart Session Manager
 - **gcm**: Git Credential Manager
+- **fish-lsp**: Lsp Server for Fish
 
 ### Desktop-Only Flatpak Applications
 
