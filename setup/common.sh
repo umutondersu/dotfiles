@@ -20,16 +20,6 @@ detect_package_manager() {
     fi
 }
 
-# Get distribution info
-get_distro_info() {
-    if [ -f /etc/os-release ]; then
-        . /etc/os-release
-        echo "$ID"
-    else
-        echo "unknown"
-    fi
-}
-
 # Check and install Fish shell if needed (via devbox)
 ensure_fish_installed() {
     # Activate devbox global environment so its packages are on PATH
@@ -108,12 +98,7 @@ ensure_stow_installed() {
             *)
                 echo "❌ Error: Could not detect package manager"
                 echo "Please install stow manually for your distribution:"
-                echo "  - Debian/Ubuntu: sudo apt-get install stow"
-                echo "  - Fedora/RHEL: sudo dnf install stow"
-                echo "  - Arch: sudo pacman -S stow"
-                echo "  - openSUSE: sudo zypper install stow"
-                echo "  - Alpine: sudo apk add stow"
-                echo "  - Or build from source: https://www.gnu.org/software/stow/"
+                echo "Or build from source: https://www.gnu.org/software/stow/"
                 exit 1
                 ;;
         esac
@@ -122,7 +107,7 @@ ensure_stow_installed() {
         if command -v stow &> /dev/null; then
             echo "✅ Stow installed successfully"
         else
-            echo "❌ Error: Stow installation failed"
+            echo "❌ Error: Stow installation failed with package manager $pkg_manager"
             exit 1
         fi
     else
