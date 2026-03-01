@@ -3,15 +3,26 @@
 # Usage: ./run.sh <command>
 # Example: ./run.sh playpause
 
+COMMANDS_DIR="$HOME/.scripts/foobar/commands"
+AVAILABLE=$(ls "$COMMANDS_DIR"/*.sh 2>/dev/null | xargs -I{} basename {} .sh | tr '\n' ' ')
+
 if [ "$1" = "" ]; then
-    echo "Usage: $0 <script-name>"
+    echo "Usage: $0 <command>"
+    echo "Available: $AVAILABLE"
     exit 1
 fi
 
-SCRIPT="$HOME/.scripts/foobar/commands/$1.sh"
+# Only run if foobar2000 is already open
+if ! pgrep -i "foobar2000" > /dev/null 2>&1; then
+    echo "Foobar2000 is not running!"
+    exit 0
+fi
+
+SCRIPT="$COMMANDS_DIR/$1.sh"
 
 if [ ! -f "$SCRIPT" ]; then
-    echo "Script $SCRIPT not found!"
+    echo "Unknown command: $1"
+    echo "Available: $AVAILABLE"
     exit 1
 fi
 
