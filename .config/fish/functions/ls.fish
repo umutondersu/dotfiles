@@ -1,3 +1,7 @@
 function ls
-    lsd $argv
+    if type -q lsd
+        lsd $argv
+    else
+        command ls $argv
+    end
 end
