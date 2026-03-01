@@ -72,14 +72,11 @@ supported distributions:
 
 - **GNU Stow**
 
-**For unsupported distributions:**
-
-If your distribution is not automatically detected, you'll need to manually
-install them
+If your distribution is not detected, you'll need to manually install them
 
 ### Devbox Packages
 
-#### These might be old if i forgot to update readme after adding packages
+#### These might be old if I forgot to update the readme after editing packages
 
 **Default Shell:**
 
@@ -115,21 +112,19 @@ install them
 
 ### Desktop-Only Flatpak Applications
 
-Desktop installation includes Flatpak applications.
-During `./install.sh --desktop`, you'll be prompted to install applications
-listed in `flatpak-apps.txt`.
+Desktop installation includes Flatpak applications. During `./install.sh --desktop`,
+you'll be prompted to install applications listed in `flatpak-apps.txt`.
 
-Categories include browsers, development tools, media players, gaming
-emulators, and utilities. To customize, edit `flatpak-apps.txt` before
-running the installer.
+Categories include browsers, development tools, media players, gaming emulators,
+and utilities. To customize, edit `flatpak-apps.txt` before running the installer.
 
 #### Manual Installations with scripts
 
+- **Opencode:** AI Coding agent (script in `setup/opencode.sh` for both environments)
 - **kitty**: Terminal emulator (script in `setup/kitty.sh`)
 - **nerd-dictation**: Voice input (script in `setup/nerd-dictation.sh`)
 - **vosk**: Speech recognition library (script in `setup/vosk-install.sh`)
 - **TPM**: Tmux Plugin Manager (git clone to `~/.tmux/plugins/tpm`)
-- **Opencode:** AI Coding agent (script in `setup/opencode.sh` for both environments)
 
 See `devbox.json` for the core package template.
 
@@ -143,7 +138,7 @@ The devbox configuration uses a **template-based approach** rather than direct s
 
 ### Why Copy Instead of Stow (Symlink)?
 
-1. **Desktop-specific packages**: `install.sh` adds extra packages using
+1. **Desktop-specific packages**: `install.sh --desktop` adds extra packages using
    `devbox global add` which creates a permanent dirty git with stow
 2. **Environment flexibility**: Dev environments get the base config,
    desktop environments get base + extras
@@ -176,8 +171,7 @@ devbox search <query>
   is used). Also supports `--dry-run` or `-n`
 
 - 🖥️ **add-desktop**: Fish function to install desktop-specific devbox packages
-  defined in `desktop-packages.txt`. Automatically called by
-  `sync-devbox --from-template` and in `./install.sh --desktop`.
+  defined in `desktop-packages.txt`. Automatically called by in `./install.sh --desktop`.
   It can also be run manually to add desktop packages to current devbox config.
   Also supports `--dry-run` or `-n`
 

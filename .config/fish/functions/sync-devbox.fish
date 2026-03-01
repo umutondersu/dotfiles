@@ -1,6 +1,6 @@
 # This function synchronizes devbox configurations bidirectionally:
 # - Default: working → template (excludes desktop packages)
-# - --from-template: template → working (includes desktop packages via add-desktop)
+# - --from-template: template → working
 function sync-devbox -d "Sync devbox configs bidirectionally"
     argparse from-template f/force n/dry-run -- $argv
     or return
@@ -10,7 +10,7 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
     set -l desktop_script ~/dotfiles/setup/install-desktop-packages.sh
     set -l desktop_packages_file ~/dotfiles/desktop-packages.txt
 
-    # Sync FROM template TO working (re-copy from template + add desktop)
+    # Sync FROM template TO working (re-copy from template)
     if set -q _flag_from_template
         if not test -f $template_config
             echo "Error: Template devbox.json not found at $template_config"
@@ -78,52 +78,6 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
             echo ""
         end
 
-        # Add desktop packages
-        echo "Adding desktop packages..."
-        if set -q _flag_dry_run
-            if not add-desktop --dry-run
-                echo "Error: Dry run of add-desktop failed"
-                return 1
-            end
-        else
-            if not add-desktop
-                echo "Error: Failed to add desktop packages"
-                # Rollback to backup
-                if test -n "$backup_config"
-                    echo "Rolling back to previous config..."
-                    cp $backup_config $working_config
-                    rm $backup_config
-                    echo "✓ Restored previous config"
-                end
-                return 1
-            end
-        end
-
-        # Validate desktop packages were added
-        if not set -q _flag_dry_run
-            echo ""
-            echo "Validating desktop packages..."
-            set -l desktop_packages (grep -v '^[[:space:]]*#' $desktop_packages_file | grep -v '^[[:space:]]*$' | awk -F'@' '{print $1}')
-            set -l missing_packages
-
-            for pkg in $desktop_packages
-                if not command -v $pkg &>/dev/null
-                    set -a missing_packages $pkg
-                end
-            end
-
-            if test (count $missing_packages) -gt 0
-                echo "Warning: Some desktop packages were not found in PATH:"
-                for pkg in $missing_packages
-                    echo "  - $pkg"
-                end
-                echo ""
-                echo "Note: They may have been installed but require a shell restart."
-            else
-                echo "✓ All desktop packages validated successfully"
-            end
-        end
-
         # Clean up backup
         if test -n "$backup_config"
             rm $backup_config
@@ -170,7 +124,7 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
     set -l temp_template_pkgs (mktemp)
     set -l temp_filtered_sorted (mktemp)
     jq '.packages | sort' $template_config >$temp_template_pkgs
-    jq 'sort' $temp_filtered >$temp_filtered_sorted
+    jq sort $temp_filtered >$temp_filtered_sorted
 
     if diff -q $temp_template_pkgs $temp_filtered_sorted >/dev/null 2>&1
         echo "✓ Template already up to date, no changes needed"
@@ -208,17 +162,32 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         end
         rm $temp_filtered $temp_result
     else
+        # Capture current template packages before updating
+        set -l before_pkgs (jq -r '.packages[]' $template_config 2>/dev/null)
+
         set -l final_temp (mktemp)
         jq --slurpfile pkgs $temp_result '.packages = $pkgs[0]' $template_config >$final_temp
         mv $final_temp $template_config
         rm $temp_filtered $temp_result
 
-        echo "✓ Synced devbox config to template (excluded desktop packages)"
-        echo "  Template: $template_config"
-        echo ""
-        echo "Desktop packages excluded:"
-        for pkg in $desktop_packages
-            echo "  $pkg"
+        # Determine added packages by comparing before/after
+        set -l after_pkgs (jq -r '.packages[]' $template_config 2>/dev/null)
+        set -l added_pkgs
+        for pkg in $after_pkgs
+            if not contains -- $pkg $before_pkgs
+                set -a added_pkgs $pkg
+            end
         end
+
+        echo "✓ Synced devbox config to template (excluded desktop packages)"
+        echo ""
+        if test (count $added_pkgs) -gt 0
+            echo "Packages added:"
+            for pkg in $added_pkgs
+                echo "  + $pkg"
+            end
+            echo ""
+        end
+        echo "Desktop packages were excluded:"
     end
 end
