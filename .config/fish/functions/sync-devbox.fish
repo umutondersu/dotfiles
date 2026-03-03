@@ -148,46 +148,64 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
     ' $temp_t $temp_filtered >$temp_result
     rm $temp_t
 
-    # Update only the packages array in template, keeping everything else
-    if set -q _flag_dry_run
-        echo "[DRY RUN] Would update template config at:"
-        echo "  $template_config"
-        echo ""
-        echo "[DRY RUN] Packages that would be synced:"
-        jq -r '.[]' $temp_result
-        echo ""
-        echo "[DRY RUN] Desktop packages that would be excluded:"
-        for pkg in $desktop_packages
-            echo "  $pkg"
-        end
-        rm $temp_filtered $temp_result
-    else
-        # Capture current template packages before updating
-        set -l before_pkgs (jq -r '.packages[]' $template_config 2>/dev/null)
+    # Compute the diff between current template and new state
+    set -l current_pkgs (jq -r '.packages[]' $template_config 2>/dev/null)
+    set -l new_pkgs (jq -r '.[]' $temp_result)
 
-        set -l final_temp (mktemp)
-        jq --slurpfile pkgs $temp_result '.packages = $pkgs[0]' $template_config >$final_temp
-        mv $final_temp $template_config
-        rm $temp_filtered $temp_result
+    set -l added_pkgs
+    set -l removed_pkgs
 
-        # Determine added packages by comparing before/after
-        set -l after_pkgs (jq -r '.packages[]' $template_config 2>/dev/null)
-        set -l added_pkgs
-        for pkg in $after_pkgs
-            if not contains -- $pkg $before_pkgs
-                set -a added_pkgs $pkg
-            end
+    for pkg in $new_pkgs
+        if not contains -- $pkg $current_pkgs
+            set -a added_pkgs $pkg
         end
-
-        echo "✓ Synced devbox config to template (excluded desktop packages)"
-        echo ""
-        if test (count $added_pkgs) -gt 0
-            echo "Packages added:"
-            for pkg in $added_pkgs
-                echo "  + $pkg"
-            end
-            echo ""
-        end
-        echo "Desktop packages were excluded:"
     end
+
+    for pkg in $current_pkgs
+        if not contains -- $pkg $new_pkgs
+            set -a removed_pkgs $pkg
+        end
+    end
+
+    # Show the diff
+    if test (count $added_pkgs) -gt 0
+        echo "Packages to add:"
+        for pkg in $added_pkgs
+            echo "  + $pkg"
+        end
+        echo ""
+    end
+
+    if test (count $removed_pkgs) -gt 0
+        echo "Packages to remove:"
+        for pkg in $removed_pkgs
+            echo "  - $pkg"
+        end
+        echo ""
+    end
+
+    # Dry-run: stop here
+    if set -q _flag_dry_run
+        echo "[DRY RUN] No changes made."
+        rm $temp_filtered $temp_result
+        return 0
+    end
+
+    # Confirm before applying (unless --force)
+    if not set -q _flag_force
+        read -P "Apply changes? [y/N] " -l confirm
+        if not string match -qi y $confirm
+            echo "Aborted."
+            rm $temp_filtered $temp_result
+            return 1
+        end
+    end
+
+    # Apply: update only the packages array in template, keeping everything else
+    set -l final_temp (mktemp)
+    jq --slurpfile pkgs $temp_result '.packages = $pkgs[0]' $template_config >$final_temp
+    mv $final_temp $template_config
+    rm $temp_filtered $temp_result
+
+    echo "✓ Synced devbox config to template (excluded desktop packages)"
 end
