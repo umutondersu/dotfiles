@@ -24,7 +24,8 @@
     "jq@1.6",
     "gh@latest",
     "glow@latest",
-    "w3m@latest"
+    "w3m@latest",
+    "yazi@latest"
   ],
   "shell": {
     "init_hook": [],
