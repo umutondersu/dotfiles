@@ -10,88 +10,7 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
     set -l desktop_script ~/dotfiles/setup/install-desktop-packages.sh
     set -l desktop_packages_file ~/dotfiles/desktop-packages.txt
 
-    # Sync FROM template TO working (re-copy from template)
-    if set -q _flag_from_template
-        if not test -f $template_config
-            echo "Error: Template devbox.json not found at $template_config"
-            return 1
-        end
-
-        if not test -f $desktop_script
-            echo "Error: Desktop packages script not found at $desktop_script"
-            return 1
-        end
-
-        if not test -f $desktop_packages_file
-            echo "Error: Desktop packages file not found at $desktop_packages_file"
-            return 1
-        end
-
-        # Confirmation prompt (unless --force is used)
-        if not set -q _flag_force
-            if test -f $working_config
-                if set -q _flag_dry_run
-                    echo "[DRY RUN] Would overwrite working config at:"
-                    echo "  $working_config"
-                else
-                    echo "Warning: This will overwrite your working config at:"
-                    echo "  $working_config"
-                    echo ""
-                    read -P "Continue? [y/N] " -l confirm
-                    if not string match -qi y $confirm
-                        echo "Aborted."
-                        return 1
-                    end
-                end
-            end
-        end
-
-        # Create directory if it doesn't exist
-        set -l working_dir (dirname $working_config)
-        mkdir -p $working_dir
-
-        # Backup current working config for potential rollback
-        set -l backup_config ""
-        if test -f $working_config
-            set backup_config (mktemp)
-            cp $working_config $backup_config
-        end
-
-        # Copy template to working
-        if set -q _flag_dry_run
-            echo "[DRY RUN] Would copy template to working config:"
-            echo "  From: $template_config"
-            echo "  To:   $working_config"
-            echo ""
-        else
-            if not cp $template_config $working_config
-                echo "Error: Failed to copy template to working config"
-                if test -n "$backup_config"
-                    rm $backup_config
-                end
-                return 1
-            end
-
-            echo "✓ Copied template to working config"
-            echo "  From: $template_config"
-            echo "  To:   $working_config"
-            echo ""
-        end
-
-        # Clean up backup
-        if test -n "$backup_config"
-            rm $backup_config
-        end
-
-        return 0
-    end
-
-    # Default behavior: Sync FROM working TO template (existing functionality)
-    if not test -f $working_config
-        echo "Error: Working devbox.json not found at $working_config"
-        return 1
-    end
-
+    # Validate shared prerequisites
     if not test -f $desktop_script
         echo "Error: Desktop packages script not found at $desktop_script"
         return 1
@@ -102,7 +21,6 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         return 1
     end
 
-    # Extract desktop packages from packages file (one entry per list element)
     set -l desktop_packages (grep -v '^[[:space:]]*#' $desktop_packages_file | grep -v '^[[:space:]]*$')
 
     if test (count $desktop_packages) -eq 0
@@ -110,33 +28,125 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         return 1
     end
 
-    # Extract packages from working config, excluding desktop packages
-    set -l temp_filtered (mktemp)
-    jq '.packages' $working_config >$temp_filtered
-    for pkg in $desktop_packages
-        set -l pkg_name (string split '@' $pkg)[1]
-        set -l temp2 (mktemp)
-        jq --arg name "$pkg_name" 'map(select(startswith($name + "@") | not))' $temp_filtered >$temp2
-        mv $temp2 $temp_filtered
+    # Helper: extract packages from a config file, excluding desktop packages
+    # Usage: set result (_filtered_pkgs <config_file>)
+    function _filtered_pkgs --no-scope-shadowing
+        set -l config $argv[1]
+        set -l tmp (mktemp)
+        jq '.packages' $config >$tmp
+        for pkg in $desktop_packages
+            set -l pkg_name (string split '@' $pkg)[1]
+            set -l tmp2 (mktemp)
+            jq --arg name "$pkg_name" 'map(select(startswith($name + "@") | not))' $tmp >$tmp2
+            mv $tmp2 $tmp
+        end
+        jq -r '.[]' $tmp
+        rm $tmp
     end
 
-    # Compare sorted sets — if identical, nothing to do
-    set -l temp_template_pkgs (mktemp)
-    set -l temp_filtered_sorted (mktemp)
-    jq '.packages | sort' $template_config >$temp_template_pkgs
-    jq sort $temp_filtered >$temp_filtered_sorted
+    # Helper: compute and display diff, prompt, then apply
+    # Usage: _sync_diff_and_apply <current_pkgs_list> <new_pkgs_list> <dest_config> <apply_command>
+    function _show_diff --no-scope-shadowing
+        # Called as: _show_diff $current_pkgs -- $new_pkgs
+        set -l sep_idx (contains -i -- -- $argv)
+        set -l current_pkgs $argv[1..(math $sep_idx - 1)]
+        set -l new_pkgs $argv[(math $sep_idx + 1)..-1]
 
-    if diff -q $temp_template_pkgs $temp_filtered_sorted >/dev/null 2>&1
-        echo "✓ Template already up to date, no changes needed"
-        rm $temp_filtered $temp_template_pkgs $temp_filtered_sorted
+        set -l added_pkgs
+        set -l removed_pkgs
+
+        for pkg in $new_pkgs
+            if not contains -- $pkg $current_pkgs
+                set -a added_pkgs $pkg
+            end
+        end
+
+        for pkg in $current_pkgs
+            if not contains -- $pkg $new_pkgs
+                set -a removed_pkgs $pkg
+            end
+        end
+
+        if test (count $added_pkgs) -gt 0
+            echo "Packages to add:"
+            for pkg in $added_pkgs
+                echo "  + $pkg"
+            end
+            echo ""
+        end
+
+        if test (count $removed_pkgs) -gt 0
+            echo "Packages to remove:"
+            for pkg in $removed_pkgs
+                echo "  - $pkg"
+            end
+            echo ""
+        end
+
+        # Return 1 (no changes) or 0 (changes exist) via exit status
+        if test (count $added_pkgs) -eq 0 -a (count $removed_pkgs) -eq 0
+            return 1
+        end
         return 0
     end
 
-    rm $temp_template_pkgs $temp_filtered_sorted
+    # Sync FROM template TO working
+    if set -q _flag_from_template
+        if not test -f $template_config
+            echo "Error: Template devbox.json not found at $template_config"
+            return 1
+        end
 
-    # Sets differ: build the new package list preserving template order.
-    # Keep template packages that still exist in filtered working set,
-    # then append any new packages (present in filtered working but not in template).
+        set -l current_pkgs
+        if test -f $working_config
+            set current_pkgs (_filtered_pkgs $working_config)
+        end
+        set -l new_pkgs (_filtered_pkgs $template_config)
+
+        if not _show_diff $current_pkgs -- $new_pkgs
+            echo "✓ Working config already up to date, no changes needed"
+            return 0
+        end
+
+        if set -q _flag_dry_run
+            echo "[DRY RUN] No changes made."
+            return 0
+        end
+
+        if not set -q _flag_force
+            read -P "Apply changes to devbox.json? [y/N] " -l confirm
+            if not string match -qi y $confirm
+                echo "Aborted."
+                return 1
+            end
+        end
+
+        mkdir -p (dirname $working_config)
+        if not cp $template_config $working_config
+            echo "Error: Failed to copy template to working config"
+            return 1
+        end
+
+        echo "✓ Copied template to working config"
+        return 0
+    end
+
+    # Default: Sync FROM working TO template
+    if not test -f $working_config
+        echo "Error: Working devbox.json not found at $working_config"
+        return 1
+    end
+
+    if not test -f $template_config
+        echo "Error: Template devbox.json not found at $template_config"
+        return 1
+    end
+
+    # Build the merged package list: preserve template order, append new packages
+    set -l working_filtered (_filtered_pkgs $working_config)
+    set -l temp_filtered (mktemp)
+    printf '%s\n' $working_filtered | jq -Rs '[split("\n")[] | select(length > 0)]' >$temp_filtered
+
     set -l temp_t (mktemp)
     set -l temp_result (mktemp)
     jq '.packages' $template_config >$temp_t
@@ -146,66 +156,36 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         ($template_pkgs | map(select(. as $p | $working_pkgs | index($p) != null))) +
         ($working_pkgs | map(select(. as $p | $template_pkgs | index($p) == null)))
     ' $temp_t $temp_filtered >$temp_result
-    rm $temp_t
+    rm $temp_t $temp_filtered
 
-    # Compute the diff between current template and new state
     set -l current_pkgs (jq -r '.packages[]' $template_config 2>/dev/null)
     set -l new_pkgs (jq -r '.[]' $temp_result)
 
-    set -l added_pkgs
-    set -l removed_pkgs
-
-    for pkg in $new_pkgs
-        if not contains -- $pkg $current_pkgs
-            set -a added_pkgs $pkg
-        end
-    end
-
-    for pkg in $current_pkgs
-        if not contains -- $pkg $new_pkgs
-            set -a removed_pkgs $pkg
-        end
-    end
-
-    # Show the diff
-    if test (count $added_pkgs) -gt 0
-        echo "Packages to add:"
-        for pkg in $added_pkgs
-            echo "  + $pkg"
-        end
-        echo ""
-    end
-
-    if test (count $removed_pkgs) -gt 0
-        echo "Packages to remove:"
-        for pkg in $removed_pkgs
-            echo "  - $pkg"
-        end
-        echo ""
-    end
-
-    # Dry-run: stop here
-    if set -q _flag_dry_run
-        echo "[DRY RUN] No changes made."
-        rm $temp_filtered $temp_result
+    if not _show_diff $current_pkgs -- $new_pkgs
+        echo "✓ Template already up to date, no changes needed"
+        rm $temp_result
         return 0
     end
 
-    # Confirm before applying (unless --force)
+    if set -q _flag_dry_run
+        echo "[DRY RUN] No changes made."
+        rm $temp_result
+        return 0
+    end
+
     if not set -q _flag_force
-        read -P "Apply changes? [y/N] " -l confirm
+        read -P "Apply changes to template devbox.json? [y/N] " -l confirm
         if not string match -qi y $confirm
             echo "Aborted."
-            rm $temp_filtered $temp_result
+            rm $temp_result
             return 1
         end
     end
 
-    # Apply: update only the packages array in template, keeping everything else
     set -l final_temp (mktemp)
     jq --slurpfile pkgs $temp_result '.packages = $pkgs[0]' $template_config >$final_temp
     mv $final_temp $template_config
-    rm $temp_filtered $temp_result
+    rm $temp_result
 
     echo "✓ Synced devbox config to template (excluded desktop packages)"
 end
