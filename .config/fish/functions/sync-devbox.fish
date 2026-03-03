@@ -35,9 +35,15 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         set -l tmp (mktemp)
         jq '.packages' $config >$tmp
         for pkg in $desktop_packages
-            set -l pkg_name (string split '@' $pkg)[1]
             set -l tmp2 (mktemp)
-            jq --arg name "$pkg_name" 'map(select(startswith($name + "@") | not))' $tmp >$tmp2
+            if string match -qr '^[a-z]+:' $pkg
+                # Nix flake (e.g. github:org/repo): exact match
+                jq --arg name "$pkg" 'map(select(. != $name))' $tmp >$tmp2
+            else
+                # Standard devbox package (e.g. neovim or neovim@latest): match by name prefix
+                set -l pkg_name (string split '@' $pkg)[1]
+                jq --arg name "$pkg_name" 'map(select(startswith($name + "@") | not))' $tmp >$tmp2
+            end
             mv $tmp2 $tmp
         end
         jq -r '.[]' $tmp
@@ -114,7 +120,7 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         end
 
         if not set -q _flag_force
-            read -P "Apply changes to devbox.json? [y/N] " -l confirm
+            read -P "Apply changes to global devbox.json? [y/N] " -l confirm
             if not string match -qi y $confirm
                 echo "Aborted."
                 return 1
