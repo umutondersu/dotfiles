@@ -25,7 +25,8 @@
     "gh@latest",
     "glow@latest",
     "w3m@latest",
-    "yazi@latest"
+    "yazi@latest",
+    "github:max-sixty/worktrunk"
   ],
   "shell": {
     "init_hook": [],
