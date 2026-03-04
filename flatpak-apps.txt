@@ -1,48 +1,31 @@
-# Flatpak Applications
-# This file contains a list of Flatpak applications to install
-# Lines starting with # are comments and will be ignored
-# Empty lines are also ignored
-
-# Browsers & Internet
+app.twintaillauncher.ttl
 app.zen_browser.zen
-com.discordapp.Discord
-com.slack.Slack
-
-# Development Tools
-io.dbeaver.DBeaverCommunity
-com.usebottles.bottles
-com.github.Matoking.protontricks
-com.vysp3r.ProtonPlus
-
-# Remote Access & Virtualization
+cc.spek.Spek
 com.anydesk.Anydesk
-com.freerdp.FreeRDP
-org.tigervnc.vncviewer
-
-# Security & Privacy
 com.bitwarden.desktop
-
-# Media & Entertainment
+com.discordapp.Discord
+com.freerdp.FreeRDP
+com.github.Matoking.protontricks
+com.github.dynobo.normcap
+com.github.johnfactotum.Foliate
+com.github.wwmm.easyeffects
 com.obsproject.Studio
+com.slack.Slack
+com.steamgriddb.steam-rom-manager
 com.stremio.Service
 com.stremio.Stremio
+com.usebottles.bottles
+com.vysp3r.ProtonPlus
 dev.aunetx.deezer
+io.dbeaver.DBeaverCommunity
 io.github.nate_xyz.Resonance
+me.timschneeberger.GalaxyBudsClient
+moe.launcher.sleepy-launcher
+net.davidotek.pupgui2
+net.shadps4.shadPS4
 org.audacityteam.Audacity
 org.gnome.Snapshot
 org.qbittorrent.qBittorrent
 org.strawberrymusicplayer.strawberry
+org.tigervnc.vncviewer
 org.videolan.VLC
-
-# Gaming & Emulation
-app.twintaillauncher.ttl
-com.steamgriddb.steam-rom-manager
-moe.launcher.sleepy-launcher
-net.davidotek.pupgui2
-net.shadps4.shadPS4
-
-# Utilities
-com.github.dynobo.normcap
-com.github.johnfactotum.Foliate
-com.github.wwmm.easyeffects
-me.timschneeberger.GalaxyBudsClient
