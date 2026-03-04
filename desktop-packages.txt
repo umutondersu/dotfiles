@@ -8,3 +8,4 @@ dysk
 sesh@2.20.0
 git-credential-manager
 fish-lsp@1.0.9-1
+scrcpy
