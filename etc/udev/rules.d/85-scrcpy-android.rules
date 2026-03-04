@@ -1,0 +1,6 @@
+# Trigger scrcpy autostart whenever an Android device with ADB enabled is connected.
+# Writes a trigger file into the user's runtime dir; the scrcpy-monitor.service picks it up.
+# This avoids the D-Bus/systemd-run issues that occur when launching GUI apps from udev.
+
+ACTION=="add", SUBSYSTEM=="usb", ENV{adb_user}=="yes", \
+    RUN+="/usr/bin/touch /run/user/1000/scrcpy-trigger"

@@ -1,0 +1,13 @@
+[Unit]
+Description=Monitor ADB and auto-launch scrcpy when Android phone is connected
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/home/qorcialwolf/.local/bin/scrcpy-monitor.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target

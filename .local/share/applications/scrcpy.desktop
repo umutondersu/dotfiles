@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=scrcpy
+GenericName=Android Screen Mirror
+Comment=Mirror and control your Android phone
+Exec=/usr/local/bin/scrcpy --turn-screen-off --stay-awake
+Icon=phone
+Terminal=false
+Categories=Utility;
+Keywords=android;screen;mirror;adb;
