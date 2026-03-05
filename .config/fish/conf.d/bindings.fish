@@ -5,4 +5,4 @@ end
 
 bind-both \cg fz
 bind -M insert \ca forward-char
-bind-both \cd y
+bind-both \cw y
