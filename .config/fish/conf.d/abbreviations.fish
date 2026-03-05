@@ -8,6 +8,7 @@ end
 if type -q devbox
     abbr --add db devbox
     abbr --add ds devbox search
+    abbr --add ns nix-search
     abbr --add dS devbox shell
     abbr --add dg devbox global
     abbr --add da devbox global add
@@ -56,6 +57,8 @@ if type -q xclip
     abbr --add Y --position anywhere "| xclip -selection clipboard"
     abbr --add P "xclip -selection clipboard -o >"
 end
+
+abbr --add ed nvim ~/dotfiles/desktop-packages.txt
 
 abbr --add l ls
 abbr --add ll ls -lg

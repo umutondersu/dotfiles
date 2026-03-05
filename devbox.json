@@ -26,7 +26,8 @@
     "glow@latest",
     "w3m@latest",
     "yazi@latest",
-    "github:max-sixty/worktrunk"
+    "github:max-sixty/worktrunk",
+    "nix-search-cli@latest"
   ],
   "shell": {
     "init_hook": [],
