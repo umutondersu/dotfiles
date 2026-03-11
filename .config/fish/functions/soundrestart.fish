@@ -35,7 +35,7 @@ function soundrestart
         echo "Sound services restarted successfully"
         if $easyeffects_was_running
             echo "Starting EasyEffects..."
-            flatpak run com.github.wwmm.easyeffects --gapplication-service --start-minimized >/dev/null 2>&1 &
+            flatpak run com.github.wwmm.easyeffects --service-mode --hide-window >/dev/null 2>&1 &
             disown
         end
         if $discord_was_running
