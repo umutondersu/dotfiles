@@ -1,0 +1,13 @@
+# /home/qorcialwolf/.anacron/etc/anacrontab
+# User anacron configuration for foobar2000 profile backups
+#
+# Format:
+# period  delay  job-identifier  command
+
+# Set shell
+SHELL=/bin/bash
+# Set PATH
+PATH=/usr/local/bin:/usr/bin:/bin
+
+# Backup foobar2000 profile daily (1 day period, 5 minute delay after boot)
+1  5  foobar2000-backup  /home/qorcialwolf/.anacron/scripts/backup-foobar2000.sh

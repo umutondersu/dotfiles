@@ -20,3 +20,7 @@ desktop-packages.txt
 
 # System configuration (stowed separately with sudo)
 ^/etc
+
+# anacron runtime dirs (created at runtime, not stowed)
+^\.anacron/logs
+^\.anacron/spool
