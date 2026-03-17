@@ -1,7 +1,0 @@
-[Desktop Entry]
-Exec=/home/qorcialwolf/.scripts/foobar/run.sh volup
-Name=Foobar2000 VolUp
-NoDisplay=true
-StartupNotify=false
-Type=Application
-X-KDE-GlobalAccel-CommandShortcut=true

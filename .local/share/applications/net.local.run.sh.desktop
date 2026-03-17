@@ -1,7 +1,0 @@
-[Desktop Entry]
-Exec=/home/qorcialwolf/.scripts/foobar/run.sh next
-Name=Foobar2000 Next
-NoDisplay=true
-StartupNotify=false
-Type=Application
-X-KDE-GlobalAccel-CommandShortcut=true
