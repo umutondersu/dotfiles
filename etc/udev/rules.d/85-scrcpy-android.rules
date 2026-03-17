@@ -3,4 +3,4 @@
 
 ACTION=="add", SUBSYSTEM=="usb", ENV{adb_user}=="yes", \
     RUN+="/usr/bin/systemd-run --user --machine=qorcialwolf@ \
-          /home/qorcialwolf/.local/bin/scrcpy-autostart.sh"
+          /home/qorcialwolf/bin/scrcpy-autostart"

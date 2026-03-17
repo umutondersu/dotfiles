@@ -1,9 +1,16 @@
 [Desktop Entry]
-Name=Kitty
-Comment=Fast, feature-rich, GPU based terminal emulator
-Exec=/home/qorcialwolf/.local/kitty.app/bin/kitty
-Icon=kitty
+Version=1.0
 Type=Application
-Categories=System;TerminalEmulator;
+Name=kitty
+GenericName=Terminal emulator
+Comment=Fast, feature-rich, GPU based terminal
+TryExec=/home/qorcialwolf/.local/kitty.app/bin/kitty
 StartupNotify=true
-Terminal=false
+Exec=/home/qorcialwolf/.local/kitty.app/bin/kitty
+Icon=/home/qorcialwolf/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png
+Categories=System;TerminalEmulator;
+X-TerminalArgExec=--
+X-TerminalArgTitle=--title
+X-TerminalArgAppId=--class
+X-TerminalArgDir=--working-directory
+X-TerminalArgHold=--hold

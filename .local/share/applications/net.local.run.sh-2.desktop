@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/home/qorcialwolf/.scripts/foobar/run.sh playpause
+Name=Foobar2000 PlayPause
+NoDisplay=true
+StartupNotify=false
+Type=Application
+X-KDE-GlobalAccel-CommandShortcut=true
