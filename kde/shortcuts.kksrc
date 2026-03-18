@@ -1,6 +1,10 @@
 [ActivityManager][Global Shortcuts]
 switch-to-activity-43dedf9f-e58e-4aed-ad35-3ce0fc92400c=
 
+[Custom Commands][net.local.run.sh-12.desktop]
+Exec=/home/qorcialwolf/.scripts/foobar/run.sh toggle-shuffle
+Name=Foobar2000 Toggle Shuffle
+
 [Custom Commands][net.local.run.sh-2.desktop]
 Exec=/home/qorcialwolf/.scripts/foobar/run.sh playpause
 Name=Foobar2000 PlayPause
@@ -21,6 +25,10 @@ Name=Foobar2000 VolDown
 Exec=/home/qorcialwolf/.scripts/foobar/run.sh volup
 Name=Foobar2000 VolUp
 
+[Custom Commands][net.local.run.sh-9.desktop]
+Exec=/home/qorcialwolf/.scripts/foobar/run.sh playpause
+Name=Foobar2000 PlayPause
+
 [Custom Commands][net.local.run.sh.desktop]
 Exec=/home/qorcialwolf/.scripts/foobar/run.sh next
 Name=Foobar2000 Next
@@ -30,12 +38,12 @@ Switch keyboard layout to English (US, alt. intl.)=
 Switch keyboard layout to English (intl., with AltGr dead keys)=
 Switch keyboard layout to Turkish=
 Switch to Last-Used Keyboard Layout=
-Switch to Next Keyboard Layout=Meta+Space
+Switch to Next Keyboard Layout=Alt+Space
 
 [StandardShortcuts]
 AboutApp=
 AboutKDE=
-Activate Next Tab=Ctrl+]; Ctrl+PgDown
+Activate Next Tab=Ctrl+PgDown; Ctrl+]
 Activate Previous Tab=Ctrl+PgUp; Ctrl+[
 ActualSize=Ctrl+0
 AddBookmark=Ctrl+B
@@ -47,9 +55,9 @@ Clear=
 Close=Ctrl+Esc; Ctrl+W
 ConfigureNotifications=
 ConfigureToolbars=
-Copy=Ctrl+C; Ctrl+Ins
+Copy=Ctrl+Ins; Ctrl+C
 CreateFolder=Ctrl+Shift+N
-Cut=Shift+Del; Ctrl+X
+Cut=Ctrl+X; Shift+Del
 DeleteFile=Shift+Del
 DeleteWordBack=Ctrl+Backspace
 DeleteWordForward=Ctrl+Del
@@ -73,7 +81,7 @@ Goto=
 GotoLine=Ctrl+G
 GotoPage=
 Help=F1
-Home=Alt+Home; Home Page
+Home=Home Page; Alt+Home
 KeyBindings=
 Mail=
 MoveToTrash=Del
@@ -81,7 +89,7 @@ New=Ctrl+N
 Next=PgDown
 NextCompletion=Ctrl+Down
 Open=Ctrl+O
-OpenContextMenu=Shift+F10; Menu
+OpenContextMenu=Menu; Shift+F10
 OpenMainMenu=F10
 OpenRecent=
 Paste=Ctrl+V; Shift+Ins
@@ -103,7 +111,7 @@ RotateUp=Up
 Save=Ctrl+S
 SaveAs=Ctrl+Shift+S
 SelectAll=Ctrl+A
-ShowHideHiddenFiles=Ctrl+H; Alt+.
+ShowHideHiddenFiles=Alt+.; Ctrl+H
 ShowMenubar=Ctrl+M
 ShowStatusbar=
 ShowToolbar=
@@ -115,7 +123,7 @@ Undo=Ctrl+Z
 Up=Alt+Up
 WhatsThis=Shift+F1
 Zoom=
-ZoomIn=Ctrl++; Ctrl+=
+ZoomIn=Ctrl+=; Ctrl++
 ZoomOut=Ctrl+-
 
 [app.zen_browser.zen.desktop][Global Shortcuts]
@@ -141,7 +149,7 @@ decrease_volume_small=Shift+Volume Down
 increase_microphone_volume=Microphone Volume Up
 increase_volume=Volume Up
 increase_volume_small=Shift+Volume Up
-mic_mute=Meta+Volume Mute; Microphone Mute
+mic_mute=Microphone Mute; Meta+Volume Mute
 mute=Volume Mute
 
 [ksmserver][Global Shortcuts]
@@ -161,7 +169,7 @@ Cycle Overview Opposite=
 Decrease Opacity=
 Edit Tiles=
 Expose=Meta+F9; Ctrl+F9
-ExposeAll=Meta+F; Meta+F10; Ctrl+F10; Launch (C)
+ExposeAll=Ctrl+F10; Meta+F; Launch (C); Meta+F10
 ExposeClass=Meta+F7; Ctrl+F7
 ExposeClassCurrentDesktop=
 Grid View=Meta+G
@@ -220,7 +228,7 @@ Switch Window Down=
 Switch Window Left=
 Switch Window Right=
 Switch Window Up=
-Switch to Desktop 1=Ctrl+F1; Meta+F1
+Switch to Desktop 1=Meta+F1; Ctrl+F1
 Switch to Desktop 10=
 Switch to Desktop 11=
 Switch to Desktop 12=
@@ -231,7 +239,7 @@ Switch to Desktop 16=
 Switch to Desktop 17=
 Switch to Desktop 18=
 Switch to Desktop 19=
-Switch to Desktop 2=Meta+F2; Ctrl+F2
+Switch to Desktop 2=Ctrl+F2; Meta+F2
 Switch to Desktop 20=
 Switch to Desktop 21=
 Switch to Desktop 22=
@@ -263,15 +271,15 @@ Switch to Screen to the Left=
 Switch to Screen to the Right=
 Toggle Night Color=
 Toggle Window Raise/Lower=
-Walk Through Windows=Meta+Tab; Alt+Tab
+Walk Through Windows=Alt+Tab; Meta+Tab
 Walk Through Windows (Reverse)=Alt+Shift+Tab; Meta+Shift+Tab
 Walk Through Windows Alternative=
 Walk Through Windows Alternative (Reverse)=
 Walk Through Windows of Current Application=Meta+`; Alt+`
-Walk Through Windows of Current Application (Reverse)=Alt+~; Meta+~
+Walk Through Windows of Current Application (Reverse)=Meta+~; Alt+~
 Walk Through Windows of Current Application Alternative=
 Walk Through Windows of Current Application Alternative (Reverse)=
-Window Above Other Windows=
+Window Above Other Windows=Meta+N
 Window Below Other Windows=
 Window Close=Alt+F4; Meta+C
 Window Custom Quick Tile Bottom=
@@ -282,14 +290,14 @@ Window Fullscreen=
 Window Grow Horizontal=
 Window Grow Vertical=
 Window Lower=
-Window Maximize=Meta+M; Meta+PgUp
+Window Maximize=Meta+PgUp; Meta+M
 Window Maximize Horizontal=
 Window Maximize Vertical=
 Window Minimize=Meta+PgDown; Meta+Shift+M
 Window Move=
 Window Move Center=
 Window No Border=
-Window On All Desktops=
+Window On All Desktops=Meta+X
 Window One Desktop Down=Meta+Ctrl+Shift+Down
 Window One Desktop Up=Meta+Ctrl+Shift+Up
 Window One Desktop to the Left=Meta+Ctrl+Shift+Left
@@ -298,7 +306,7 @@ Window One Screen Down=
 Window One Screen Up=
 Window One Screen to the Left=
 Window One Screen to the Right=
-Window Operations Menu=Alt+F3
+Window Operations Menu=Alt+F3; Alt+F1
 Window Pack Down=
 Window Pack Left=
 Window Pack Right=
@@ -354,7 +362,7 @@ Window to Screen 6=
 Window to Screen 7=
 disableInputCapture=Meta+Shift+Esc
 view_actual_size=Meta+0
-view_zoom_in=Meta+=; Meta++
+view_zoom_in=Meta++; Meta+=
 view_zoom_out=Meta+-
 
 [mediacontrol][Global Shortcuts]
@@ -371,6 +379,9 @@ seekforwardmedia=Media Fast Forward
 seekforwardmedialong=
 stopmedia=Media Stop
 
+[net.local.run.sh-12.desktop][Global Shortcuts]
+_launch=Ctrl+Alt+R
+
 [net.local.run.sh-2.desktop][Global Shortcuts]
 _launch=Ctrl+Alt+K
 
@@ -385,6 +396,9 @@ _launch=Ctrl+Alt+,
 
 [net.local.run.sh-6.desktop][Global Shortcuts]
 _launch=Ctrl+Alt+.
+
+[net.local.run.sh-9.desktop][Global Shortcuts]
+_launch=Ctrl+Alt+K
 
 [net.local.run.sh.desktop][Global Shortcuts]
 _launch=Ctrl+Alt+L
@@ -405,7 +419,7 @@ RunClipboard=Alt+Shift+F2
 _launch=Meta
 
 [org.kde.kscreen.desktop][Global Shortcuts]
-ShowOSD=Meta+P; Display
+ShowOSD=Display
 
 [org.kde.plasma-systemmonitor.desktop][Global Shortcuts]
 _launch=Meta+Esc
@@ -418,7 +432,7 @@ ActiveWindowScreenShot=
 CurrentMonitorScreenShot=
 FullScreenScreenShot=Shift+Print
 OpenWithoutScreenshot=
-RecordRegion=Meta+Shift+R; Meta+R
+RecordRegion=Meta+R; Meta+Shift+R
 RecordScreen=Meta+Alt+R
 RecordWindow=Meta+Ctrl+R
 RectangularRegionScreenShot=Meta+Shift+Print
@@ -447,7 +461,7 @@ powerProfile=Battery
 
 [plasmashell][Global Shortcuts]
 Slideshow Wallpaper Next Image=
-activate application launcher=Alt+F1
+activate application launcher=Meta+Space
 activate task manager entry 1=Meta+1
 activate task manager entry 10=
 activate task manager entry 2=Meta+2
@@ -460,6 +474,8 @@ activate task manager entry 8=Meta+8
 activate task manager entry 9=Meta+9
 activate widget 28=
 activate widget 67=
+activate widget 89=
+activate widget 91=
 clear-history=
 clipboard_action=
 cycle-panels=Meta+Alt+P
@@ -478,7 +494,7 @@ switch to previous activity=
 toggle do not disturb=
 
 [systemsettings.desktop][Global Shortcuts]
-_launch=Tools; Meta+I
+_launch=Meta+I; Tools
 kcm-kscreen=
 kcm-lookandfeel=
 kcm-powerdevilprofilesconfig=
