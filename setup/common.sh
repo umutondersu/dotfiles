@@ -253,7 +253,20 @@ setup_fish_shell() {
             echo "  ⚠️  Could not set git assume-unchanged (non-fatal)"
         fi
     fi
-    
+
+    # Install fisher plugins
+    echo "  Installing fisher plugins..."
+    FISH_PLUGINS="$HOME/.config/fish/fish_plugins"
+    if [ -f "$FISH_PLUGINS" ] && command -v fish &> /dev/null; then
+        if fish -c "fisher install < $FISH_PLUGINS" 2>/dev/null; then
+            echo "  ✅ Fisher plugins installed"
+        else
+            echo "  ⚠️  Fisher plugin installation failed (non-fatal, run manually: fisher install < ~/.config/fish/fish_plugins)"
+        fi
+    else
+        echo "  ⚠️  Skipping fisher plugins (fish or fish_plugins not found)"
+    fi
+
     echo ""
 }
 
