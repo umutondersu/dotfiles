@@ -53,7 +53,7 @@ info "Detecting Wine architecture support..."
 WINEARCH_FLAG=""
 PREFIX_ARCH="win64"
 
-if WINEARCH=win32 WINEPREFIX=/tmp/winearch-probe-$$ wine --version >/dev/null 2>&1; then
+if WINEARCH=win32 WINEPREFIX="/tmp/winearch-probe-$$" wineboot --init >/dev/null 2>&1; then
     WINEARCH_FLAG="WINEARCH=win32"
     PREFIX_ARCH="win32"
     # clean up the probe prefix
@@ -67,16 +67,18 @@ fi
 # ── create the prefix ────────────────────────────────────────────────────────
 info "Creating prefix at $PREFIX ($PREFIX_ARCH)..."
 
-mkdir -p "$(dirname "$PREFIX")"
+mkdir -p "$PREFIX"
 
 if [[ "$PREFIX_ARCH" == "win32" ]]; then
-    WINEARCH=win32 WINEPREFIX="$PREFIX" wineboot --init 2>/dev/null
+    WINEARCH=win32 WINEPREFIX="$PREFIX" wineboot --init
 else
-    WINEPREFIX="$PREFIX" wineboot --init 2>/dev/null
+    WINEPREFIX="$PREFIX" wineboot --init
 fi
 
 # wait for the wineserver to finish initialising
-WINEPREFIX="$PREFIX" wineserver --wait 2>/dev/null || true
+WINEPREFIX="$PREFIX" wineserver --wait || true
+
+[[ -f "$PREFIX/system.reg" ]] || die "wineboot failed to initialise the prefix — aborting."
 
 ok "Prefix created"
 
@@ -97,7 +99,7 @@ for verb in $WINETRICKS_VERBS; do
 done
 
 # ── wait for wine to settle ───────────────────────────────────────────────────
-WINEPREFIX="$PREFIX" wineserver --wait 2>/dev/null || true
+WINEPREFIX="$PREFIX" wineserver --wait || true
 
 # ── summary ──────────────────────────────────────────────────────────────────
 echo
