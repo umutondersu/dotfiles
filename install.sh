@@ -85,60 +85,59 @@ echo "════════════════════════�
 ensure_fish_installed
 echo ""
 
-# Desktop-specific installation steps
+# Steps 6-9: Desktop-only installation
 if [ "$INSTALL_MODE" = "desktop" ]; then
     echo "═══════════════════════════════════════"
     echo "Step 6: Stowing system configuration"
     echo "═══════════════════════════════════════"
     stow_system_config
     echo ""
-    
+
     echo "═══════════════════════════════════════"
     echo "Step 7: Installing desktop packages"
     echo "═══════════════════════════════════════"
     echo "📦 Adding desktop-specific packages"
-    bash "$SETUP_DIR/install-desktop-packages.sh"
+    bash "$SETUP_DIR/desktop/packages.sh"
     echo "✅ Desktop packages installed"
     echo ""
-    
+
     echo "All installed packages:"
     devbox global list
     echo ""
-    
+
     echo "═══════════════════════════════════════"
-    echo "Step 9: Setting up Kitty terminal"
+    echo "Step 8: Setting up Kitty terminal"
     echo "═══════════════════════════════════════"
-    bash "$SETUP_DIR/kitty.sh"
+    bash "$SETUP_DIR/desktop/kitty.sh"
     echo ""
-    
+
     echo "═══════════════════════════════════════"
-    echo "Step 10: Setting up nerd-dictation"
+    echo "Step 9: Setting up nerd-dictation"
     echo "═══════════════════════════════════════"
-    bash "$SETUP_DIR/nerd-dictation.sh"
-    bash "$SETUP_DIR/vosk-install.sh"
+    bash "$SETUP_DIR/desktop/nerd-dictation.sh"
+    bash "$SETUP_DIR/desktop/vosk.sh"
     echo ""
-    
+
     echo "═══════════════════════════════════════"
-    echo "Step 11: Installing Flatpak applications"
+    echo "Step 10: Installing Flatpak applications"
     echo "═══════════════════════════════════════"
-    bash "$SETUP_DIR/install-flatpaks.sh"
+    bash "$SETUP_DIR/desktop/flatpaks.sh"
     echo ""
 fi
 
-# Post-installation (common to both modes)
+# Post-installation (common to both modes — always runs)
 echo "═══════════════════════════════════════"
 echo "Post-installation setup"
 echo "═══════════════════════════════════════"
 
 setup_neovim_config
+setup_opencode
+setup_fish_shell
 
 # Desktop-only: Setup TPM
 if [ "$INSTALL_MODE" = "desktop" ]; then
     setup_tpm
 fi
-
-setup_opencode
-setup_fish_shell
 
 echo "🎉 Post-installation complete!"
 echo ""

@@ -18,7 +18,7 @@ done
 
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOTFILES_ROOT="$(dirname "$SCRIPT_DIR")"
+DOTFILES_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 PACKAGES_FILE="$DOTFILES_ROOT/desktop-packages.txt"
 
 # Check if packages file exists

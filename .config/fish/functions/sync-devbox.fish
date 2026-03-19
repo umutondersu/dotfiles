@@ -7,7 +7,7 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
 
     set -l working_config ~/.local/share/devbox/global/default/devbox.json
     set -l template_config ~/dotfiles/devbox.json
-    set -l desktop_script ~/dotfiles/setup/install-desktop-packages.sh
+    set -l desktop_script ~/dotfiles/setup/desktop/packages.sh
     set -l desktop_packages_file ~/dotfiles/desktop-packages.txt
 
     # Validate shared prerequisites
