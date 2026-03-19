@@ -26,6 +26,16 @@ cd "$PROFILE_DIR" || {
     exit 1
 }
 
+# Pull latest changes from remote before backing up local state,
+# preserving skip-worktree (machine-specific) files.
+echo "Pulling latest changes from origin/main..."
+if bash "$PROFILE_DIR/secondary-pull.sh"; then
+    echo "✓ Pull successful!"
+else
+    echo "✗ ERROR: Pull failed. Aborting backup to avoid conflicts."
+    exit 1
+fi
+
 # Check if there are any changes
 if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
     echo "No changes detected. Skipping backup."
@@ -51,17 +61,26 @@ if git diff --cached --quiet; then
     exit 0
 fi
 
+# Detect OS for commit message label
+if grep -qi "cachyos" /etc/os-release 2>/dev/null; then
+    OS_LABEL="cachyos"
+elif grep -qi "pop" /etc/os-release 2>/dev/null; then
+    OS_LABEL="popos"
+else
+    OS_LABEL="unknown"
+fi
+
 # Create commit with timestamp
-COMMIT_MSG="Auto-backup: $(date '+%Y-%m-%d %H:%M')"
+COMMIT_MSG="Auto-backup ($OS_LABEL): $(date '+%Y-%m-%d %H:%M')"
 echo "Creating commit: $COMMIT_MSG"
 git commit -m "$COMMIT_MSG"
 
 # Push to remote
 echo "Pushing to GitHub..."
 if git push origin main; then
-    echo "Backup successful!"
+    echo "✓ Backup successful!"
 else
-    echo "ERROR: Failed to push to GitHub"
+    echo "✗ ERROR: Failed to push to GitHub"
     echo "  Check your network connection and GitHub authentication"
     exit 1
 fi

@@ -10,4 +10,5 @@ SPOOL_DIR="$ANACRON_DIR/spool"
 mkdir -p "$SPOOL_DIR"
 
 # Run anacron with user configuration
-/usr/bin/anacron -t "$ANACRONTAB" -S "$SPOOL_DIR"
+ANACRON_BIN=$(command -v anacron) || { echo "anacron not found in PATH"; exit 1; }
+"$ANACRON_BIN" -t "$ANACRONTAB" -S "$SPOOL_DIR"
