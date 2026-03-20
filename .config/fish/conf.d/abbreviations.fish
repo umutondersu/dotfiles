@@ -16,6 +16,10 @@ if type -q devbox
     abbr --add dl devbox global list
 end
 
+if type -q nix
+    abbr --add --set-cursor nr "nix run nixpkgs#%"
+end
+
 if type -q nvim
     abbr --add v nvim
     abbr --add V --position anywhere "&& nvim"
@@ -58,7 +62,9 @@ if type -q xclip
     abbr --add P "xclip -selection clipboard -o >"
 end
 
-abbr --add ed nvim ~/dotfiles/desktop-packages.txt
+if type -q konsave
+    abbr --add --set-cursor=@ ks 'konsave -e my-setup -f && mv ./my-setup.knsv "@/my-setup-$(date +%Y%m%d).knsv"'
+end
 
 abbr --add l ls
 abbr --add ll ls -lg
@@ -82,3 +88,4 @@ abbr --add fkill sudo kill -9
 abbr --add B --position anywhere ">/dev/null &"
 abbr --add update 'sudo apt update && sudo apt upgrade -y && devbox global update && flatpak update -y'
 abbr --add src source
+abbr --add bios "systemctl reboot --firmware-setup"
