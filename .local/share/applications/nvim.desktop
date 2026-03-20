@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Neovim
+GenericName=Text Editor
+Comment=Edit text files
+Exec=nvim %F
+TryExec=nvim
+Terminal=true
+Type=Application
+Keywords=Text;editor;
+Icon=neovim
+Categories=Utility;TextEditor;
+StartupNotify=false
+MimeType=text/plain;text/x-c++src;text/x-c++hdr;text/x-java;text/x-shellscript;
