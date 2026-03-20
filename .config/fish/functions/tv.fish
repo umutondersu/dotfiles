@@ -1,4 +1,4 @@
-function fz
+function tv
     set -l search_type $argv[1]
     set -l initial_query ""
     set -l target_file ""
@@ -39,7 +39,7 @@ function fz
     set -l lines (tput lines)
 
     # If narrow (fewer than 100 columns) or portrait, use vertical layout
-    if test $cols -lt 100; or test $lines -gt $cols
+    if test $cols -lt 110; or test $lines -gt $cols
         set preview_pos 'down:50%'
     else
         set preview_pos 'right:50%'

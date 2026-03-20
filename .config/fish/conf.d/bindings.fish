@@ -3,6 +3,6 @@ function bind-both
     bind -M insert $argv
 end
 
-bind-both \cg fz
+bind-both \cg tv
 bind -M insert \ca forward-char
 bind-both \cw y
