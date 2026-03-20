@@ -10,9 +10,6 @@
 #   - If 32-bit Wine is available (WINEARCH=win32 works) → creates a win32 prefix
 #   - Otherwise → creates a win64 prefix using WoW64 thunking (works on modern
 #     Arch/CachyOS where the default wine package is 64-bit only)
-#
-# After running, manually set up the D: drive if foobar2000 is on an external drive:
-#   ln -sf /path/to/your/T7 ~/.local/share/wineprefixes/foobar/dosdevices/d:
 
 set -euo pipefail
 
@@ -101,6 +98,18 @@ done
 # ── wait for wine to settle ───────────────────────────────────────────────────
 WINEPREFIX="$PREFIX" wineserver --wait || true
 
+# ── font rendering tweaks for scaled displays ─────────────────────────────────
+info "Applying font rendering tweaks..."
+
+# DPI set to 110 (suits 110% compositor scaling; Wine default is 96)
+WINEPREFIX="$PREFIX" wine reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d 110 /f
+
+# Slight hinting (RenderingMode 4) — smoother small text than Wine's unset default
+WINEPREFIX="$PREFIX" wine reg add "HKCU\Software\Wine\Fonts" /v RenderingMode /t REG_DWORD /d 4 /f
+
+WINEPREFIX="$PREFIX" wineserver --wait || true
+ok "Font rendering tweaks applied"
+
 # ── summary ──────────────────────────────────────────────────────────────────
 echo
 printf '%s' "$bold"
@@ -119,14 +128,11 @@ for verb in $WINETRICKS_VERBS; do
 done
 echo
 printf '%s' "$yellow"
-echo "  D: drive not configured (skipped by design)."
+echo "  Font rendering note:"
+echo "  DPI is set to 110 and hinting to RenderingMode=4, tuned for ~110%"
+echo "  compositor scaling. If you run at 100% scale, Wine defaults may look"
+echo "  better. To revert:"
+echo "    WINEPREFIX=\"\$PREFIX\" wine reg delete \"HKCU\\\\Control Panel\\\\Desktop\" /v LogPixels /f"
+echo "    WINEPREFIX=\"\$PREFIX\" wine reg delete \"HKCU\\\\Software\\\\Wine\\\\Fonts\" /v RenderingMode /f"
 printf '%s' "$reset"
-echo "  If foobar2000 lives on an external drive (e.g. Samsung T7),"
-echo "  set up the D: mapping manually after mounting the drive:"
-echo
-echo "    ln -sf /path/to/T7 \"$PREFIX/dosdevices/d:\""
-echo
-echo "  Then launch foobar2000 with:"
-echo
-echo "    WINEPREFIX=\"$PREFIX\" wine \"D:\\\\foobar2000\\\\foobar2000.exe\""
 echo
