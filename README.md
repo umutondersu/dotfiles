@@ -170,10 +170,12 @@ devbox search <query>
   template and add desktop packages (requires confirmation unless `-f` or `--force`
   is used). Also supports `--dry-run` or `-n`
 
-- 🖥️ **add-desktop**: Fish function to install desktop-specific devbox packages
-  defined in `desktop-packages.txt`. Automatically called by in `./install.sh --desktop`.
-  It can also be run manually to add desktop packages to current devbox config.
-  Also supports `--dry-run` or `-n`
+- 🖥️ **desktop-pkg**: Fish function to manage desktop-specific devbox packages
+  defined in `desktop-packages.txt`. Supports `-i`/`--install` to install all packages
+  (runs `setup/desktop/packages.sh`, also called directly by `./install.sh --desktop`),
+  `-a`/`--append` to add a package (validates via `devbox search`, installs, then persists),
+  `-r`/`--remove` to uninstall and remove from the file, `-l`/`--list` to list packages,
+  and `-n`/`--dry-run`.
 
 ## Testing
 
