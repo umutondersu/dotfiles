@@ -101,8 +101,8 @@ WINEPREFIX="$PREFIX" wineserver --wait || true
 # ── font rendering tweaks for scaled displays ─────────────────────────────────
 info "Applying font rendering tweaks..."
 
-# DPI set to 110 (suits 110% compositor scaling; Wine default is 96)
-WINEPREFIX="$PREFIX" wine reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d 110 /f
+# (Wine default is 96)
+WINEPREFIX="$PREFIX" wine reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d 130 /f
 
 # Slight hinting (RenderingMode 4) — smoother small text than Wine's unset default
 WINEPREFIX="$PREFIX" wine reg add "HKCU\Software\Wine\Fonts" /v RenderingMode /t REG_DWORD /d 4 /f
@@ -129,7 +129,7 @@ done
 echo
 printf '%s' "$yellow"
 echo "  Font rendering note:"
-echo "  DPI is set to 110 and hinting to RenderingMode=4, tuned for ~110%"
+echo "  DPI is increased and hinting to RenderingMode=4"
 echo "  compositor scaling. If you run at 100% scale, Wine defaults may look"
 echo "  better. To revert:"
 echo "    WINEPREFIX=\"\$PREFIX\" wine reg delete \"HKCU\\\\Control Panel\\\\Desktop\" /v LogPixels /f"
