@@ -33,23 +33,29 @@ ramstick2=0x63
 i2cbus=$(i2cdetect -l | grep I801 | awk '{ print $1 }' | sed 's/i2c-//')
 i2cbusdet=$(i2cdetect -l | grep I801)
 
-if ! [[ $1 =~ ^[0-9a-fA-F]{2}$ ]]; then
-  echo "$1 is not a valid octet hex value"
-  exit 1
-fi
-red=$1
+if [[ $# -eq 0 ]]; then
+  red=00
+  green=00
+  blue=00
+else
+  if ! [[ $1 =~ ^[0-9a-fA-F]{2}$ ]]; then
+    echo "$1 is not a valid octet hex value"
+    exit 1
+  fi
+  red=$1
 
-if ! [[ $2 =~ ^[0-9a-fA-F]{2}$ ]]; then
-  echo "$2 is not a valid octet hex value"
-  exit 1
-fi
-green=$2
+  if ! [[ $2 =~ ^[0-9a-fA-F]{2}$ ]]; then
+    echo "$2 is not a valid octet hex value"
+    exit 1
+  fi
+  green=$2
 
-if ! [[ $3 =~ ^[0-9a-fA-F]{2}$ ]]; then
-  echo "$3 is not a valid octet hex value"
-  exit 1
+  if ! [[ $3 =~ ^[0-9a-fA-F]{2}$ ]]; then
+    echo "$3 is not a valid octet hex value"
+    exit 1
+  fi
+  blue=$3
 fi
-blue=$3
 
 echo "Detected bus: $i2cbusdet"
 echo -e "Setting up color value of #$red$green$blue\n"
