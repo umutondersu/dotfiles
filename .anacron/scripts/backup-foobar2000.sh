@@ -26,16 +26,6 @@ cd "$PROFILE_DIR" || {
     exit 1
 }
 
-# Pull latest changes from remote before backing up local state,
-# preserving skip-worktree (machine-specific) files.
-echo "Pulling latest changes from origin/main..."
-if bash "$PROFILE_DIR/secondary-pull.sh"; then
-    echo "✓ Pull successful!"
-else
-    echo "✗ ERROR: Pull failed. Aborting backup to avoid conflicts."
-    exit 1
-fi
-
 # Check if there are any changes
 if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
     echo "No changes detected. Skipping backup."
