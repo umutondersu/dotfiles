@@ -1,4 +1,4 @@
-# My Dotfiles for Pop!\_OS Desktop
+# My Dotfiles for Linux
 
 This repository contains my Linux configuration files managed with
 [GNU Stow](https://www.gnu.org/software/stow/) for dotfile symlinking.
@@ -19,7 +19,7 @@ The installation script automatically detects and supports:
 - **Alpine Linux**
 - Other distributions work with manual prerequisites
 
-**For now It is only reliably tested on Pop!\_OS**
+**For now It is only reliably tested on Pop!\_OS and CachyOS**
 
 ## Requirements
 
