@@ -98,6 +98,17 @@ done
 # ── wait for wine to settle ───────────────────────────────────────────────────
 WINEPREFIX="$PREFIX" wineserver --wait || true
 
+# ── fix intermittent HTTPS failures (Biography last.fm downloads) ─────────────
+# Wine's builtin winhttp/wininet occasionally fails with 0x800c0008
+# (INET_E_OBJECT_NOT_FOUND) when msxml6's XMLHTTP tries to reach last.fm over
+# HTTPS. The root cause is Wine's certificate revocation check timing out or
+# failing — disabling it makes connections reliable.
+info "Disabling certificate revocation checking in wininet..."
+WINEPREFIX="$PREFIX" wine reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" \
+    /v CertificateRevocation /t REG_DWORD /d 0 /f
+WINEPREFIX="$PREFIX" wineserver --wait || true
+ok "Certificate revocation checking disabled"
+
 # ── font rendering tweaks for scaled displays ─────────────────────────────────
 info "Applying font rendering tweaks..."
 
