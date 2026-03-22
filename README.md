@@ -99,13 +99,13 @@ If your distribution is not detected, you'll need to manually install them
 - lazydocker (docker client)
 - jq (JSON Processor)
 - w3m (Terminal Web Browser)
+- ncdu: Disk usage analyzer
 
 ### Desktop-Only Packages (with `--desktop`)
 
 - **tmux**: Terminal multiplexer
 - **streamrip**: Media downloader
 - **yt-dlp**: Video downloader
-- **dysk**: Disk usage analyzer
 - **sesh**: Smart Session Manager
 - **gcm**: Git Credential Manager
 - **fish-lsp**: Lsp Server for Fish

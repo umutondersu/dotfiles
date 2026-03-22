@@ -28,7 +28,8 @@
     "yazi@latest",
     "github:max-sixty/worktrunk",
     "nix-search-cli@latest",
-    "gh-dash@latest"
+    "gh-dash@latest",
+    "ncdu@latest"
   ],
   "shell": {
     "init_hook": [],
