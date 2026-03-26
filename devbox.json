@@ -29,7 +29,7 @@
     "github:max-sixty/worktrunk",
     "nix-search-cli@latest",
     "gh-dash@latest",
-    "ncdu@latest"
+    "snyk@latest"
   ],
   "shell": {
     "init_hook": [],
