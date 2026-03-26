@@ -1,5 +1,4 @@
 appimagelauncher 3.0.0_beta_3-1
-fuzzy-pkg-finder 1.2-1
 google-chrome 146.0.7680.164-1
 hunspell-tr 0.1-5
 onedrive-abraunegg 2.5.10-1
