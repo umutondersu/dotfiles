@@ -4,5 +4,5 @@ set -gx TMPDIR /tmp
 set -gx DEVBOX_PATH "$DEVBOX_PACKAGES_DIR/bin/"
 if type -q nvim
     set -gx EDITOR nvim
-    set -gx MANPAGER "sh -c 'col -b | nvim -R -c \"set ft=man nomod nolist\" -'"
+    set -gx MANPAGER "nvim +Man! -"
 end
