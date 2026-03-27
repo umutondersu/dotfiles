@@ -34,11 +34,12 @@ function fam --description 'Fuzzy-finder TUI for managing Arch packages'
         case -U --update
             set mode update
         case -h --help
-            echo 'Usage: fpf [OPTIONS] [pkg name]'
+            echo 'fam (Fuzzy Arch Manager)'
+            echo 'Usage: fam [OPTIONS] [pkg name]'
             echo ''
             echo 'Searching for a package:'
-            echo '  fpf [pkg name]        Search and install from official repo'
-            echo '  fpf -a [pkg name]     Search and install from AUR'
+            echo '  fam [pkg name]        Search and install from official repo'
+            echo '  fam -a [pkg name]     Search and install from AUR'
             echo ''
             echo 'Options:'
             echo '  -a, --aur                    Search/List and install from AUR with Paru'
@@ -51,7 +52,7 @@ function fam --description 'Fuzzy-finder TUI for managing Arch packages'
             return 0
         case '-*'
             echo "Unknown option: $argv[1]"
-            fpf --help
+            fam --help
             return 1
         case '*'
             set mode official
