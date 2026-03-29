@@ -1,19 +1,24 @@
+#:schema: https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+
+[default_session]
+preview_command = "lsd -gA --color always --icon always {}"
+
+cache = false
+
 [[session]]
-name = "Dotfiles"
+name = "dotfiles"
 path = "~/dotfiles"
 
 [[session]]
-name = "Neovim"
+name = "nvim"
 path = "~/.config/nvim"
+startup_command = "nvim"
 
 [[session]]
-name = "Fish"
+name = "fish"
 path = "~/.config/fish"
+startup_command = "nvim"
 
 [[session]]
-name = "Downloads"
-path = "~/Downloads"
-
-[[session]]
-name = "Foobar2000 Profile"
-path = "~/foobar2000/profile"
+name = "default"
+path = "~/"
