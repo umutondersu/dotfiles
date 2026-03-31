@@ -1,5 +1,5 @@
 #!/bin/bash
-mapfile -t sinks < <(pactl list short sinks | awk '{print $2}' | grep -v easyeffects)
+mapfile -t sinks < <(pactl list short sinks | awk '{print $2}' | grep -v -i -E 'easyeffects|dualSense')
 
 sink_current=$(pactl get-default-sink)
 
