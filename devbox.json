@@ -8,7 +8,6 @@
     "zoxide@latest",
     "bat@latest",
     "lsd@latest",
-    "neovim@0.11.6",
     "go@1.25.5",
     "nodejs@24",
     "python312@3.12.12",
@@ -26,10 +25,11 @@
     "glow@latest",
     "w3m@latest",
     "yazi@latest",
-    "github:max-sixty/worktrunk",
     "nix-search-cli@latest",
     "gh-dash@latest",
-    "snyk@latest"
+    "snyk@latest",
+    "bob-nvim@latest",
+    "tree-sitter@latest"
   ],
   "shell": {
     "init_hook": [],
