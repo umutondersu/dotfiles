@@ -12,6 +12,13 @@ function fam --description 'Fuzzy-finder TUI for managing Arch packages'
 
     set label_default 'alt-p: toggle description, alt-j/k: scroll, tab: multi-select'
 
+    # --- check dependencies ---
+    if not command -q expac
+        echo 'expac is not installed. Installing...'
+        sudo pacman -S --noconfirm expac
+        or return 1
+    end
+
     # --- parse args ---
     set mode official
     set query ''
@@ -128,7 +135,7 @@ function fam --description 'Fuzzy-finder TUI for managing Arch packages'
                 --preview-label='Select packages to REMOVE — tab: multi-select' \
                 --query "$query" | awk '{print $1}')
             if test -n "$pkg_names"
-                sudo pacman -Rns $pkg_names
+                sudo pacman -Rsc $pkg_names
             end
 
         case orphans
