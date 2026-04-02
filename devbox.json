@@ -28,8 +28,7 @@
     "nix-search-cli@latest",
     "gh-dash@latest",
     "snyk@latest",
-    "bob-nvim@latest",
-    "tree-sitter@latest"
+    "github:umutondersu/neovim-flake"
   ],
   "shell": {
     "init_hook": [],
