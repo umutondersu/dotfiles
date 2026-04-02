@@ -2,7 +2,7 @@
 # - Default: working → template (excludes desktop packages)
 # - --from-template: template → working
 function sync-devbox -d "Sync devbox configs bidirectionally"
-    argparse from-template f/force n/dry-run -- $argv
+    argparse R/from-template f/force n/dry-run -- $argv
     or return
 
     set -l working_config ~/.local/share/devbox/global/default/devbox.json
@@ -128,12 +128,44 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         end
 
         mkdir -p (dirname $working_config)
-        if not cp $template_config $working_config
-            echo "Error: Failed to copy template to working config"
-            return 1
+
+        # Desktop packages = all working packages minus the filtered (non-desktop) set
+        # current_pkgs already holds the filtered working packages (computed above)
+        set -l working_desktop_pkgs
+        if test -f $working_config
+            set -l all_working_pkgs (jq -r '.packages[]' $working_config 2>/dev/null)
+            for pkg in $all_working_pkgs
+                if not contains -- $pkg $current_pkgs
+                    set -a working_desktop_pkgs $pkg
+                end
+            end
         end
 
-        echo "✓ Copied template to working config"
+        # Merged list: template non-desktop packages + preserved working desktop packages
+        set -l temp_new (mktemp)
+        set -l temp_desktop (mktemp)
+        printf '%s\n' $new_pkgs | jq -Rs '[split("\n")[] | select(length > 0)]' >$temp_new
+        printf '%s\n' $working_desktop_pkgs | jq -Rs '[split("\n")[] | select(length > 0)]' >$temp_desktop
+
+        set -l temp_merged (mktemp)
+        jq -s '.[0] + .[1]' $temp_new $temp_desktop >$temp_merged
+        rm $temp_new $temp_desktop
+
+        set -l base_config $template_config
+        if test -f $working_config
+            set base_config $working_config
+        end
+
+        set -l final_temp (mktemp)
+        if not jq --slurpfile pkgs $temp_merged '.packages = $pkgs[0]' $base_config >$final_temp
+            echo "Error: Failed to build merged working config"
+            rm $temp_merged $final_temp
+            return 1
+        end
+        rm $temp_merged
+        mv $final_temp $working_config
+
+        echo "✓ Synced template to working config (preserved desktop packages)"
         return 0
     end
 
