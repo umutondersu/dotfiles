@@ -16,7 +16,7 @@ paru -S --needed - < ~/dotfiles/aur/aur-packages.txt
 ### Export manually installed AUR packages
 
 ```bash
-~/dotfiles/aur/get-aur-packages.sh > ~/dotfiles/aur/aur-packages.txt
+pacman -Qqe | pacman -Qi - | awk '/^Name/ {name=$3} /^Packager/ && $3=="Unknown" {print name}' > ~/dotfiles/aur/aur-packages.txt
 ```
 
 This script includes packages with Packager: Unknown attribute,
