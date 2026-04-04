@@ -1,0 +1,6 @@
+appimagelauncher
+cider
+google-chrome
+handy
+hunspell-tr
+onedrive-abraunegg
