@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-FLATPAK_LIST="$SCRIPT_DIR/../../flatpak-apps.txt"
+FLATPAK_LIST="$SCRIPT_DIR/../../flatpak/flatpak-apps.txt"
 
 # Check if flatpak is installed
 if ! command -v flatpak &> /dev/null; then
