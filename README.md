@@ -122,7 +122,6 @@ and utilities. To customize, edit `flatpak-apps.txt` before running the installe
 
 - **Opencode:** AI Coding agent (script in `setup/opencode.sh` for both environments)
 - **kitty**: Terminal emulator (script in `setup/kitty.sh`)
-- **nerd-dictation**: Voice input (script in `setup/nerd-dictation.sh`)
 - **vosk**: Speech recognition library (script in `setup/vosk-install.sh`)
 - **TPM**: Tmux Plugin Manager (git clone to `~/.tmux/plugins/tpm`)
 

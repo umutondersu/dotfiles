@@ -112,14 +112,7 @@ if [ "$INSTALL_MODE" = "desktop" ]; then
     echo ""
 
     echo "═══════════════════════════════════════"
-    echo "Step 9: Setting up nerd-dictation"
-    echo "═══════════════════════════════════════"
-    bash "$SETUP_DIR/desktop/nerd-dictation.sh"
-    bash "$SETUP_DIR/desktop/vosk.sh"
-    echo ""
-
-    echo "═══════════════════════════════════════"
-    echo "Step 10: Installing Flatpak applications"
+    echo "Step 9: Installing Flatpak applications"
     echo "═══════════════════════════════════════"
     bash "$SETUP_DIR/desktop/flatpaks.sh"
     echo ""
