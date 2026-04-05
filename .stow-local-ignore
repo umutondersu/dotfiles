@@ -12,6 +12,7 @@ devpod-install.sh
 /setup
 /gnome
 /aur
+/flatpak
 devbox.json
 flatpak-apps.txt
 desktop-packages.txt
