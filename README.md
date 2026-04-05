@@ -44,7 +44,6 @@ git clone https://github.com/umutondersu/dotfiles.git
 cd dotfiles
 ./install.sh
 # or explicitly: ./install.sh --devenv
-# or use the convenience wrapper: ./devpod-install.sh
 ```
 
 ### Desktop Installation (Full Setup)
