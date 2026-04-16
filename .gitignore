@@ -1,6 +1,7 @@
 .config/tmux/plugins/*
 .env
 .local/share/applications/mimeinfo.cache
+.config/opencode/package-lock.json
 
 .w3m/cookie
 .w3m/history

@@ -142,15 +142,3 @@ setup_tpm() {
     bash "$SETUP_DIR/desktop/tpm.sh"
     echo ""
 }
-
-# Setup OpenCode
-setup_opencode() {
-    echo "💻 Setting up OpenCode..."
-    if command -v opencode &> /dev/null; then
-        echo "✅ OpenCode already installed: $(opencode --version 2>/dev/null || echo 'installed')"
-    else
-        bash "$SETUP_DIR/tools/opencode.sh"
-        echo "✅ OpenCode installed"
-    fi
-    echo ""
-}

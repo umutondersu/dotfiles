@@ -124,7 +124,6 @@ echo "Post-installation setup"
 echo "═══════════════════════════════════════"
 
 setup_neovim_config
-setup_opencode
 setup_fish_shell
 
 # Desktop-only: Setup TPM
