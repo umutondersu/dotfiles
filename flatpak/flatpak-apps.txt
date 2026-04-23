@@ -16,7 +16,6 @@ com.vysp3r.ProtonPlus
 dev.aunetx.deezer
 io.dbeaver.DBeaverCommunity
 me.timschneeberger.GalaxyBudsClient
-moe.launcher.sleepy-launcher
 net.davidotek.pupgui2
 net.shadps4.shadPS4
 org.audacityteam.Audacity
