@@ -2,11 +2,11 @@ app.twintaillauncher.ttl
 app.zen_browser.zen
 cc.spek.Spek
 com.anydesk.Anydesk
+com.bilingify.readest
 com.bitwarden.desktop
 com.discordapp.Discord
 com.github.Matoking.protontricks
 com.github.dynobo.normcap
-com.github.johnfactotum.Foliate
 com.github.wwmm.easyeffects
 com.obsproject.Studio
 com.stremio.Service
@@ -19,6 +19,7 @@ me.timschneeberger.GalaxyBudsClient
 net.davidotek.pupgui2
 net.shadps4.shadPS4
 org.audacityteam.Audacity
+org.gnome.Snapshot
 org.kde.krdc
 org.pulseaudio.pavucontrol
 org.qbittorrent.qBittorrent
