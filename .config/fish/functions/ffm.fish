@@ -11,40 +11,46 @@ function ffm --description 'Fuzzy-finder TUI for managing Flatpak packages'
         --color pointer:green,marker:green
 
     # --- parse args ---
+    argparse -x R,l,U \
+        'h/help' \
+        'R/remove' \
+        'D/delete-data' \
+        'l/list' \
+        'U/update' \
+        'system' \
+        -- $argv
+    or return
+
+    if set -q _flag_help
+        echo 'ffm (Fuzzy Flatpak Manager)'
+        echo 'Usage: ffm [OPTIONS] [query]'
+        echo ''
+        echo 'Options:'
+        echo '  -R, --remove          Search installed Flatpaks to remove'
+        echo '  -D, --delete-data     Also delete app data when removing (use with -R)'
+        echo '  -l, --list            List/search installed Flatpaks'
+        echo '  -U, --update          Update installed Flatpaks'
+        echo '      --system          Install to system instead of user'
+        echo '  -h, --help            Print this help screen'
+        return 0
+    end
+
     set mode install
     set install_flag --user
-    set query ''
+    set delete_data
 
-    switch "$argv[1]"
-        case -R --remove
-            set mode remove
-            set query "$argv[2]"
-        case -l --list
-            set mode list
-            set query "$argv[2]"
-        case -U --update
-            set mode update
-        case --system
-            set install_flag --system
-            set query "$argv[2]"
-        case -h --help
-            echo 'ffm (Fuzzy Flatpak Manager)'
-            echo 'Usage: ffm [OPTIONS] [query]'
-            echo ''
-            echo 'Options:'
-            echo '  -R, --remove     Search installed Flatpaks to remove'
-            echo '  -l, --list       List/search installed Flatpaks'
-            echo '  -U, --update     Update installed Flatpaks'
-            echo '      --system     Install to system instead of user'
-            echo '  -h, --help       Print this help screen'
-            return 0
-        case '-*'
-            echo "Unknown option: $argv[1]"
-            ffm --help
-            return 1
-        case '*'
-            set query "$argv[1]"
+    set -q _flag_system; and set install_flag --system
+    set -q _flag_delete_data; and set delete_data --delete-data
+
+    if set -q _flag_remove
+        set mode remove
+    else if set -q _flag_list
+        set mode list
+    else if set -q _flag_update
+        set mode update
     end
+
+    set query (string join ' ' $argv)
 
     # --- modes ---
     switch $mode
@@ -126,7 +132,7 @@ function ffm --description 'Fuzzy-finder TUI for managing Flatpak packages'
                 end
             end
             if test (count $app_ids) -gt 0
-                flatpak uninstall $app_ids
+                flatpak uninstall $delete_data $app_ids
             end
 
         case update
