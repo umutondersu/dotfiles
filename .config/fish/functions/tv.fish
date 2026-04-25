@@ -101,13 +101,13 @@ function tv
                 stty sane
 
                 if test -n "$sheet"
-                    curl -s "cht.sh/$topic/$sheet?style=rrt"
+                    curl -s "cht.sh/$topic/$sheet?style=rrt" | less -R
                 else
-                    curl -s "cht.sh/$topic?style=rrt"
+                    curl -s "cht.sh/$topic?style=rrt" | less -R
                 end
             else
                 # No sheets, just show the topic directly
-                curl -s "cht.sh/$topic?style=rrt"
+                curl -s "cht.sh/$topic?style=rrt" | less -R
             end
         end
     else if test "$search_type" = make
