@@ -83,7 +83,7 @@ If your distribution is not detected, you'll need to manually install them
 
 **Shell & CLI Tools:**
 
-- fzf, ripgrep, fd, zoxide, bat, lsd, thefuck, tldr, direnv, glow, gh
+- fzf, ripgrep, fd, zoxide, bat, lsd, tldr, direnv, glow, gh
 
 **Development:**
 
