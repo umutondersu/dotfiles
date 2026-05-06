@@ -14,12 +14,12 @@ The installation script automatically detects and supports:
 
 - **Debian/Ubuntu-based**: Ubuntu, Pop!\_OS, Debian, Linux Mint, elementary OS
 - **RHEL-based**: Fedora, RHEL, CentOS, Rocky Linux, AlmaLinux
-- **Arch-based**: Arch Linux, Manjaro, EndeavourOS
+- **Arch-based**: Arch Linux, Manjaro, EndeavourOS, CachyOS
 - **SUSE-based**: openSUSE, SLES
 - **Alpine Linux**
 - Other distributions work with manual prerequisites
 
-**For now It is only reliably tested on Pop!\_OS and CachyOS**
+**For now It is only reliably tested on Pop!\_OS, Fedora and CachyOS**
 
 ## Requirements
 
@@ -163,8 +163,8 @@ devbox search <query>
 
 - 📦 **sync-devbox**: Fish function to sync devbox configurations bidirectionally.
   Default usage (`sync-devbox`) syncs working config → template, excluding desktop
-  packages. Use `sync-devbox --from-template` to restore working config from
-  template and add desktop packages (requires confirmation unless `-f` or `--force`
+  packages. Use `--from-template` or `-R` to restore working config
+  from template and add desktop packages (requires confirmation unless `-f` or `--force`
   is used). Also supports `--dry-run` or `-n`
 
 - 🖥️ **desktop-pkg**: Fish function to manage desktop-specific devbox packages
@@ -194,7 +194,7 @@ You'll need to manually backup/remove conflicting directories first.
 ```bash
 # Stow system configuration
 cd ~/dotfiles
-sudo stow --target=/etc etc
+sudo stow --target=/etc --dir=~/dotfiles/etc
 ```
 
 ### Udev Rules
