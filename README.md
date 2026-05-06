@@ -219,11 +219,10 @@ sudo udevadm trigger
 - 🔄 **Shell change**: After installation, log out and log back in for Fish
   shell to become active
 - 🐠 **Fish variables**: The install script automatically configures git to
-  ignore local changes to `.config/fish/fish_variables` (Tide prompt cache)
-  using `git update-index --assume-unchanged`. This prevents hundreds of cache
-  lines from cluttering git status while keeping the baseline Tide configuration
-  in the repo for new clones. Use `fish_variables_git` to toggle this
-  behavior
+  ignore local changes to `.config/fish/fish_variables`. This prevents hundreds
+  of tide prompt cache lines from cluttering git status
+  while keeping the baseline Tide configuration in the repo for new clones.
+  Use `fish_variables_git` to toggle this behavior
 
 ## Gnome Desktop Environment
 
