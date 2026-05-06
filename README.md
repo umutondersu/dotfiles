@@ -87,7 +87,7 @@ If your distribution is not detected, you'll need to manually install them
 
 **Development:**
 
-- neovim, opencode, go, nodejs_22, python312, deno
+- neovim, opencode, nodejs_22, deno
 
 **Utilities:**
 

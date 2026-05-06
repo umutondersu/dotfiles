@@ -8,9 +8,7 @@
     "zoxide@latest",
     "bat@latest",
     "lsd@latest",
-    "go@1.25.5",
     "nodejs@24",
-    "python312@3.12.12",
     "deno@latest",
     "lazygit@latest",
     "lazydocker@latest",
@@ -29,7 +27,8 @@
     "snyk@latest",
     "github:umutondersu/neovim-flake",
     "ncdu@latest",
-    "opencode@latest"
+    "opencode@latest",
+    "go-blueprint@latest"
   ],
   "shell": {
     "init_hook": [],
