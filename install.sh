@@ -116,6 +116,13 @@ if [ "$INSTALL_MODE" = "desktop" ]; then
     echo "═══════════════════════════════════════"
     bash "$SETUP_DIR/desktop/flatpaks.sh"
     echo ""
+
+    echo "═══════════════════════════════════════"
+    echo "Step 10: Installing JetBrainsMono Nerd Font"
+    echo "═══════════════════════════════════════"
+    bash "$SETUP_DIR/desktop/nerdfont.sh"
+    echo ""
+
 fi
 
 # Post-installation (common to both modes — always runs)

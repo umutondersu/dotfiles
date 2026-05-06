@@ -78,7 +78,7 @@ stow_system_config() {
             if [ -e "/etc/$dirname" ] && [ ! -L "/etc/$dirname" ]; then
                 if [ ! "$conflicts_found" = true ]; then
                     echo ""
-                    echo "⚠️  WARNING: The following directories already exist in /etc:"
+                    echo "⚠️ Warning: The following directories already exist in /etc:"
                     conflicts_found=true
                 fi
                 echo "  - /etc/$dirname"

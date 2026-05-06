@@ -26,6 +26,7 @@ The installation script automatically detects and supports:
 - **git**
 - **curl**
 - **sudo**
+- **unzip** — optional for non-Arch Nerd Font installation on desktop
 
 The install script should handle everything else (check [Prerequisites](#prerequisites))
 
@@ -122,8 +123,18 @@ and utilities. To customize, edit `flatpak-apps.txt` before running the installe
 - **kitty**: Terminal emulator (script in `setup/kitty.sh`)
 - **vosk**: Speech recognition library (script in `setup/vosk-install.sh`)
 - **TPM**: Tmux Plugin Manager (git clone to `~/.tmux/plugins/tpm`)
+- **JetBrainsMono Nerd Font**: See [Nerd Font Installation](#nerd-font-installation) below
 
-See `devbox.json` for the core package template.
+### Nerd Font Installation
+
+Desktop installation (`--desktop`) automatically installs
+**JetBrains Mono Nerd Font** via `setup/desktop/nerdfont.sh`.
+
+- **Arch-based**: installed via `pacman` (`ttf-jetbrains-mono-nerd`)
+- **Other distros**: downloaded from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases)
+  and installed to `~/.local/share/fonts`
+
+> **Note:** Non-Arch systems require `unzip` to extract the font archive.
 
 ## Devbox Configuration Approach
 

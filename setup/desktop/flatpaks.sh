@@ -7,13 +7,13 @@ FLATPAK_LIST="$SCRIPT_DIR/../../flatpak/flatpak-apps.txt"
 if ! command -v flatpak &> /dev/null; then
     echo "Warning: Flatpak is not installed on this system"
     echo "Skipping Flatpak application installation"
-    return 0
+    exit 0
 fi
 
 # Check if flatpak-apps.txt exists
 if [ ! -f "$FLATPAK_LIST" ]; then
     echo "Error: flatpak-apps.txt not found at $FLATPAK_LIST"
-    return 1
+    exit 1
 fi
 
 # Ensure flathub remote is configured
@@ -27,7 +27,7 @@ mapfile -t all_apps < <(grep -v '^#' "$FLATPAK_LIST" | grep -v '^[[:space:]]*$')
 
 if [ ${#all_apps[@]} -eq 0 ]; then
     echo "No applications found in flatpak-apps.txt"
-    return 0
+    exit 0
 fi
 
 echo "Found ${#all_apps[@]} applications in flatpak-apps.txt"
@@ -47,7 +47,7 @@ done
 if [ ${#apps_to_install[@]} -eq 0 ]; then
     echo ""
     echo "All applications are already installed"
-    return 0
+    exit 0
 fi
 
 # Show list of apps to be installed
@@ -64,7 +64,7 @@ echo
 
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo "Skipping Flatpak application installation"
-    return 0
+    exit 0
 fi
 
 # Install all apps at once
@@ -80,5 +80,5 @@ else
     echo ""
     echo "⚠️  Some applications may have failed to install"
     echo "You can retry manually with: flatpak install flathub <app-id>"
-    return 1
+    exit 1
 fi
