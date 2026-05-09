@@ -61,13 +61,21 @@ end
 
 if type -q yt-dlp
     function _abbr_yt
-        set -l clip (xclip -selection clipboard -o 2>/dev/null)
+        set clip ""
+        if type -q wl-paste
+            set clip (wl-paste 2>/dev/null)
+        else if type -q xclip
+            set clip (xclip -selection clipboard -o 2>/dev/null)
+        end
         echo "yt-dlp -x --audio-format opus --audio-quality 0 \"$clip\""
     end
     abbr --add yt --function _abbr_yt
 end
 
-if type -q xclip
+if type -q wl-copy && type -q wl-paste
+    abbr --add Y --position anywhere "| wl-copy"
+    abbr --add P "wl-paste >"
+else if type -q xclip
     abbr --add Y --position anywhere "| xclip -selection clipboard"
     abbr --add P "xclip -selection clipboard -o >"
 end
