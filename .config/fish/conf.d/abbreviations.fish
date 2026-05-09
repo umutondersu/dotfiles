@@ -8,7 +8,6 @@ end
 if type -q devbox
     abbr --add db devbox
     abbr --add ds devbox search
-    abbr --add ns nix-search
     abbr --add dS devbox shell
     abbr --add dg devbox global
     abbr --add da devbox global add
@@ -18,6 +17,9 @@ end
 
 if type -q nix
     abbr --add --set-cursor nr "nix run nixpkgs#%"
+    abbr --add --set-cursor ns "nix shell nixpkgs#%"
+    abbr --add gob "nix shell nixpkgs#go nixpkgs#go-blueprint -c go-blueprint create --advanced"
+    abbr --add nS nix-search
 end
 
 if type -q nvim
