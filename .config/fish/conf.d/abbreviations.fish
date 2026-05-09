@@ -84,6 +84,14 @@ if type -q konsave
     abbr --add --set-cursor=@ ks 'konsave -e my-setup -f && mv ./my-setup.knsv "@/my-setup-$(date +%Y%m%d).knsv"'
 end
 
+if type -q apt-get
+    if type -q devbox
+        abbr --add update 'sudo apt update && sudo apt upgrade -y && devbox global update && flatpak update -y'
+    else
+        abbr --add update 'sudo apt update && sudo apt upgrade -y && flatpak update -y'
+    end
+end
+
 abbr --add l ls
 abbr --add ll ls -lg
 abbr --add la ls -A
@@ -104,6 +112,5 @@ abbr --add odlog journalctl --user-unit=onedrive -f
 abbr --add python python3
 abbr --add fkill sudo kill -9
 abbr --add B --position anywhere ">/dev/null &"
-abbr --add update 'sudo apt update && sudo apt upgrade -y && devbox global update && flatpak update -y'
 abbr --add src source
 abbr --add bios "systemctl reboot --firmware-setup"
