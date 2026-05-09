@@ -4,3 +4,7 @@ google-chrome
 handy
 hunspell-tr
 onedrive-abraunegg
+wl-clipboard
+gamemode
+mangohud
+fastfetch

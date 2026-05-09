@@ -13,7 +13,7 @@ sudo pacman -Sy
 paru -S --needed - < ~/dotfiles/aur/aur-packages.txt
 ```
 
-### Export manually installed AUR packages
+## Export manually installed AUR packages
 
 ```bash
 pacman -Qqe | pacman -Qi - | awk '/^Name/ {name=$3} /^Packager/ && $3=="Unknown" {print name}' > ~/dotfiles/aur/aur-packages.txt
@@ -21,3 +21,5 @@ pacman -Qqe | pacman -Qi - | awk '/^Name/ {name=$3} /^Packager/ && $3=="Unknown"
 
 This script includes packages with Packager: Unknown attribute,
 ensuring all AUR/foreign packages are included.
+
+It's an example script. You can manually add/remove package names from the file
