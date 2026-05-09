@@ -27,8 +27,7 @@
     "snyk@latest",
     "github:umutondersu/neovim-flake",
     "ncdu@latest",
-    "opencode@latest",
-    "go-blueprint@latest"
+    "opencode@latest"
   ],
   "shell": {
     "init_hook": [],
