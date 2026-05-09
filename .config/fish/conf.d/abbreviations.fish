@@ -10,9 +10,15 @@ if type -q devbox
     abbr --add ds devbox search
     abbr --add dS devbox shell
     abbr --add dg devbox global
+    abbr --add dgu devbox global update
+    abbr --add dU devbox update
     abbr --add da devbox global add
     abbr --add dr devbox global rm
     abbr --add dl devbox global list
+    abbr --add dA devbox add
+    abbr --add dR devbox rm
+    abbr --add dL devbox list
+    abbr --add dgc "devbox run -- nix store gc --extra-experimental-features nix-command"
 end
 
 if type -q nix
@@ -20,6 +26,8 @@ if type -q nix
     abbr --add --set-cursor ns "nix shell nixpkgs#%"
     abbr --add gob "nix shell nixpkgs#go nixpkgs#go-blueprint -c go-blueprint create --advanced"
     abbr --add nS nix-search
+    abbr --add --set-cursor np --position anywhere "nixpkgs#%"
+    abbr --add ngc nix store gc
 end
 
 if type -q nvim
