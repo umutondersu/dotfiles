@@ -28,7 +28,7 @@ if type -q nix
     abbr --add nS nix-search
     abbr --add --set-cursor np --position anywhere "nixpkgs#%"
     abbr --add ngc nix store gc
-    abbr --add nf --position anywhere nixfind
+    abbr --add --position anywhere nf nixfind
 end
 
 if type -q nvim
