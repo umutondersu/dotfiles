@@ -111,7 +111,7 @@ abbr --add --set-cursor td tar -xzf %.tar.gz
 
 abbr --add odlog journalctl --user-unit=onedrive -f
 abbr --add python python3
-abbr --add fkill sudo kill -9
-abbr --add B --position anywhere ">/dev/null &"
+abbr --add fk sudo kill -9
+abbr --add B --position anywhere ">/dev/null 2>&1 &"
 abbr --add src source
 abbr --add bios "systemctl reboot --firmware-setup"
