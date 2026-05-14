@@ -18,7 +18,7 @@ if type -q devbox
     abbr --add dA devbox add
     abbr --add dR devbox rm
     abbr --add dL devbox list
-    abbr --add dgc "devbox run -- nix store gc --extra-experimental-features nix-command"
+    abbr --add dgc "devbox global run -- nix store gc --extra-experimental-features nix-command"
 end
 
 if type -q nix
