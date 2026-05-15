@@ -6,7 +6,6 @@ SETUVAR _tide_left_items:pwd\x1egit\x1enewline\x1echaracter
 SETUVAR _tide_prompt_411224:\x1b\x5b49m\x1e\x1b\x5b49m
 SETUVAR _tide_prompt_419482:\x1b\x5bm\x1b\x5b49m\x40PWD\x40\x1b\x5b90m\x20\x1b\x5b49m\x1b\x5b37m\x1b\x5b92mmain\x1b\x5b91m\x1b\x5b92m\x1b\x5b92m\x1b\x5b91m\x1b\x5b93m\x1b\x5b93m\x1b\x5b94m\x1b\x5bm\x20\x1e\x1b\x5b92m\u276f\x1e\x1b\x5bm\x20\x1b\x5b90m\x1b\x5b49m04\x3a32\x3a19\x1b\x5bm
 SETUVAR _tide_right_items:status\x1ecmd_duration\x1econtext\x1ejobs\x1edirenv\x1ebun\x1enode\x1epython\x1erustc\x1ego\x1edistrobox\x1enix_shell\x1etime
-SETUVAR fish_user_paths:/home/qorcialwolf/\x2elocal/share/nvim/mason/bin\x1e/home/qorcialwolf/\x2elocal/kitty\x2eapp/bin\x1e/home/qorcialwolf/\x2elocal/share/bob/nvim\x2dbin\x1e/home/qorcialwolf/\x2ecargo/bin\x1e/home/qorcialwolf/\x2elocal/bin\x1e/usr/bin
 SETUVAR tide_aws_bg_color:normal
 SETUVAR tide_aws_color:yellow
 SETUVAR tide_aws_icon:\uf270
