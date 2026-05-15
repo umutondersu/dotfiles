@@ -5,6 +5,9 @@
 LOG_FILE="$HOME/.anacron/logs/kde-backup.log"
 DATE=$(date '+%Y-%m-%d %H:%M:%S')
 
+# Add devbox packages (konsave) to PATH
+export PATH="$HOME/.local/share/devbox/global/default/.devbox/nix/profile/default/bin:$PATH"
+
 # Create log directory if it doesn't exist
 mkdir -p "$(dirname "$LOG_FILE")"
 

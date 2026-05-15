@@ -6,9 +6,14 @@ PROFILE_DIR="/home/qorcialwolf/foobar2000/profile"
 LOG_FILE="$HOME/.anacron/logs/foobar-backup.log"
 DATE=$(date '+%Y-%m-%d %H:%M:%S')
 
+# Add devbox packages (git-credential-manager) to PATH
+export PATH="$HOME/.local/share/devbox/global/default/.devbox/nix/profile/default/bin:$PATH"
+
 # Use plaintext GCM credential store for headless operation
-# (avoids secretservice/D-Bus dependency without affecting global git config)
-export GCM_CREDENTIAL_STORE=plaintext
+# (overrides credential.credentialstore=secretservice in ~/.gitconfig which requires D-Bus)
+export GIT_CONFIG_COUNT=1
+export GIT_CONFIG_KEY_0=credential.credentialStore
+export GIT_CONFIG_VALUE_0=plaintext
 
 # Create log directory if it doesn't exist
 mkdir -p "$(dirname "$LOG_FILE")"
