@@ -90,12 +90,21 @@ if type -q konsave
     abbr --add --set-cursor=@ ks 'konsave -e my-setup -f && mv ./my-setup.knsv "@/my-setup-$(date +%Y%m%d).knsv"'
 end
 
+# Dynamic update alias based on available package manager and devbox
+set -l cmds
 if type -q apt-get
-    if type -q devbox
-        abbr --add update 'sudo apt update && sudo apt upgrade -y && devbox global update && flatpak update -y'
-    else
-        abbr --add update 'sudo apt update && sudo apt upgrade -y && flatpak update -y'
-    end
+    set cmds $cmds "sudo apt update" "sudo apt upgrade -y"
+else if type -q dnf
+    set cmds $cmds "sudo dnf upgrade -y" "fwupdmgr get-updates; or true"
+end
+set cmds $cmds "flatpak update -y"
+if type -q devbox
+    set cmds $cmds "devbox global update"
+end
+if not type -q cachy-update
+    abbr --add update (string join " && " $cmds)
+else
+    abbr --add update cachy-update
 end
 
 abbr --add l ls
