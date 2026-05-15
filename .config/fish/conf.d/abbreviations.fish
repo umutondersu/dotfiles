@@ -1,7 +1,10 @@
 if type -q rip
+    function _abbr_rip_url
+        clip_expand "rip url '%'"
+    end
     abbr --add --set-cursor rs "rip search deezer track '%'"
     abbr --add --set-cursor ra "rip search deezer album '%'"
-    abbr --add --set-cursor ru "rip url '%'"
+    abbr --add ru --function _abbr_rip_url
 end
 
 if type -q devbox
@@ -67,13 +70,7 @@ end
 
 if type -q yt-dlp
     function _abbr_yt
-        set clip ""
-        if type -q wl-paste
-            set clip (wl-paste 2>/dev/null)
-        else if type -q xclip
-            set clip (xclip -selection clipboard -o 2>/dev/null)
-        end
-        echo "yt-dlp -x --audio-format opus --audio-quality 0 \"$clip\""
+        clip_expand "yt-dlp -x --audio-format opus --audio-quality 0 '%'"
     end
     abbr --add yt --function _abbr_yt
 end
