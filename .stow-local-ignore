@@ -2,26 +2,11 @@
 \.git
 \.gitignore
 
-^/README.*
-^/LICENSE.*
-^/COPYING
-
-# Custom Ignores
-install.sh
-devpod-install.sh
-/setup
-/gnome
-/aur
-/flatpak
-devbox.json
-flatpak-apps.txt
-desktop-packages.txt
+# Ignore everything at root that doesn't start with a dot
+^/[^.][^/]*$
 
 # Flatpaks
-^\.var/app/
-
-# System configuration (stowed separately with sudo)
-^/etc
+^\.var/app
 
 # anacron runtime dirs (created at runtime, not stowed)
 ^\.anacron/logs
