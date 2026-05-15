@@ -122,7 +122,7 @@ abbr --add claer clear
 abbr --add clr clear
 
 abbr --add --set-cursor tc tar -czf file.tar.gz ./%
-abbr --add --set-cursor tC tar -czf file.tar.gz --drectory .%
+abbr --add --set-cursor tC tar -czf file.tar.gz --directory .%
 abbr --add --set-cursor tx tar -xzf %.tar.gz
 abbr --add --set-cursor tl tar -tf %.tar.gz
 
