@@ -111,6 +111,7 @@ abbr --add lla ls -lgA
 abbr --add lS ls -lgSA
 
 abbr c --add cd
+abbr ci --add zi
 abbr g --add git
 abbr gs --add git status -s
 abbr gi --add git update-index --skip-worktree
