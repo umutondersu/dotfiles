@@ -93,16 +93,16 @@ if type -q apt-get
     set cmds $cmds "sudo apt update" "sudo apt upgrade -y"
 else if type -q dnf
     set cmds $cmds "sudo dnf upgrade -y" "fwupdmgr get-updates; or true"
-end
-set cmds $cmds "flatpak update -y"
-if type -q devbox
-    set cmds $cmds "devbox global update"
+else if type -q cachy-update
+    set cmds $cmds cachy-update
 end
 if not type -q cachy-update
-    abbr --add update (string join " && " $cmds)
-else
-    abbr --add update cachy-update
+    set cmds $cmds "flatpak update -y"
 end
+if type -q devbox
+    set cmds $cmds " devbox global update 2>&1 | grep -v '^Info: Already up-to-date '"
+end
+abbr --add update (string join " && " $cmds)
 
 abbr --add l ls
 abbr --add ll ls -lg
