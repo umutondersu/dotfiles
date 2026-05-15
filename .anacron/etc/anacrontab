@@ -4,10 +4,11 @@
 # Set shell
 SHELL=/bin/bash
 # Set PATH
-PATH=/home/qorcialwolf/.local/share/devbox/global/default/.devbox/nix/profile/default/bin:/usr/local/bin:/usr/bin:/bin
+PATH=/usr/local/bin:/usr/bin:/bin
 
+# Examples
 # Backup foobar2000 profile daily (1 day period, 5 minute delay after boot)
-1  5  foobar2000-backup  /home/qorcialwolf/.anacron/scripts/backup-foobar2000.sh
+#1  5  foobar2000-backup  /home/qorcialwolf/.anacron/scripts/backup-foobar2000.sh
 
 # Backup KDE profile weekly via konsave (7 day period, 10 minute delay after boot)
-7  10  kde-backup  /home/qorcialwolf/.anacron/scripts/backup-kde.sh
+#7  10  kde-backup  /home/qorcialwolf/.anacron/scripts/backup-kde.sh
