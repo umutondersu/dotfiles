@@ -3,6 +3,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SETUP_DIR="$SCRIPT_DIR/setup"
+DESKTOP_DIR="$SETUP_DIR/desktop"
 
 # Source common functions
 source "$SETUP_DIR/common.sh"
@@ -97,7 +98,7 @@ if [ "$INSTALL_MODE" = "desktop" ]; then
     echo "Step 7: Installing desktop packages"
     echo "═══════════════════════════════════════"
     echo "📦 Adding desktop-specific packages"
-    bash "$SETUP_DIR/desktop/packages.sh"
+    bash "$DESKTOP_DIR/packages.sh"
     echo "✅ Desktop packages installed"
     echo ""
 
@@ -108,20 +109,28 @@ if [ "$INSTALL_MODE" = "desktop" ]; then
     echo "═══════════════════════════════════════"
     echo "Step 8: Setting up Kitty terminal"
     echo "═══════════════════════════════════════"
-    bash "$SETUP_DIR/desktop/kitty.sh"
+    bash "$DESKTOP_DIR/kitty.sh"
     echo ""
 
     echo "═══════════════════════════════════════"
     echo "Step 9: Installing Flatpak applications"
     echo "═══════════════════════════════════════"
-    bash "$SETUP_DIR/desktop/flatpaks.sh"
+    bash "$DESKTOP_DIR/flatpaks.sh"
     echo ""
 
     echo "═══════════════════════════════════════"
     echo "Step 10: Installing JetBrainsMono Nerd Font"
     echo "═══════════════════════════════════════"
-    bash "$SETUP_DIR/desktop/nerdfont.sh"
+    bash "$DESKTOP_DIR/nerdfont.sh"
     echo ""
+
+    if [ "$(detect_package_manager)" = "pacman" ]; then
+        echo "═══════════════════════════════════════"
+        echo "Step 11: Installing AUR packages"
+        echo "═══════════════════════════════════════"
+        bash "$DESKTOP_DIR/aur.sh"
+        echo ""
+    fi
 
 fi
 
