@@ -170,7 +170,7 @@ devbox global update
 devbox search <query>
 ```
 
-**Permanent changes must be synced with `sync-devbox`.**
+**To sync your changes with the template you can use `sync-devbox`.**
 
 - 📦 **sync-devbox**: Fish function to sync devbox configurations bidirectionally.
   Default usage (`sync-devbox`) syncs working config → template, excluding desktop
@@ -235,22 +235,15 @@ sudo udevadm trigger
   while keeping the baseline Tide configuration in the repo for new clones.
   Use `fish_variables_git` to toggle this behavior
 
-## Gnome Desktop Environment
-
-![Screenshot from 2024-11-01 14-38-56](https://github.com/user-attachments/assets/6fcd937b-5756-43f5-9664-c30c9749169c)
-
-Themes have to be in the `~/.themes` and Icons have to be in the `~/.icons` directory
-
-- Themes: [Dracula](https://github.com/dracula/gtk/archive/refs/heads/master.zip),
-  [Sweet Dark](https://www.gnome-look.org/p/1253385)
-
-- Icons: [Flatery Indigo Dark](https://www.gnome-look.org/p/1332404)
-
-- Wallpaper: [eberhardgross](https://unsplash.com/photos/a-bird-flying-through-a-cloudy-blue-sky-xC7Ho08RYF4)
+## Desktop Environment
 
 For restoring the entire desktop environment (Icons, Themes, Fonts, Background,
-Extensions, Desktop and Flatpak apps) you can use your own configuration with
-[SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop) or by
-using the `gnome/.settings.rc` config with dconf by using
-`dconf load / < ~/dotfiles/gnome/.settings.rc` I keep my SaveDesktop backup on
-cloud due to its size
+Extensions, etc) you can use your own configuration.
+
+### Gnome
+
+[SaveDesktop](https://flathub.org/apps/io.github.vikdevelop.SaveDesktop)
+
+### KDE
+
+[Konsave](https://github.com/Prayag2/konsave)
