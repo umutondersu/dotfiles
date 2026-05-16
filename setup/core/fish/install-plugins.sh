@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Install Fisher plugins from fish_plugins file
 
 FISH_PLUGINS="$HOME/.config/fish/fish_plugins"

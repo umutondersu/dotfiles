@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Common functions shared between installation scripts
 
 # Detect the package manager of the current distribution

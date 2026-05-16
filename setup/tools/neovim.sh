@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Clone Neovim configuration
 
 NVIM_DIR="$HOME/.config/nvim"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Check and install stow if needed
 
 if command -v stow &> /dev/null; then

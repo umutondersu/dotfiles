@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Check and install devbox if needed
 
 if command -v devbox &> /dev/null; then

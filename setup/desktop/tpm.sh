@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Setup Tmux Plugin Manager (TPM)
 
 TPM_DIR="$HOME/.tmux/plugins/tpm"
