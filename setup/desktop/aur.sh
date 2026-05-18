@@ -14,6 +14,6 @@ echo "==> Syncing package databases..."
 sudo pacman -Sy
 
 echo "==> Installing AUR packages..."
-paru -S --needed - < "$AUR_DIR/aur-packages.txt"
+paru -S --needed --noconfirm - < "$AUR_DIR/aur-packages.txt"
 
 echo "Done."

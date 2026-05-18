@@ -10,7 +10,7 @@ sudo pacman -Sy
 ## 2. Install AUR packages on a new machine
 
 ```bash
-paru -S --needed - < ~/dotfiles/aur/aur-packages.txt
+paru -S --needed --noconfirm - < ./dotfiles/aur/aur-packages.txt
 ```
 
 ## Export manually installed AUR packages
