@@ -6,6 +6,7 @@ com.bilingify.readest
 com.bitwarden.desktop
 com.discordapp.Discord
 com.github.Matoking.protontricks
+com.github.PintaProject.Pinta
 com.github.dynobo.normcap
 com.github.wwmm.easyeffects
 com.obsproject.Studio
