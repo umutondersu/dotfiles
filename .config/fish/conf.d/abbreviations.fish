@@ -16,12 +16,13 @@ if type -q devbox
     abbr --add dg devbox global
     abbr --add da devbox global add
     abbr --add dgu devbox global update
-    abbr --add dr devbox global rm
+    abbr --add drm devbox global rm
     abbr --add dl devbox global list
 
     abbr --add dA devbox add
     abbr --add dU devbox update
-    abbr --add dR devbox rm
+    abbr --add dr devbox run
+    abbr --add dRm devbox rm
     abbr --add dL devbox list
 end
 
