@@ -56,6 +56,11 @@ vim.o.winborder = 'rounded'
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
+-- Autocomplete
+vim.o.autocomplete = true 
+vim.opt.completeopt = "menu,menuone,noselect,popup"
+
+
 -- Custom diagnostic config
 vim.diagnostic.config(
 	{

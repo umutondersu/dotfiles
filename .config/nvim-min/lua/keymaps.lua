@@ -8,7 +8,6 @@ vim.g.maplocalleader = ' '
 -- See `:help vim.keymap.set()`
 local map = vim.keymap.set
 
-map('n', '<leader>o', ':update<CR> :source<CR>', { desc = 'Source File' })
 map({ 'n', 'v' }, 'p', '"+p')
 map({ 'n', 'v' }, 'P', '"+P')
 map({ 'n', 'v' }, 'x', '"+d')

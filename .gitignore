@@ -3,3 +3,4 @@
 .config/opencode/package-lock.json
 .w3m/cookie
 .w3m/history
+.config/nvim-min/nvim-pack-lock.json

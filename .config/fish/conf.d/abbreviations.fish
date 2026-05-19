@@ -42,7 +42,6 @@ end
 if type -q nvim
     abbr --add v nvim
     abbr --add V --position anywhere "&& nvim"
-    abbr --add nvim-min 'NVIM_APPNAME="nvim-min" nvim'
     abbr --add vm 'NVIM_APPNAME="nvim-min" nvim'
 end
 

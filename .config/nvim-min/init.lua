@@ -12,48 +12,43 @@ vim.pack.add({
 	{ src = "https://github.com/echasnovski/mini.pairs" },
 	{ src = "https://github.com/echasnovski/mini.ai" },
 	{ src = "https://github.com/echasnovski/mini.icons" },
+	{ src = "https://github.com/echasnovski/mini.move" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/williamboman/mason-lspconfig.nvim" },
 	{ src = "https://github.com/rmagatti/auto-session" },
 	{ src = "https://github.com/ibhagwan/smartyank.nvim" },
-	{ src = "https://github.com/stevearc/oil.nvim"},
+	{ src = "https://github.com/stevearc/oil.nvim" },
+	{ src = "https://github.com/tpope/vim-fugitive" }
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		if client:supports_method('textDocument/completion') then
-			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-		end
-	end,
-})
-vim.api.nvim_create_autocmd('TextYankPost', {
-	callback = function()
-		vim.hl.on_yank()
-	end,
-	group = vim.api.nvim_create_augroup('YankHighlight', { clear = true }),
-	pattern = '*',
-})
-
+local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc',
+	'regex' }
+require('nvim-treesitter').install(parsers)
 require "which-key".setup({ preset = "helix", delay = 0, })
 require "mini.pick".setup()
 require "mini.ai".setup()
 require "mini.pairs".setup()
 require "mini.icons".setup()
+require "mini.move".setup(
+	{
+		mappings = {
+			left = 'H',
+			right = 'L',
+			down = 'J',
+			up = 'K',
+			line_left = '',
+			line_right = '',
+			line_down = '<M-j>',
+			line_up = '<M-k>',
+		},
+	}
+)
 require "mason".setup()
-require "nvim-treesitter.configs".setup({
-	highlight = { enable = true }
-})
 require("auto-session").setup()
 require('smartyank').setup({ highlight = { enabled = false } })
 require('oil').setup()
-
-local map = vim.keymap.set
-map('n', '<leader>s', ":Pick files<CR>", { desc = "Search Files" })
-map('n', '<leader>h', ":Pick help<CR>", { desc = "Search Help" })
-map('n', '<leader><space>', ":Pick buffers<CR>", { desc = "Pick Buffer" })
-map('n', '<leader>e', ':Oil<CR>', { desc = 'File Explorer' })
 
 local lspServers = {
 	"bashls",
@@ -64,13 +59,27 @@ local lspServers = {
 	"emmet_language_server",
 	"lua_ls",
 	"basedpyright",
-	"omnisharp",
 	"gopls",
-	"jdtls",
-	"ruby_lsp",
 	"fish_lsp"
 }
+require("mason-lspconfig").setup({
+	ensure_installed = lspServers,
+})
 vim.lsp.enable(lspServers)
+
+local map = vim.keymap.set
+map('n', '<leader>s', ":Pick files<CR>", { desc = "Search Files" })
+map('n', '<leader>h', ":Pick help<CR>", { desc = "Search Help" })
+map('n', '<leader><space>', ":Pick buffers<CR>", { desc = "Pick Buffer" })
+map('n', '<leader>e', ':Oil<CR>', { desc = 'File Explorer' })
+map('n', '<leader>g', function()
+	if vim.bo.filetype == 'fugitive' then
+		vim.cmd('quit')
+	else
+		vim.cmd('G')
+	end
+end, { desc = 'Git Fugitive' })
+
 
 require "tokyonight".setup({
 	transparent = true,
