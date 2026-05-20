@@ -24,3 +24,4 @@ org.gnome.Snapshot
 org.kde.krdc
 org.pulseaudio.pavucontrol
 org.qbittorrent.qBittorrent
+org.zealdocs.Zeal
