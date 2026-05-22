@@ -31,18 +31,6 @@ else
     echo "  ✅ Fish is already the default shell"
 fi
 
-# Create a stable symlink so tools like kitty/tmux can reference a fixed path
-if [ -L /usr/local/bin/fish ] && [ "$(readlink /usr/local/bin/fish)" = "$FISH_PATH" ]; then
-    echo "  ✅ Symlink /usr/local/bin/fish already points to $FISH_PATH"
-else
-    echo "  Creating symlink /usr/local/bin/fish -> $FISH_PATH"
-    if sudo ln -sf "$FISH_PATH" /usr/local/bin/fish 2>/dev/null; then
-        echo "  ✅ Symlink created"
-    else
-        echo "  ⚠️  Could not create symlink (non-fatal)"
-    fi
-fi
-
 # Configure git to ignore local changes to fish_variables (Tide prompt cache)
 echo "  Configuring git to ignore fish_variables cache changes..."
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
