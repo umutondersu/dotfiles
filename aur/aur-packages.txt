@@ -1,6 +1,6 @@
 appimagelauncher
 cider
-google-chrome
+helium-browser-bin
 handy
 hunspell-tr
 onedrive-abraunegg
