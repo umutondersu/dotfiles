@@ -8,8 +8,6 @@
     "zoxide@latest",
     "bat@latest",
     "lsd@latest",
-    "nodejs@24",
-    "deno@latest",
     "lazygit@latest",
     "lazydocker@latest",
     "curlie@latest",
