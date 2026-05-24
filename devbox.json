@@ -22,7 +22,6 @@
     "yazi@latest",
     "nix-search-cli@latest",
     "gh-dash@latest",
-    "snyk@latest",
     "github:umutondersu/neovim-flake",
     "ncdu@latest",
     "opencode@latest"
