@@ -18,11 +18,15 @@ function ?
         set i (math $i + 1)
     end
 
+    set -l pager "cat -p -l markdown"
+    if type -q glow
+        set pager "glow -"
+    end
     # Run opencode and pipe through glow, hide build message
     if test -n "$model"
-        opencode run --model $model $query_args 2>/dev/null | glow -
+        opencode run --model $model $query_args 2>/dev/null | eval $pager
     else
-        opencode run $query_args 2>/dev/null | glow -
+        opencode run $query_args 2>/dev/null | eval $pager
     end
 
     # Get the most recent session ID (skip header and separator, get first data line)
