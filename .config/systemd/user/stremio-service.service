@@ -1,0 +1,11 @@
+[Unit]
+Description=Stremio Service
+After=network.target
+
+[Service]
+ExecStart=flatpak run com.stremio.Service
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
