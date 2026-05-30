@@ -11,6 +11,7 @@ com.github.dynobo.normcap
 com.github.wwmm.easyeffects
 com.obsproject.Studio
 com.stremio.Service
+com.stremio.Stremio
 com.usebottles.bottles
 com.vysp3r.ProtonPlus
 dev.aunetx.deezer

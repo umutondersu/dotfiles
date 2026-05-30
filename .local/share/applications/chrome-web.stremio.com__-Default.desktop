@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Terminal=false
-Type=Application
-Name=Stremio
-Exec=bash -c 'if ! flatpak info com.stremio.Service >/dev/null 2>&1; then notify-send -u critical -i dialog-warning "Stremio Service Missing" "The Stremio background service is not installed."; exit 1; fi; systemctl --user start stremio-service; for i in $(seq 1 30); do curl -sf http://127.0.0.1:11470 >/dev/null 2>&1 && break; sleep 1; done; /usr/bin/helium-browser --app="https://web.stremio.com/"'
-Icon=com.stremio.Service
-StartupWMClass=chrome-web.stremio.com__-Default
