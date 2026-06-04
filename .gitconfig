@@ -19,3 +19,6 @@
 	credentialStore = secretservice
 [pull]
 	rebase = true
+# Machine-local overrides (e.g. credentialStore = osxkeychain on macOS)
+[include]
+	path = ~/.gitconfig.local

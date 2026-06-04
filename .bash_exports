@@ -1,12 +1,12 @@
 # Turso
-export PATH="/home/qorcialwolf/.turso:$PATH"
+export PATH="$HOME/.turso:$PATH"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH=$BUN_INSTALL/bin:$PATH
 
 # fly
-export FLYCTL_INSTALL="/home/qorcialwolf/.fly"
+export FLYCTL_INSTALL="$HOME/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 # nvm
@@ -14,12 +14,19 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# snap
-export PATH=$PATH:/snap/bin
+# snap (Linux only)
+if [[ "$(uname -s)" != "Darwin" ]]; then
+    export PATH=$PATH:/snap/bin
+fi
 
-# goloang
+# golang
 export PATH=$PATH:/usr/local/go/bin
 
 # bob
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
+
+# macOS: Homebrew (Apple Silicon)
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi

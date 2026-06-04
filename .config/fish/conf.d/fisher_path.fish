@@ -16,7 +16,8 @@ for file in $fisher_path/conf.d/*.fish
 end
 
 # Symlink fisher themes into fish themes dir (fish has no fish_themes_path)
+mkdir -p $__fish_config_dir/themes
 for theme in $fisher_path/themes/*.theme
     set --local name (basename $theme)
-    test -e ~/.config/fish/themes/$name || ln -s $theme ~/.config/fish/themes/$name
+    test -e $HOME/.config/fish/themes/$name || ln -s $theme $HOME/.config/fish/themes/$name
 end

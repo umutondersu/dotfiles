@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-FONT_DIR="$HOME/.local/share/fonts"
+# macOS: use ~/Library/Fonts; Linux: use ~/.local/share/fonts
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    FONT_DIR="$HOME/Library/Fonts"
+else
+    FONT_DIR="$HOME/.local/share/fonts"
+fi
 
 # Arch-based detection
 if command -v pacman >/dev/null 2>&1; then
@@ -41,10 +46,10 @@ fi
 
 find "$TMP_DIR" -type f \( -name "*.ttf" -o -name "*.otf" \) -exec cp {} "$FONT_DIR" \;
 
-# Only check fc-cache in non-Arch path
-if command -v fc-cache >/dev/null 2>&1; then
+# Only run fc-cache on Linux
+if [[ "$(uname -s)" != "Darwin" ]] && command -v fc-cache >/dev/null 2>&1; then
     fc-cache -f
-else
+elif [[ "$(uname -s)" != "Darwin" ]]; then
     echo "⚠️ Warning: fc-cache not found. Install fontconfig to refresh font cache."
 fi
 

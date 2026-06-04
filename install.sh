@@ -5,6 +5,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SETUP_DIR="$SCRIPT_DIR/setup"
 DESKTOP_DIR="$SETUP_DIR/desktop"
 
+# Detect OS
+OS="linux"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    OS="macos"
+fi
+
 # Source common functions
 source "$SETUP_DIR/common.sh"
 
@@ -43,37 +49,40 @@ if [ "$INSTALL_MODE" = "devenv" ]; then
     echo "╔════════════════════════════════════════╗"
     echo "║  Dotfiles Installation (Dev Env)      ║"
     echo "╚════════════════════════════════════════╝"
-    echo "Installing development environment"
+    echo "Installing development environment (OS: $OS)"
 else
     echo "╔════════════════════════════════════════╗"
     echo "║  Dotfiles Installation (Desktop)       ║"
     echo "╚════════════════════════════════════════╝"
-    echo "Installing full desktop environment with GUI tools"
+    echo "Installing full desktop environment with GUI tools (OS: $OS)"
 fi
 echo ""
 
 # Core installation steps (common to both modes)
 echo "═══════════════════════════════════════"
-echo "Step 1: Checking for devbox"
+echo "Checking for devbox"
 echo "═══════════════════════════════════════"
+if [ "$OS" = "macos" ]; then
+    ensure_homebrew_installed
+fi
 ensure_devbox_installed
 echo ""
 
 echo "═══════════════════════════════════════"
-echo "Step 2: Ensuring stow is installed"
+echo "Ensuring stow is installed"
 echo "═══════════════════════════════════════"
 ensure_stow_installed
 echo ""
 
 echo "═══════════════════════════════════════"
-echo "Step 3: Symlinking dotfiles with stow"
+echo "Symlinking dotfiles with stow"
 echo "═══════════════════════════════════════"
 stow_dotfiles
 setup_devbox_config
 echo ""
 
 echo "═══════════════════════════════════════"
-echo "Step 4: Installing devbox packages"
+echo "Installing devbox packages"
 echo "═══════════════════════════════════════"
 echo "📦 Installing core packages from devbox.json..."
 install_devbox_packages
@@ -81,21 +90,33 @@ echo "✅ Core devbox packages installed"
 echo ""
 
 echo "═══════════════════════════════════════"
-echo "Step 5: Installing Fish shell"
+echo "Installing Fish shell"
 echo "═══════════════════════════════════════"
 ensure_fish_installed
 echo ""
 
+if [ "$OS" = "macos" ]; then
+    echo "═══════════════════════════════════════"
+    echo "Installing Mac specific configuration"
+    echo "═══════════════════════════════════════"
+    setup_gitconfig_macos()
+    echo ""
+fi
+
 # Steps 6-9: Desktop-only installation
 if [ "$INSTALL_MODE" = "desktop" ]; then
     echo "═══════════════════════════════════════"
-    echo "Step 6: Stowing system configuration"
+    echo "Stowing system configuration"
     echo "═══════════════════════════════════════"
-    stow_system_config
+    if [ "$OS" = "macos" ]; then
+        echo "⏭️  Skipping system config stow (not applicable on macOS)"
+    else
+        stow_system_config
+    fi
     echo ""
 
     echo "═══════════════════════════════════════"
-    echo "Step 7: Installing desktop packages"
+    echo "Installing desktop packages"
     echo "═══════════════════════════════════════"
     echo "📦 Adding desktop-specific packages"
     bash "$DESKTOP_DIR/packages.sh"
@@ -107,26 +128,30 @@ if [ "$INSTALL_MODE" = "desktop" ]; then
     echo ""
 
     echo "═══════════════════════════════════════"
-    echo "Step 8: Setting up Kitty terminal"
+    echo "Setting up Kitty terminal"
     echo "═══════════════════════════════════════"
     bash "$DESKTOP_DIR/kitty.sh"
     echo ""
 
     echo "═══════════════════════════════════════"
-    echo "Step 9: Installing Flatpak applications"
+    echo "Installing Flatpak applications"
     echo "═══════════════════════════════════════"
-    bash "$DESKTOP_DIR/flatpaks.sh"
+    if [ "$OS" = "macos" ]; then
+        echo "⏭️  Skipping Flatpak (not available on macOS)"
+    else
+        bash "$DESKTOP_DIR/flatpaks.sh"
+    fi
     echo ""
 
     echo "═══════════════════════════════════════"
-    echo "Step 10: Installing JetBrainsMono Nerd Font"
+    echo "Installing JetBrainsMono Nerd Font"
     echo "═══════════════════════════════════════"
     bash "$DESKTOP_DIR/nerdfont.sh"
     echo ""
 
-    if [ "$(detect_package_manager)" = "pacman" ]; then
+    if [ "$OS" = "linux" ] && [ "$(detect_package_manager)" = "pacman" ]; then
         echo "═══════════════════════════════════════"
-        echo "Step 11: Installing AUR packages"
+        echo "Installing AUR packages"
         echo "═══════════════════════════════════════"
         bash "$DESKTOP_DIR/aur.sh"
         echo ""

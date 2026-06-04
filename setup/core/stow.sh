@@ -9,7 +9,8 @@ fi
 echo "📦 Stow not found, installing..."
 
 detect_package_manager() {
-    if command -v apt-get &> /dev/null; then echo "apt"
+    if command -v brew &> /dev/null; then echo "brew"
+    elif command -v apt-get &> /dev/null; then echo "apt"
     elif command -v dnf &> /dev/null; then echo "dnf"
     elif command -v yum &> /dev/null; then echo "yum"
     elif command -v pacman &> /dev/null; then echo "pacman"
@@ -22,6 +23,7 @@ detect_package_manager() {
 pkg_manager=$(detect_package_manager)
 
 case $pkg_manager in
+    brew)   brew install stow ;;
     apt)    sudo apt-get update -qq && sudo apt-get install -y stow ;;
     dnf)    sudo dnf install -y stow ;;
     yum)    sudo yum install -y stow ;;

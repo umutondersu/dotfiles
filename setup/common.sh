@@ -3,7 +3,9 @@
 
 # Detect the package manager of the current distribution
 detect_package_manager() {
-    if command -v apt-get &> /dev/null; then
+    if command -v brew &> /dev/null; then
+        echo "brew"
+    elif command -v apt-get &> /dev/null; then
         echo "apt"
     elif command -v dnf &> /dev/null; then
         echo "dnf"
@@ -18,6 +20,21 @@ detect_package_manager() {
     else
         echo "unknown"
     fi
+}
+
+# Install Homebrew on macOS if not present
+ensure_homebrew_installed() {
+    if command -v brew &> /dev/null; then
+        echo "✅ Homebrew already installed: $(brew --version | head -1)"
+        return
+    fi
+    echo "📦 Homebrew not found, installing..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # Add Homebrew to PATH for the rest of this script (Apple Silicon)
+    if [ -f /opt/homebrew/bin/brew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+    echo "✅ Homebrew installed"
 }
 
 # Check and install devbox if needed
@@ -51,6 +68,7 @@ ensure_fish_installed() {
         echo "✅ Fish already installed: $(fish --version)"
     fi
 }
+
 
 # Run stow to symlink dotfiles
 stow_dotfiles() {
@@ -141,4 +159,15 @@ setup_fish_shell() {
 setup_tpm() {
     bash "$SETUP_DIR/desktop/tpm.sh"
     echo ""
+}
+
+# macOS: write ~/.gitconfig.local to override credential store
+setup_gitconfig_macos(){
+    if [ ! -f "$HOME/.gitconfig.local" ]; then
+        echo "[credential]" > "$HOME/.gitconfig.local"
+        echo "	credentialStore = osxkeychain" >> "$HOME/.gitconfig.local"
+        echo "✅ Created ~/.gitconfig.local with osxkeychain credential store"
+    else
+        echo "ℹ️  ~/.gitconfig.local already exists, skipping"
+    fi
 }

@@ -17,8 +17,8 @@ fi
 echo "Downloading and installing kitty..."
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
-# 2. Register with update-alternatives (Debian/Ubuntu only)
-if command -v update-alternatives &> /dev/null; then
+# 2. Register with update-alternatives (Debian/Ubuntu only, not macOS)
+if [[ "$(uname -s)" != "Darwin" ]] && command -v update-alternatives &> /dev/null; then
     echo "Registering kitty with update-alternatives..."
     sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$KITTY_BIN" 50
     
@@ -29,7 +29,14 @@ if command -v update-alternatives &> /dev/null; then
 else
     echo "ℹ️  update-alternatives not available (non-Debian system)"
     echo "   Kitty installed to: $KITTY_BIN"
-    echo "   You can create a symlink or add to PATH if needed"
+    # On macOS, create a symlink in /usr/local/bin for easy access
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        mkdir -p /usr/local/bin
+        ln -sf "$KITTY_BIN" /usr/local/bin/kitty 2>/dev/null || \
+            echo "   Could not create /usr/local/bin/kitty symlink — add $KITTY_INSTALL_DIR/bin to PATH manually"
+    else
+        echo "   You can create a symlink or add to PATH if needed"
+    fi
 fi
 
 echo "✅ Kitty terminal installed successfully"

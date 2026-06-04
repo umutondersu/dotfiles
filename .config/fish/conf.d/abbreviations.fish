@@ -78,6 +78,9 @@ end
 if type -q wl-copy
     abbr --add Y --position anywhere "| wl-copy"
     abbr --add P "wl-paste >"
+else if type -q pbcopy
+    abbr --add Y --position anywhere "| pbcopy"
+    abbr --add P "pbpaste >"
 else if type -q xclip
     abbr --add Y --position anywhere "| xclip -selection clipboard"
     abbr --add P "xclip -selection clipboard -o >"
@@ -89,14 +92,16 @@ end
 
 # Dynamic update alias based on available package manager and devbox
 set -l cmds
-if type -q apt-get
+if type -q brew
+    set cmds $cmds "brew update" "brew upgrade"
+else if type -q apt-get
     set cmds $cmds "sudo apt update" "sudo apt upgrade -y"
 else if type -q dnf
     set cmds $cmds "sudo dnf upgrade -y" "fwupdmgr get-updates; or true"
 else if type -q cachy-update
     set cmds $cmds cachy-update
 end
-if not type -q cachy-update
+if not type -q cachy-update; and not type -q brew
     set cmds $cmds "flatpak update -y"
 end
 if type -q devbox
@@ -124,9 +129,17 @@ abbr --add --set-cursor tC tar -czf file.tar.gz --directory .%
 abbr --add --set-cursor tx tar -xzf %.tar.gz
 abbr --add --set-cursor tl tar -tf %.tar.gz
 
-abbr --add odlog journalctl --user-unit=onedrive -f
 abbr --add python python3
 abbr --add fk sudo kill -9
 abbr --add B --position anywhere ">/dev/null 2>&1 &"
 abbr --add src source
-abbr --add bios "systemctl reboot --firmware-setup"
+
+# System Specific Abbrs
+set -l os (uname)
+switch (uname)
+    case Darwin
+        abbr --add --set-cursor pkg "sudo -S installer -pkg % -target /Applications"
+    case Linux
+        abbr --add odlog journalctl --user-unit=onedrive -f
+        abbr --add bios "systemctl reboot --firmware-setup"
+end
