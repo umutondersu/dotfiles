@@ -4,4 +4,4 @@ sync_dir = "~/OneDrive"
 # Safety guards (prevent deletions if mount fails)
 check_nomount = "true"
 check_nosync  = "true"
-classify_as_big_delete = "1000"
+classify_as_big_delete = "100"
