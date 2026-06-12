@@ -111,8 +111,12 @@ function tv
             end
         end
     else if test "$search_type" = make
-        make -pRrq 2>/dev/null | awk -F: '/^[a-zA-Z0-9][^$#\/\\t=]*:([^=]|$)/ {split($1,a," "); print a[1]}' | sort -u | grep -v '^Makefile$' | fzf $common_opts \
-            --preview "awk '/^{}[[:space:]]*:/{found=1} found{print; if(/^[^\\t]/ && NR>1 && !/^{}[[:space:]]*:/) exit}' Makefile | bat --style=plain --language=make --color=always" \
+        if not test -f Makefile -o -f makefile -o -f GNUmakefile
+            echo "No Makefile found in current directory"
+            return 1
+        end
+        make -pRrq 2>/dev/null | awk -F: '/^[a-zA-Z0-9][^$#\/\\t=]*:([^=]|$)/ {split($1,a," "); print a[1]}' | sort -u | grep -Ev '^(Makefile|makefile|GNUmakefile)$' | fzf $common_opts \
+            --preview "awk -v t='{}' 'BEGIN{pat=\"^\"t\"[[:space:]]*:\"} \$0 ~ pat{found=1} found && NR>1 && \$0 !~ pat && /^[a-zA-Z0-9][^\$#\\/=]*:/{exit} found{print}' Makefile | bat --style=plain --language=make --color=always" \
             --bind 'enter:become(make {})'
     else if test "$search_type" = journal
         journalctl --field SYSLOG_IDENTIFIER 2>/dev/null | sort -f | fzf $common_opts \
