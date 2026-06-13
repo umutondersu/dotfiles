@@ -22,6 +22,7 @@ net.shadps4.shadPS4
 org.audacityteam.Audacity
 org.gnome.Snapshot
 org.kde.krdc
+org.localsend.localsend_app
 org.pulseaudio.pavucontrol
 org.qbittorrent.qBittorrent
 org.zealdocs.Zeal
