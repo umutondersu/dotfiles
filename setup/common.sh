@@ -161,6 +161,18 @@ setup_tpm() {
     echo ""
 }
 
+# Run brew bundle with the dotfiles Brewfile
+install_brewfile() {
+    local brewfile="$SCRIPT_DIR/Brewfile"
+    if [ ! -f "$brewfile" ]; then
+        echo "⚠️  Brewfile not found at $brewfile, skipping"
+        return
+    fi
+    echo "📦 Installing Homebrew packages from Brewfile..."
+    brew bundle --file="$brewfile" --no-lock
+    echo "✅ Homebrew packages installed"
+}
+
 # macOS: write ~/.gitconfig.local to override credential store
 setup_gitconfig_macos(){
     if [ ! -f "$HOME/.gitconfig.local" ]; then

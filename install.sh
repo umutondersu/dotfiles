@@ -99,7 +99,13 @@ if [ "$OS" = "macos" ]; then
     echo "═══════════════════════════════════════"
     echo "Installing Mac specific configuration"
     echo "═══════════════════════════════════════"
-    setup_gitconfig_macos()
+    setup_gitconfig_macos
+    echo ""
+
+    echo "═══════════════════════════════════════"
+    echo "Installing Homebrew packages (Brewfile)"
+    echo "═══════════════════════════════════════"
+    install_brewfile
     echo ""
 fi
 

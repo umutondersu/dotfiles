@@ -185,6 +185,22 @@ devbox search <query>
   `-r`/`--remove` to uninstall and remove from the file, `-l`/`--list` to list packages,
   and `-n`/`--dry-run`.
 
+## macOS / Homebrew
+
+On macOS, Homebrew packages are managed via `Brewfile` at the repo root. The install script
+runs `brew bundle` automatically.
+
+```bash
+# Install all packages from Brewfile
+brew bundle --file=Brewfile
+
+# Update Brewfile with currently installed packages
+brew bundle dump --file=Brewfile --force
+```
+
+The installer also creates `~/.gitconfig.local` to configure Git's credential helper
+to use the macOS Keychain (`osxkeychain`).
+
 ## Testing
 
 Automated Docker tests are available to verify the installation in a clean environment:
