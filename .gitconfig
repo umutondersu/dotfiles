@@ -11,6 +11,9 @@
 	bls= branch -a
 	yolo = "!git commit -m \"$(curl -s https://whatthecommit.com/index.txt)\""
 	s = "status -s"
+	wta = "!f() { git worktree add -b \"$1\" \"../$1\"; }; f"
+	wtr = "!f() { git worktree remove \"../$1\"; }; f"
+	wtl = "!f() { git worktree list; }; f"
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [credential]
