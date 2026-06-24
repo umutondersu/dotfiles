@@ -59,6 +59,13 @@ if type -q lazygit
     abbr --add G lazygit
 end
 
+if type -q kubectl
+    abbr --add kc kubectl
+    abbr --add kC kubectl create
+    abbr --add kg kubectl get
+    abbr --add ka kubectl apply -f
+end
+
 if type -q bunx
     abbr --add shad bunx --bun shadcn@latest
 end
