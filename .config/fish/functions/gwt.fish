@@ -41,6 +41,12 @@ function __gwt_add
             return 1
         end
 
+        set -l prefix ''
+        if string match -qr '^(.+)/' $key
+            set prefix (string match -r '^(.+)/' $key)[2]
+            set key (string replace -r '^.+/' '' $key)
+        end
+
         if set -q JIRA_URL; and set -q JIRA_TOKEN
             set -l resp (curl -s \
                 -H "Authorization: Bearer $JIRA_TOKEN" \
@@ -60,6 +66,9 @@ function __gwt_add
                 set kebab (string sub -l $max_summary_len "$kebab" | sed 's/-[^-]*$//')
             end
             set name "$key-$kebab"
+            if test -n "$prefix"
+                set name "$prefix/$name"
+            end
         else
             echo 'Jira env vars not set. Need: JIRA_URL and JIRA_TOKEN' >&2
             return 1
@@ -71,10 +80,20 @@ function __gwt_add
         return 1
     end
 
-    git worktree add -b "$name" "../$name"
+    set -l wt_path "../$name"
+    set -l wt_dir (dirname "$wt_path")
+    if not test -d "$wt_dir"
+        mkdir -p "$wt_dir"
+        or begin
+            echo "Failed to create directory: $wt_dir" >&2
+            return 1
+        end
+    end
+
+    git worktree add -b "$name" "$wt_path"
     or return 1
 
-    sesh connect -s (realpath "../$name")
+    sesh connect -s (realpath "$wt_path")
 end
 
 function __gwt_rm
