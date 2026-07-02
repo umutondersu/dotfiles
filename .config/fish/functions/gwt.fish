@@ -109,8 +109,15 @@ function __gwt_rm
     end
 
     for path in $paths
+        set -l session_name (basename "$path")
         git worktree remove "$path" 2>/dev/null
-        and echo "Removed: $path"
+        and begin
+            echo "Removed: $path"
+            if tmux has-session -t "$session_name" 2>/dev/null
+                tmux kill-session -t "$session_name"
+                echo "Killed session: $session_name"
+            end
+        end
     end
 end
 
