@@ -128,6 +128,13 @@ abbr g --add git
 abbr gs --add git status -s
 abbr gi --add git update-index --skip-worktree
 
+if functions -q gwt
+    abbr ga --add gwt add
+    abbr gaj --add gwt add --jira
+    abbr gr --add gwt rm
+    abbr gl --add gwt ls
+end
+
 abbr --add claer clear
 abbr --add clr clear
 
