@@ -9,6 +9,8 @@ function gwt --description 'Git worktree manager'
             __gwt_rm $argv
         case ls
             __gwt_ls $argv
+        case rename
+            __gwt_rename $argv
         case '' -h --help
             echo 'Usage: gwt <subcommand>'
             echo ''
@@ -17,6 +19,7 @@ function gwt --description 'Git worktree manager'
             echo '  add --jira <KEY>       Fetch Jira summary, create worktree + sesh session'
             echo '  rm                     Remove worktrees (fzf multi-select)'
             echo '  ls                     List worktrees'
+            echo '  rename <old> <new>     Rename worktree directory and branch'
             return 0
         case '*'
             echo "Unknown subcommand: $cmd" >&2
@@ -80,7 +83,8 @@ function __gwt_add
         return 1
     end
 
-    set -l wt_path "../$name"
+    set -l root (git rev-parse --show-toplevel)
+    set -l wt_path "$root/worktrees/$name"
     set -l wt_dir (dirname "$wt_path")
     if not test -d "$wt_dir"
         mkdir -p "$wt_dir"
@@ -93,7 +97,7 @@ function __gwt_add
     git worktree add -b "$name" "$wt_path"
     or return 1
 
-    sesh connect -s (realpath "$wt_path")
+    sesh connect -s "$wt_path"
 end
 
 function __gwt_rm
@@ -138,6 +142,45 @@ function __gwt_rm
             end
         end
     end
+end
+
+function __gwt_rename
+    if not git rev-parse --is-inside-work-tree &>/dev/null
+        echo 'Not inside a git repository.' >&2
+        return 1
+    end
+
+    set -l old_name $argv[1]
+    set -l new_name $argv[2]
+
+    if test -z "$old_name" -o -z "$new_name"
+        echo 'Usage: gwt rename <old> <new>' >&2
+        return 1
+    end
+
+    set -l root (git rev-parse --show-toplevel)
+    set -l old_path "$root/worktrees/$old_name"
+    set -l new_path "$root/worktrees/$new_name"
+
+    if not test -d "$old_path"
+        echo "Worktree not found: $old_path" >&2
+        return 1
+    end
+
+    if test -d "$new_path"
+        echo "Path already exists: $new_path" >&2
+        return 1
+    end
+
+    git worktree move "$old_path" "$new_path"
+    or return 1
+
+    git branch -m "$old_name" "$new_name"
+    or return 1
+
+    tmux kill-session -t "$old_name" 2>/dev/null
+
+    echo "Renamed: $old_name → $new_name"
 end
 
 function __gwt_ls
