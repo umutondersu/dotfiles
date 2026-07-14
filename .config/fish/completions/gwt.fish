@@ -35,7 +35,7 @@ complete -c gwt -f
 
 # --- Subcommands ---
 complete -c gwt -n __fish_use_subcommand -a add    -d 'Create a worktree and open a sesh session'
-complete -c gwt -n __fish_use_subcommand -a rm     -d 'Remove worktrees (fzf multi-select)'
+complete -c gwt -n __fish_use_subcommand -a rm     -d 'Remove worktree (args or fzf)'
 complete -c gwt -n __fish_use_subcommand -a ls     -d 'List all worktrees'
 complete -c gwt -n __fish_use_subcommand -a rename -d 'Rename worktree directory and branch'
 
@@ -43,10 +43,14 @@ complete -c gwt -n __fish_use_subcommand -a rename -d 'Rename worktree directory
 complete -c gwt -n '__fish_seen_subcommand_from add' -s j -l jira -r \
     -d 'Fetch Jira summary and use as branch/worktree name'
 
-# --- gwt rm: complete with existing worktree names ---
+# --- gwt rm: complete with existing worktree names and flags ---
 complete -c gwt -n '__fish_seen_subcommand_from rm' \
     -a '(__gwt_worktree_names)' \
     -d 'Worktree'
+complete -c gwt -n '__fish_seen_subcommand_from rm' -s b -l branch \
+    -d 'Also delete the branch'
+complete -c gwt -n '__fish_seen_subcommand_from rm' -s f -l force \
+    -d 'Force remove even with uncommitted changes'
 
 # --- gwt rename: complete the first arg (old name) only ---
 complete -c gwt -n '__fish_seen_subcommand_from rename; and __gwt_rename_needs_old' \

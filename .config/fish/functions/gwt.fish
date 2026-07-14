@@ -17,7 +17,7 @@ function gwt --description 'Git worktree manager'
             echo 'Subcommands:'
             echo '  add <name>             Create worktree and switch to sesh session'
             echo '  add --jira <KEY>       Fetch Jira summary, create worktree + sesh session'
-            echo '  rm                     Remove worktrees (fzf multi-select)'
+            echo '  rm [<name>...] [-b] [-f]   Remove worktrees (args or fzf); -b deletes branch, -f forces'
             echo '  ls                     List worktrees'
             echo '  rename <old> <new>     Rename worktree directory and branch'
             return 0
@@ -84,7 +84,7 @@ function __gwt_add
     end
 
     set -l root (git rev-parse --show-toplevel)
-    set -l wt_path "$root/worktrees/$name"
+    set -l wt_path (dirname "$root")/worktree/$name
     set -l wt_dir (dirname "$wt_path")
     if not test -d "$wt_dir"
         mkdir -p "$wt_dir"
@@ -94,7 +94,11 @@ function __gwt_add
         end
     end
 
-    git worktree add -b "$name" "$wt_path"
+    if git show-ref --verify --quiet "refs/heads/$name"
+        git worktree add "$wt_path" "$name"
+    else
+        git worktree add -b "$name" "$wt_path"
+    end
     or return 1
 
     sesh connect -s "$wt_path"
@@ -106,39 +110,106 @@ function __gwt_rm
         return 1
     end
 
-    set -l worktrees (git worktree list | grep -v '(bare)')
-    if test -z "$worktrees"
-        echo 'No worktrees to remove.'
-        return 0
+    set -l delete_branch 0
+    set -l force 0
+    set -l names
+
+    for arg in $argv
+        switch "$arg"
+            case -b --branch
+                set delete_branch 1
+            case -f --force
+                set force 1
+            case '*'
+                set -a names $arg
+        end
     end
 
-    set -l chosen (printf "%s\n" $worktrees | fzf \
-        --multi \
-        --ansi \
-        --no-sort \
-        --prompt='Remove worktrees> ' \
-        --header='Tab to multi-select, Enter to confirm')
-
-    if test -z "$chosen"
-        return 0
-    end
+    set -l root (git rev-parse --show-toplevel)
+    set -l main_path (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
 
     set -l paths
-    for line in $chosen
-        set -l path (string split -m1 ' ' $line)[1]
-        if test -n "$path"
-            set -a paths $path
+    if test (count $names) -gt 0
+        for name in $names
+            # If it looks like an absolute path use it directly, otherwise resolve
+            if string match -q '/*' $name
+                set -a paths $name
+            else
+                set -a paths (dirname "$root")/worktree/$name
+            end
+        end
+    else
+        # fzf selection — exclude main worktree
+        set -l worktree_lines (git worktree list | grep -v '(bare)')
+        set -l filtered
+        for line in $worktree_lines
+            set -l p (string split -m1 ' ' $line)[1]
+            if test "$p" != "$main_path"
+                set -a filtered $line
+            end
+        end
+
+        if test (count $filtered) -eq 0
+            echo 'No worktrees to remove.'
+            return 0
+        end
+
+        set -l chosen (printf "%s\n" $filtered | fzf \
+            --multi \
+            --ansi \
+            --no-sort \
+            --prompt='Remove worktrees> ' \
+            --header='Tab to multi-select, Enter to confirm')
+
+        if test -z "$chosen"
+            return 0
+        end
+
+        for line in $chosen
+            set -l p (string split -m1 ' ' $line)[1]
+            if test -n "$p"
+                set -a paths $p
+            end
         end
     end
 
     for path in $paths
+        # Resolve branch name before removing the worktree
+        set -l branch ''
+        if test $delete_branch -eq 1
+            set branch (git worktree list --porcelain | awk -v p="$path" '
+                /^worktree / { cur = substr($0, 10) }
+                cur == p && /^branch / { sub("refs/heads/", "", $2); print $2 }
+            ')
+        end
+
+        set -l rm_args
+        if test $force -eq 1
+            set rm_args --force
+        end
+
+        git worktree remove $rm_args "$path"
+        or continue
+
+        echo "Removed: $path"
+
         set -l session_name (basename "$path")
-        git worktree remove "$path" 2>/dev/null
-        and begin
-            echo "Removed: $path"
-            if tmux has-session -t "$session_name" 2>/dev/null
-                tmux kill-session -t "$session_name"
-                echo "Killed session: $session_name"
+        if tmux has-session -t "$session_name" 2>/dev/null
+            tmux kill-session -t "$session_name"
+            echo "Killed session: $session_name"
+        end
+
+        if test $delete_branch -eq 1 -a -n "$branch"
+            if not git branch -d "$branch" 2>/dev/null
+                read -l -P "Branch '$branch' is not fully merged. Force delete? [y/N] " confirm
+                if string match -qi 'y' "$confirm"
+                    git branch -D "$branch"
+                    and echo "Deleted branch: $branch"
+                else
+                    echo "Kept branch: $branch"
+                end
+            else
+                echo "Deleted branch: $branch"
             end
         end
     end
@@ -159,8 +230,8 @@ function __gwt_rename
     end
 
     set -l root (git rev-parse --show-toplevel)
-    set -l old_path "$root/worktrees/$old_name"
-    set -l new_path "$root/worktrees/$new_name"
+    set -l old_path (dirname "$root")/worktree/$old_name
+    set -l new_path (dirname "$root")/worktree/$new_name
 
     if not test -d "$old_path"
         echo "Worktree not found: $old_path" >&2
@@ -203,7 +274,7 @@ function __gwt_ls
 
         if string match -q '(bare)' -- $rest
             set bare ' (bare)'
-            set branch 'bare'
+            set branch bare
         else if string match -qr '\[(.+)\]' $rest
             set branch (string match -r '\[(.+)\]' $rest)[2]
         else
@@ -223,7 +294,7 @@ function __gwt_ls
     set -l bold (set_color --bold)
     set -l reset (set_color normal)
 
-    printf "%s%-*s  %s%s\n" "$bold" $max_len "Branch" "Path" "$reset"
+    printf "%s%-*s  %s%s\n" "$bold" $max_len Branch Path "$reset"
     printf "%s%-*s  %s%s\n" "$dim" $max_len (printf '%*s' $max_len '' | tr ' ' '─') (printf '%.0s─' (seq 1 40)) "$reset"
 
     for entry in $entries
