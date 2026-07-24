@@ -18,7 +18,6 @@ function gwt --description 'Git worktree manager'
             echo ''
             echo 'Subcommands:'
             echo '  add <name>             Create worktree and switch to sesh session'
-            echo '  add --jira <KEY>       Fetch Jira summary, create worktree + sesh session'
             echo '  rm [<name>...] [-b] [-f]   Remove worktrees (args or fzf); -b deletes branch, -f forces'
             echo '  ls                     List worktrees'
             echo '  rename <old> <new>     Rename worktree directory and branch'
@@ -37,54 +36,12 @@ function __gwt_add
         return 1
     end
 
-    set -l name ''
-    set -l key ''
-
-    if test "$argv[1]" = --jira -o "$argv[1]" = -j
-        set key $argv[2]
-        if test -z "$key"
-            echo 'Missing Jira key.' >&2
-            return 1
-        end
-
-        set -l prefix ''
-        if string match -qr '^(.+)/' $key
-            set prefix (string match -r '^(.+)/' $key)[2]
-            set key (string replace -r '^.+/' '' $key)
-        end
-
-        if set -q JIRA_URL; and set -q JIRA_TOKEN
-            set -l resp (curl -s \
-                -H "Authorization: Bearer $JIRA_TOKEN" \
-                -H 'Accept: application/json' \
-                "$JIRA_URL/rest/api/2/issue/$key?fields=summary" 2>&1)
-
-            set -l summary (echo "$resp" | jq -r '.fields.summary')
-            if test -z "$summary"; or test "$summary" = null
-                echo "Failed to fetch Jira issue: $key" >&2
-                echo "$resp" | head -5 >&2
-                return 1
-            end
-
-            set -l kebab (echo "$summary" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//')
-            set -l max_summary_len 30
-            if test (string length "$kebab") -gt $max_summary_len
-                set kebab (string sub -l $max_summary_len "$kebab" | sed 's/-[^-]*$//')
-            end
-            set name "$key-$kebab"
-            if test -n "$prefix"
-                set name "$prefix/$name"
-            end
-        else
-            echo 'Jira env vars not set. Need: JIRA_URL and JIRA_TOKEN' >&2
-            return 1
-        end
-    else if test -n "$argv[1]"
-        set name "$argv[1]"
-    else
-        echo 'Usage: gwt add <name> | gwt add --jira <KEY>' >&2
+    if test -z "$argv[1]"
+        echo 'Usage: gwt add <name>' >&2
         return 1
     end
+
+    set -l name $argv[1]
 
     set -l common (realpath (git rev-parse --git-common-dir))
     set -l main_root (string replace -r '/\.git(/worktrees/.+)?$' '' "$common")
