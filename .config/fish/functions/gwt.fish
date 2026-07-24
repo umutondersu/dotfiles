@@ -11,6 +11,8 @@ function gwt --description 'Git worktree manager'
             __gwt_ls $argv
         case rename
             __gwt_rename $argv
+        case pick
+            __gwt_pick $argv
         case '' -h --help
             echo 'Usage: gwt <subcommand>'
             echo ''
@@ -20,6 +22,7 @@ function gwt --description 'Git worktree manager'
             echo '  rm [<name>...] [-b] [-f]   Remove worktrees (args or fzf); -b deletes branch, -f forces'
             echo '  ls                     List worktrees'
             echo '  rename <old> <new>     Rename worktree directory and branch'
+            echo '  pick                   Pick a worktree and connect to its session'
             return 0
         case '*'
             echo "Unknown subcommand: $cmd" >&2
@@ -83,8 +86,10 @@ function __gwt_add
         return 1
     end
 
-    set -l root (git rev-parse --show-toplevel)
-    set -l wt_path (dirname "$root")/worktree/$name
+    set -l common (realpath (git rev-parse --git-common-dir))
+    set -l main_root (string replace -r '/\.git(/worktrees/.+)?$' '' "$common")
+    set -l repo_name (basename "$main_root")
+    set -l wt_path (dirname "$main_root")/worktree/$name
     set -l wt_dir (dirname "$wt_path")
     if not test -d "$wt_dir"
         mkdir -p "$wt_dir"
@@ -94,14 +99,22 @@ function __gwt_add
         end
     end
 
-    if git show-ref --verify --quiet "refs/heads/$name"
+    # If worktree path already exists, fall through to session connect
+    if test -d "$wt_path"
+        echo "Worktree already exists: $wt_path"
+    else if git show-ref --verify --quiet "refs/heads/$name"
         git worktree add "$wt_path" "$name"
+        or return 1
     else
         git worktree add -b "$name" "$wt_path"
+        or return 1
     end
-    or return 1
 
-    sesh connect -s "$wt_path"
+    set -l session_name "$repo_name/$name"
+    if not tmux has-session -t "$session_name" 2>/dev/null
+        tmux new-session -d -s "$session_name" -c "$wt_path"
+    end
+    sesh connect -s "$session_name"
 end
 
 function __gwt_rm
@@ -193,7 +206,8 @@ function __gwt_rm
 
         echo "Removed: $path"
 
-        set -l session_name (basename "$path")
+        set -l repo_name (basename "$main_root")
+        set -l session_name "$repo_name/"(basename "$path")
         if tmux has-session -t "$session_name" 2>/dev/null
             tmux kill-session -t "$session_name"
             echo "Killed session: $session_name"
@@ -202,7 +216,7 @@ function __gwt_rm
         if test $delete_branch -eq 1 -a -n "$branch"
             if not git branch -d "$branch" 2>/dev/null
                 read -l -P "Branch '$branch' is not fully merged. Force delete? [y/N] " confirm
-                if string match -qi 'y' "$confirm"
+                if string match -qi y "$confirm"
                     git branch -D "$branch"
                     and echo "Deleted branch: $branch"
                 else
@@ -229,9 +243,10 @@ function __gwt_rename
         return 1
     end
 
-    set -l root (git rev-parse --show-toplevel)
-    set -l old_path (dirname "$root")/worktree/$old_name
-    set -l new_path (dirname "$root")/worktree/$new_name
+    set -l common (realpath (git rev-parse --git-common-dir))
+    set -l main_root (string replace -r '/\.git(/worktrees/.+)?$' '' "$common")
+    set -l old_path (dirname "$main_root")/worktree/$old_name
+    set -l new_path (dirname "$main_root")/worktree/$new_name
 
     if not test -d "$old_path"
         echo "Worktree not found: $old_path" >&2
@@ -249,9 +264,77 @@ function __gwt_rename
     git branch -m "$old_name" "$new_name"
     or return 1
 
-    tmux kill-session -t "$old_name" 2>/dev/null
+    tmux kill-session -t "$repo_name/$old_name" 2>/dev/null
 
     echo "Renamed: $old_name → $new_name"
+end
+
+function __gwt_pick
+    if not git rev-parse --is-inside-work-tree &>/dev/null
+        echo 'Not inside a git repository.' >&2
+        return 1
+    end
+
+    set -l common (realpath (git rev-parse --git-common-dir))
+    set -l main_root (string replace -r '/\.git(/worktrees/.+)?$' '' "$common")
+    set -l repo_name (basename "$main_root")
+
+    set -l branches
+    set -l paths
+
+    for line in (git worktree list)
+        set -l path (string split -m1 ' ' $line)[1]
+        set -l rest (string replace -r '^\S+\s+' '' $line)
+        set -l branch ''
+
+        if string match -q '(bare)' -- $rest
+            continue
+        else if string match -qr '\[(.+)\]' $rest
+            set branch (string match -r '\[(.+)\]' $rest)[2]
+        else
+            set branch '(detached HEAD)'
+        end
+
+        set -a branches "$branch"
+        set -a paths "$path"
+    end
+
+    if test (count $branches) -eq 0
+        echo 'No worktrees found.' >&2
+        return 1
+    end
+
+    set -l fzf_input
+    for i in (seq 1 (count $branches))
+        set -a fzf_input (printf "%s\t%s" "$branches[$i]" "$paths[$i]")
+    end
+
+    set -l chosen (printf "%s\n" $fzf_input | \
+        fzf \
+            --ansi \
+            --no-sort \
+            --prompt='Switch to worktree> ' \
+            --header='Enter to connect' \
+            --delimiter='\t' \
+            --with-nth='1' \
+            --preview="PATH=$PATH /usr/bin/git -C {2} log --oneline --decorate --graph --color=always -20" \
+            --preview-window='right:66%:wrap' \
+            --layout='reverse')
+
+    if test -z "$chosen"
+        return 0
+    end
+
+    set -l parts (string split \t "$chosen")
+    set -l branch $parts[1]
+    set -l wt_path $parts[2]
+
+    set -l session_name "$repo_name/$branch"
+
+    if not tmux has-session -t "$session_name" 2>/dev/null
+        tmux new-session -d -s "$session_name" -c "$wt_path"
+    end
+    sesh connect -s "$session_name"
 end
 
 function __gwt_ls
