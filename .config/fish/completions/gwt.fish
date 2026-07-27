@@ -1,24 +1,26 @@
 # Fish completions for gwt (git worktree manager)
 
-# Helper: list linked worktree names under <repo>/worktrees/.
-# Excludes the main/bare worktree.
+# Helper: list all worktree branch names
+function __gwt_worktree_branches
+    git worktree list --porcelain 2>/dev/null | string replace --regex --filter '^branch refs/heads/' ''
+end
+
+# Helper: list linked worktree names (excludes main worktree)
 function __gwt_worktree_names
     set -l toplevel (git rev-parse --show-toplevel 2>/dev/null)
     if test -z "$toplevel"
         return
     end
-    set -l wt_root "$toplevel/worktrees"
     git worktree list --porcelain 2>/dev/null \
         | string replace --regex --filter '^worktree\s*' '' \
         | while read -l path
             if test "$path" != "$toplevel"
-                string replace "$wt_root/" "" "$path"
+                basename "$path"
             end
         end
 end
 
 # Helper: true when no non-flag argument has been given after the subcommand
-# (i.e., we still need the <old> name for gwt rename)
 function __gwt_rename_needs_old
     set -l tokens (commandline -pxc)
     set -l count 0
@@ -38,15 +40,12 @@ complete -c gwt -n __fish_use_subcommand -a add    -d 'Create a worktree and ope
 complete -c gwt -n __fish_use_subcommand -a rm     -d 'Remove worktree (args or fzf)'
 complete -c gwt -n __fish_use_subcommand -a ls     -d 'List all worktrees'
 complete -c gwt -n __fish_use_subcommand -a rename -d 'Rename worktree directory and branch'
+complete -c gwt -n __fish_use_subcommand -a pick   -d 'Pick a worktree and connect to its session'
 
-# --- gwt add: --jira flag ---
-complete -c gwt -n '__fish_seen_subcommand_from add' -s j -l jira -r \
-    -d 'Fetch Jira summary and use as branch/worktree name'
-
-# --- gwt rm: complete with existing worktree names and flags ---
+# --- gwt rm: complete with existing worktree branch names and flags ---
 complete -c gwt -n '__fish_seen_subcommand_from rm' \
-    -a '(__gwt_worktree_names)' \
-    -d 'Worktree'
+    -a '(__gwt_worktree_branches)' \
+    -d 'Branch'
 complete -c gwt -n '__fish_seen_subcommand_from rm' -s b -l branch \
     -d 'Also delete the branch'
 complete -c gwt -n '__fish_seen_subcommand_from rm' -s f -l force \
@@ -56,3 +55,8 @@ complete -c gwt -n '__fish_seen_subcommand_from rm' -s f -l force \
 complete -c gwt -n '__fish_seen_subcommand_from rename; and __gwt_rename_needs_old' \
     -a '(__gwt_worktree_names)' \
     -d 'Worktree to rename'
+
+# --- gwt pick: complete with branch names ---
+complete -c gwt -n '__fish_seen_subcommand_from pick' \
+    -a '(__gwt_worktree_branches)' \
+    -d 'Branch'

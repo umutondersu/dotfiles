@@ -17,17 +17,33 @@ function gwt --description 'Git worktree manager'
             echo 'Usage: gwt <subcommand>'
             echo ''
             echo 'Subcommands:'
-            echo '  add <name>             Create worktree and switch to sesh session'
-            echo '  rm [<name>...] [-b] [-f]   Remove worktrees (args or fzf); -b deletes branch, -f forces'
-            echo '  ls                     List worktrees'
-            echo '  rename <old> <new>     Rename worktree directory and branch'
-            echo '  pick                   Pick a worktree and connect to its session'
+            echo '  add <name>                   Create worktree and switch to sesh session'
+            echo '  rm [<branch>...] [-b] [-f]   Remove worktrees (args or fzf); -b deletes branch, -f forces'
+            echo '  ls                           List worktrees'
+            echo '  rename <old> <new>           Rename worktree directory and branch'
+            echo '  pick [<branch>]              Pick a worktree and connect to its session'
             return 0
         case '*'
             echo "Unknown subcommand: $cmd" >&2
             gwt --help >&2
             return 1
     end
+end
+
+# Returns the absolute path of the main repo root, regardless of whether
+# the current directory is the main repo or a linked worktree.
+function __gwt_main_root
+    set -l common (realpath (git rev-parse --git-common-dir))
+    string replace -r '/\.git(/worktrees/.+)?$' '' "$common"
+end
+
+# Given a branch name, prints the worktree path that has it checked out.
+# Prints nothing if not found.
+function __gwt_branch_to_path
+    git worktree list --porcelain | awk -v b="refs/heads/$argv[1]" '
+        /^worktree / { cur = substr($0, 10) }
+        $0 == "branch " b { print cur }
+    '
 end
 
 function __gwt_add
@@ -42,12 +58,11 @@ function __gwt_add
     end
 
     set -l name $argv[1]
-
-    set -l common (realpath (git rev-parse --git-common-dir))
-    set -l main_root (string replace -r '/\.git(/worktrees/.+)?$' '' "$common")
+    set -l main_root (__gwt_main_root)
     set -l repo_name (basename "$main_root")
     set -l wt_path (dirname "$main_root")/worktree/$name
     set -l wt_dir (dirname "$wt_path")
+
     if not test -d "$wt_dir"
         mkdir -p "$wt_dir"
         or begin
@@ -67,11 +82,11 @@ function __gwt_add
         or return 1
     end
 
-    set -l session_name "$repo_name/$name"
+    set -l session_name (test "$wt_path" = "$main_root"; and echo "$repo_name"; or echo "$repo_name/$name")
     if not tmux has-session -t "$session_name" 2>/dev/null
         tmux new-session -d -s "$session_name" -c "$wt_path"
     end
-    sesh connect -s "$session_name"
+    sesh connect --switch "$session_name"
 end
 
 function __gwt_rm
@@ -95,17 +110,20 @@ function __gwt_rm
         end
     end
 
-    set -l root (git rev-parse --show-toplevel)
     set -l main_path (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
 
     set -l paths
     if test (count $names) -gt 0
         for name in $names
-            # If it looks like an absolute path use it directly, otherwise resolve
             if string match -q '/*' $name
                 set -a paths $name
             else
-                set -a paths (dirname "$root")/worktree/$name
+                set -l match (__gwt_branch_to_path "$name")
+                if test -z "$match"
+                    echo "No worktree found for branch: $name" >&2
+                    continue
+                end
+                set -a paths $match
             end
         end
     else
@@ -163,9 +181,9 @@ function __gwt_rm
 
         echo "Removed: $path"
 
-        set -l repo_name (basename "$main_root")
-        set -l session_name "$repo_name/"(basename "$path")
-        if tmux has-session -t "$session_name" 2>/dev/null
+        # Find any tmux session whose start path matches the worktree path and kill it
+        set -l session_name (tmux list-sessions -F '#{session_name} #{session_path}' 2>/dev/null | awk -v p="$path" '$2 == p {print $1; exit}')
+        if test -n "$session_name"
             tmux kill-session -t "$session_name"
             echo "Killed session: $session_name"
         end
@@ -200,15 +218,16 @@ function __gwt_rename
         return 1
     end
 
-    set -l common (realpath (git rev-parse --git-common-dir))
-    set -l main_root (string replace -r '/\.git(/worktrees/.+)?$' '' "$common")
-    set -l old_path (dirname "$main_root")/worktree/$old_name
-    set -l new_path (dirname "$main_root")/worktree/$new_name
+    set -l main_root (__gwt_main_root)
+    set -l repo_name (basename "$main_root")
+    set -l old_path (__gwt_branch_to_path "$old_name")
 
-    if not test -d "$old_path"
-        echo "Worktree not found: $old_path" >&2
+    if test -z "$old_path"
+        echo "No worktree found for branch: $old_name" >&2
         return 1
     end
+
+    set -l new_path (dirname "$main_root")/worktree/$new_name
 
     if test -d "$new_path"
         echo "Path already exists: $new_path" >&2
@@ -232,14 +251,93 @@ function __gwt_pick
         return 1
     end
 
-    set -l common (realpath (git rev-parse --git-common-dir))
-    set -l main_root (string replace -r '/\.git(/worktrees/.+)?$' '' "$common")
+    set -l main_root (__gwt_main_root)
     set -l repo_name (basename "$main_root")
 
-    set -l branches
-    set -l paths
+    set -l branch ''
+    set -l wt_path ''
 
-    for line in (git worktree list)
+    if test -n "$argv[1]"
+        set wt_path (__gwt_branch_to_path "$argv[1]")
+        if test -z "$wt_path"
+            echo "No worktree found for branch: $argv[1]" >&2
+            return 1
+        end
+        set branch "$argv[1]"
+    else
+        set -l branches
+        set -l paths
+
+        for line in (git worktree list)
+            set -l path (string split -m1 ' ' $line)[1]
+            set -l rest (string replace -r '^\S+\s+' '' $line)
+            set -l b ''
+
+            if string match -q '(bare)' -- $rest
+                continue
+            else if string match -qr '\[(.+)\]' $rest
+                set b (string match -r '\[(.+)\]' $rest)[2]
+            else
+                set b '(detached HEAD)'
+            end
+
+            set -a branches "$b"
+            set -a paths "$path"
+        end
+
+        if test (count $branches) -eq 0
+            echo 'No worktrees found.' >&2
+            return 1
+        end
+
+        set -l fzf_input
+        for i in (seq 1 (count $branches))
+            set -a fzf_input (printf "%s\t%s" "$branches[$i]" "$paths[$i]")
+        end
+
+        set -l chosen (printf "%s\n" $fzf_input | \
+            fzf \
+                --ansi \
+                --no-sort \
+                --prompt='Switch to worktree> ' \
+                --header='Enter to connect' \
+                --delimiter='\t' \
+                --with-nth='1' \
+                --preview="PATH=$PATH /usr/bin/git -C {2} log --oneline --decorate --graph --color=always -20" \
+                --preview-window='right:66%:wrap' \
+                --layout='reverse')
+
+        if test -z "$chosen"
+            return 0
+        end
+
+        set -l parts (string split \t "$chosen")
+        set branch $parts[1]
+        set wt_path $parts[2]
+    end
+
+    set -l session_name (test "$wt_path" = "$main_root"; and echo "$repo_name"; or echo "$repo_name/$branch")
+    if not tmux has-session -t "$session_name" 2>/dev/null
+        tmux new-session -d -s "$session_name" -c "$wt_path"
+    end
+    sesh connect --switch "$session_name"
+end
+
+function __gwt_ls
+    if not git rev-parse --is-inside-work-tree &>/dev/null
+        echo 'Not inside a git repository.' >&2
+        return 1
+    end
+
+    set -l worktrees (git worktree list)
+    set -l main_repo (string split -m1 ' ' (echo $worktrees[1]))[1]
+
+    set -l col_branch
+    set -l col_sync
+    set -l col_commit
+    set -l is_main
+
+    for line in $worktrees
         set -l path (string split -m1 ' ' $line)[1]
         set -l rest (string replace -r '^\S+\s+' '' $line)
         set -l branch ''
@@ -252,79 +350,47 @@ function __gwt_pick
             set branch '(detached HEAD)'
         end
 
-        set -a branches "$branch"
-        set -a paths "$path"
-    end
-
-    if test (count $branches) -eq 0
-        echo 'No worktrees found.' >&2
-        return 1
-    end
-
-    set -l fzf_input
-    for i in (seq 1 (count $branches))
-        set -a fzf_input (printf "%s\t%s" "$branches[$i]" "$paths[$i]")
-    end
-
-    set -l chosen (printf "%s\n" $fzf_input | \
-        fzf \
-            --ansi \
-            --no-sort \
-            --prompt='Switch to worktree> ' \
-            --header='Enter to connect' \
-            --delimiter='\t' \
-            --with-nth='1' \
-            --preview="PATH=$PATH /usr/bin/git -C {2} log --oneline --decorate --graph --color=always -20" \
-            --preview-window='right:66%:wrap' \
-            --layout='reverse')
-
-    if test -z "$chosen"
-        return 0
-    end
-
-    set -l parts (string split \t "$chosen")
-    set -l branch $parts[1]
-    set -l wt_path $parts[2]
-
-    set -l session_name "$repo_name/$branch"
-
-    if not tmux has-session -t "$session_name" 2>/dev/null
-        tmux new-session -d -s "$session_name" -c "$wt_path"
-    end
-    sesh connect -s "$session_name"
-end
-
-function __gwt_ls
-    if not git rev-parse --is-inside-work-tree &>/dev/null
-        echo 'Not inside a git repository.' >&2
-        return 1
-    end
-
-    set -l worktrees (git worktree list)
-    set -l main_repo (string split -m1 ' ' (echo $worktrees[1]))[1]
-
-    set -l entries
-    set -l max_len 0
-
-    for line in $worktrees
-        set -l path (string split -m1 ' ' $line)[1]
-        set -l rest (string replace -r '^\S+\s+' '' $line)
-        set -l branch ''
-        set -l bare ''
-
-        if string match -q '(bare)' -- $rest
-            set bare ' (bare)'
-            set branch bare
-        else if string match -qr '\[(.+)\]' $rest
-            set branch (string match -r '\[(.+)\]' $rest)[2]
-        else
-            set branch (detached HEAD)
+        # Ahead/behind
+        set -l sync '-'
+        set -l ab (git -C "$path" rev-list --left-right --count "HEAD...@{upstream}" 2>/dev/null)
+        if test -n "$ab"
+            set -l ahead (string split \t "$ab")[1]
+            set -l behind (string split \t "$ab")[2]
+            set sync "↑$ahead ↓$behind"
         end
 
-        set -a entries "$path|$branch|$bare"
+        # Commit
+        set -l hash (git -C "$path" rev-parse --short HEAD 2>/dev/null)
+        set -l msg (git -C "$path" log -1 --format='%s' 2>/dev/null)
+        set -l max_msg 50
+        if test (string length "$msg") -gt $max_msg
+            set msg (string sub -l $max_msg "$msg")…
+        end
+        set -l commit "$hash: $msg"
 
-        if test (string length "$branch") -gt $max_len
-            set max_len (string length "$branch")
+        set -a col_branch (test "$path" = "$main_repo"; and echo "$branch (main)"; or echo "$branch")
+        set -a col_sync "$sync"
+        set -a col_commit "$commit"
+        if test "$path" = "$main_repo"
+            set -a is_main 1
+        else
+            set -a is_main 0
+        end
+    end
+
+    # Column widths
+    set -l w_branch 8   # "Worktree"
+    set -l w_sync 4     # "↑↓"
+    set -l w_commit 11  # "Last Commit"
+    for i in (seq 1 (count $col_branch))
+        if test (string length "$col_branch[$i]") -gt $w_branch
+            set w_branch (string length "$col_branch[$i]")
+        end
+        if test (string length "$col_sync[$i]") -gt $w_sync
+            set w_sync (string length "$col_sync[$i]")
+        end
+        if test (string length "$col_commit[$i]") -gt $w_commit
+            set w_commit (string length "$col_commit[$i]")
         end
     end
 
@@ -334,19 +400,20 @@ function __gwt_ls
     set -l bold (set_color --bold)
     set -l reset (set_color normal)
 
-    printf "%s%-*s  %s%s\n" "$bold" $max_len Branch Path "$reset"
-    printf "%s%-*s  %s%s\n" "$dim" $max_len (printf '%*s' $max_len '' | tr ' ' '─') (printf '%.0s─' (seq 1 40)) "$reset"
+    printf "\n%s%-*s  %-*s  %-*s%s\n" "$bold" $w_branch Worktree $w_commit 'Last Commit' $w_sync '↑↓' "$reset"
+    printf "%s%-*s  %-*s  %-*s%s\n" "$dim" \
+        $w_branch  (printf '%*s' $w_branch  '' | tr ' ' '─') \
+        $w_commit  (printf '%*s' $w_commit  '' | tr ' ' '─') \
+        $w_sync    (printf '%*s' $w_sync    '' | tr ' ' '─') "$reset"
 
-    for entry in $entries
-        set -l parts (string split '|' $entry)
-        set -l path $parts[1]
-        set -l branch $parts[2]
-        set -l bare $parts[3]
-
-        if test "$path" = "$main_repo"
-            printf "%s%-*s  %s%s\n" "$cyan" $max_len "$branch" "$path$bare" "$reset"
-        else
-            printf "%s%-*s  %s%s\n" "$yellow" $max_len "$branch" "$path$bare" "$reset"
+    for i in (seq 1 (count $col_branch))
+        set -l color $yellow
+        if test "$is_main[$i]" = 1
+            set color $cyan
         end
+        printf "%s%-*s  %-*s  %-*s%s\n" "$color" \
+            $w_branch  "$col_branch[$i]" \
+            $w_commit  "$col_commit[$i]" \
+            $w_sync    "$col_sync[$i]" "$reset"
     end
 end
