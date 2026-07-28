@@ -24,7 +24,8 @@
     "gh-dash@latest",
     "github:umutondersu/neovim-flake",
     "ncdu@latest",
-    "opencode@latest"
+    "opencode@latest",
+    "sd@latest"
   ],
   "shell": {
     "init_hook": [],
