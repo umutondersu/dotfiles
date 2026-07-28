@@ -25,7 +25,8 @@
     "github:umutondersu/neovim-flake",
     "ncdu@latest",
     "opencode@latest",
-    "sd@latest"
+    "sd@latest",
+    "nix-direnv@latest"
   ],
   "shell": {
     "init_hook": [],
