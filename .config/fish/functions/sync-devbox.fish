@@ -2,8 +2,22 @@
 # - Default: working → template (excludes desktop packages)
 # - --from-template: template → working
 function sync-devbox -d "Sync devbox configs bidirectionally"
-    argparse R/from-template f/force n/dry-run -- $argv
+    argparse H/help R/from-template f/force A/all n/dry-run -- $argv
     or return
+
+    if set -q _flag_help
+        echo "Usage: sync-devbox [OPTIONS]"
+        echo ""
+        echo "Synchronize devbox configurations between working and template."
+        echo ""
+        echo "Options:"
+        echo "  -H, --help             Show this help message"
+        echo "  -A, --all              Apply all changes without per-package selection"
+        echo "  -f, --force            Skip all confirmations"
+        echo "  -n, --dry-run          Show what would change without applying"
+        echo "  -R, --from-template    Sync template -> working (default: working -> template)"
+        return 0
+    end
 
     set -l working_config ~/.local/share/devbox/global/default/devbox.json
     set -l template_config ~/dotfiles/devbox.json
@@ -96,6 +110,96 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         return 0
     end
 
+    # Helper: interactive per-package selection via fzf (or fallback prompts)
+    # Outputs filtered new_pkgs on stdout, returns 0 on confirm / 1 on abort
+    # All user-facing output goes to stderr so stdout is clean for capture
+    function _interactive_select
+        set -l sep_idx (contains -i -- -- $argv)
+        set -l current_pkgs $argv[1..(math $sep_idx - 1)]
+        set -l new_pkgs $argv[(math $sep_idx + 1)..-1]
+
+        set -l added_pkgs
+        set -l removed_pkgs
+        for pkg in $new_pkgs
+            if not contains -- $pkg $current_pkgs
+                set -a added_pkgs $pkg
+            end
+        end
+        for pkg in $current_pkgs
+            if not contains -- $pkg $new_pkgs
+                set -a removed_pkgs $pkg
+            end
+        end
+
+        set -l selected_added
+        set -l selected_removed
+
+        if type -q fzf
+            if set -q added_pkgs[1]
+                echo "" >&2
+                echo "=== Select packages to ADD ===" >&2
+                set selected_added (
+                    printf '%s\n' $added_pkgs \
+                    | fzf --multi \
+                          --prompt="TAB=⬇ toggle / ENTER=confirm > " \
+                          --bind 'start:select-all' \
+                          --height=40% --reverse
+                )
+            end
+            if set -q removed_pkgs[1]
+                echo "" >&2
+                echo "=== Select packages to REMOVE ===" >&2
+                set selected_removed (
+                    printf '%s\n' $removed_pkgs \
+                    | fzf --multi \
+                          --prompt="TAB=⬇ toggle / ENTER=confirm > " \
+                          --bind 'start:select-all' \
+                          --height=40% --reverse
+                )
+            end
+        else
+            for pkg in $added_pkgs
+                read -P "Add '$pkg'? [y/N] " -l confirm
+                if string match -qi y $confirm
+                    set -a selected_added $pkg
+                end
+            end
+            for pkg in $removed_pkgs
+                read -P "Remove '$pkg'? [y/N] " -l confirm
+                if string match -qi y $confirm
+                    set -a selected_removed $pkg
+                end
+            end
+        end
+
+        # Build final list: start from current, add selections, remove selections
+        set -l final_pkgs $current_pkgs
+        for pkg in $selected_added
+            if not contains -- $pkg $final_pkgs
+                set -a final_pkgs $pkg
+            end
+        end
+        for pkg in $selected_removed
+            set final_pkgs (string match -v -- $pkg $final_pkgs)
+        end
+
+        echo "" >&2
+        echo "Summary:" >&2
+        if set -q selected_added[1]
+            echo "  + "(string join ', ' $selected_added) >&2
+        end
+        if set -q selected_removed[1]
+            echo "  - "(string join ', ' $selected_removed) >&2
+        end
+        if not set -q selected_added[1]; and not set -q selected_removed[1]
+            echo "  No changes selected." >&2
+            return 1
+        end
+
+        printf '%s\n' $final_pkgs
+        return 0
+    end
+
     # Sync FROM template TO working
     if set -q _flag_from_template
         if not test -f $template_config
@@ -119,7 +223,10 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
             return 0
         end
 
-        if not set -q _flag_force
+        if not set -q _flag_all; and not set -q _flag_force
+            set new_pkgs (_interactive_select $current_pkgs -- $new_pkgs)
+            or return 1
+        else if not set -q _flag_force
             read -P "Apply changes to global devbox.json? [y/N] " -l confirm
             if not string match -qi y $confirm
                 echo "Aborted."
@@ -211,7 +318,14 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         return 0
     end
 
-    if not set -q _flag_force
+    if not set -q _flag_all; and not set -q _flag_force
+        set new_pkgs (_interactive_select $current_pkgs -- $new_pkgs)
+        or begin
+            rm $temp_result
+            return 1
+        end
+        printf '%s\n' $new_pkgs | jq -Rs '[split("\n")[] | select(length > 0)]' >$temp_result
+    else if not set -q _flag_force
         read -P "Apply changes to template devbox.json? [y/N] " -l confirm
         if not string match -qi y $confirm
             echo "Aborted."
