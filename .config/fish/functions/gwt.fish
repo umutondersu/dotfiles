@@ -17,7 +17,7 @@ function gwt --description 'Git worktree manager'
             echo 'Usage: gwt <subcommand>'
             echo ''
             echo 'Subcommands:'
-            echo '  add <name>                   Create worktree and switch to sesh session'
+            echo '  add [<name>]                 Create worktree (no arg picks an origin branch)'
             echo '  rm [<branch>...] [-b] [-f]   Remove worktrees (args or fzf); -b deletes branch, -f forces'
             echo '  ls                           List worktrees'
             echo '  rename <old> <new>           Rename worktree directory and branch'
@@ -46,20 +46,82 @@ function __gwt_branch_to_path
     '
 end
 
+# Connect to the tmux session for a worktree, creating it if needed.
+function __gwt_connect
+    set -l wt_path $argv[1]
+    set -l branch $argv[2]
+    set -l main_root (__gwt_main_root)
+    set -l repo_name (basename "$main_root")
+
+    set -l session_name (test "$wt_path" = "$main_root"; and echo "$repo_name"; or echo "$repo_name/$branch")
+    if not tmux list-sessions -F '#{session_name}' 2>/dev/null | string match -q -- "$session_name"
+        tmux new-session -d -s "$session_name" -c "$wt_path"
+    end
+    tmux switch-client -t "=$session_name"
+end
+
 function __gwt_add
     if not git rev-parse --is-inside-work-tree &>/dev/null
         echo 'Not inside a git repository.' >&2
         return 1
     end
 
-    if test -z "$argv[1]"
-        echo 'Usage: gwt add <name>' >&2
-        return 1
+    set -l main_root (__gwt_main_root)
+    set -l name $argv[1]
+
+    # No name given: fetch origin and pick a remote branch
+    if test -z "$name"
+        echo 'Fetching origin...'
+        git fetch --prune origin >/dev/null 2>&1
+        or begin
+            echo 'Failed to fetch origin.' >&2
+            return 1
+        end
+
+        or begin
+            echo 'Failed to fetch origin.' >&2
+            return 1
+        end
+
+        set -l remote_branches (git for-each-ref --format='%(refname:short)' --exclude='refs/remotes/origin/HEAD' 'refs/remotes/origin/*')
+        if test (count $remote_branches) -eq 0
+            echo 'No remote branches found.' >&2
+            return 1
+        end
+
+        set -l fzf_input
+        for rb in $remote_branches
+            set -a fzf_input (printf "%s\t%s" (string replace 'origin/' '' $rb) "$rb")
+        end
+
+        set -l chosen (printf "%s\n" $fzf_input | \
+            fzf \
+                --ansi \
+                --no-sort \
+                --prompt='Create worktree from branch> ' \
+                --header='Enter to create worktree' \
+                --delimiter='\t' \
+                --with-nth='1' \
+                --preview="PATH=$PATH /usr/bin/git log --oneline --decorate --graph --color=always -20 {2}" \
+                --preview-window='right:66%:wrap' \
+                --layout='reverse')
+
+        if test -z "$chosen"
+            return 0
+        end
+
+        set -l parts (string split \t "$chosen")
+        set name $parts[1]
+        set remote_ref $parts[2]
     end
 
-    set -l name $argv[1]
-    set -l main_root (__gwt_main_root)
-    set -l repo_name (basename "$main_root")
+    # Branch already has a worktree: connect to it like gwt pick
+    set -l existing_wt (__gwt_branch_to_path "$name")
+    if test -n "$existing_wt"
+        __gwt_connect "$existing_wt" "$name"
+        return 0
+    end
+
     set -l wt_path (dirname "$main_root")/worktree/$name
     set -l wt_dir (dirname "$wt_path")
 
@@ -71,22 +133,18 @@ function __gwt_add
         end
     end
 
-    # If worktree path already exists, fall through to session connect
-    if test -d "$wt_path"
-        echo "Worktree already exists: $wt_path"
-    else if git show-ref --verify --quiet "refs/heads/$name"
-        git worktree add "$wt_path" "$name"
+    if git show-ref --verify --quiet "refs/heads/$name"
+        git worktree add "$wt_path" "$name" >/dev/null 2>&1
+        or return 1
+    else if set -q remote_ref
+        git worktree add --track -b "$name" "$wt_path" "$remote_ref" >/dev/null 2>&1
         or return 1
     else
-        git worktree add -b "$name" "$wt_path"
+        git worktree add -b "$name" "$wt_path" >/dev/null 2>&1
         or return 1
     end
 
-    set -l session_name (test "$wt_path" = "$main_root"; and echo "$repo_name"; or echo "$repo_name/$name")
-    if not tmux has-session -t "$session_name" 2>/dev/null
-        tmux new-session -d -s "$session_name" -c "$wt_path"
-    end
-    sesh connect --switch "$session_name"
+    __gwt_connect "$wt_path" "$name"
 end
 
 function __gwt_rm
@@ -127,37 +185,60 @@ function __gwt_rm
             end
         end
     else
-        # fzf selection — exclude main worktree
-        set -l worktree_lines (git worktree list | grep -v '(bare)')
-        set -l filtered
-        for line in $worktree_lines
-            set -l p (string split -m1 ' ' $line)[1]
-            if test "$p" != "$main_path"
-                set -a filtered $line
+        # Build branch list (same format as pick)
+        set -l branches
+        set -l paths
+
+        set -l main_path (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
+
+        for line in (git worktree list)
+            set -l path (string split -m1 ' ' $line)[1]
+            set -l rest (string replace -r '^\S+\s+' '' $line)
+            set -l branch ''
+
+            if string match -q '(bare)' -- $rest
+                continue
+            else if test "$path" = "$main_path"
+                continue
+            else if string match -qr '\[(.+)\]' $rest
+                set branch (string match -r '\[(.+)\]' $rest)[2]
+            else
+                set branch '(detached HEAD)'
             end
+
+            set -a branches "$branch"
+            set -a paths "$path"
         end
 
-        if test (count $filtered) -eq 0
+        if test (count $branches) -eq 0
             echo 'No worktrees to remove.'
             return 0
         end
 
-        set -l chosen (printf "%s\n" $filtered | fzf \
+        set -l fzf_input
+        for i in (seq 1 (count $branches))
+            set -a fzf_input (printf "%s\t%s" "$branches[$i]" "$paths[$i]")
+        end
+
+        set -l chosen (printf "%s\n" $fzf_input | fzf \
             --multi \
             --ansi \
             --no-sort \
             --prompt='Remove worktrees> ' \
-            --header='Tab to multi-select, Enter to confirm')
+            --header='Tab to multi-select, Enter to confirm' \
+            --delimiter='\t' \
+            --with-nth='1' \
+            --preview="PATH=$PATH /usr/bin/git -C {2} log --oneline --decorate --graph --color=always -20" \
+            --preview-window='right:66%:wrap' \
+            --layout='reverse')
 
         if test -z "$chosen"
             return 0
         end
 
         for line in $chosen
-            set -l p (string split -m1 ' ' $line)[1]
-            if test -n "$p"
-                set -a paths $p
-            end
+            set -l parts (string split \t "$line")
+            set -a paths $parts[2]
         end
     end
 
@@ -184,7 +265,7 @@ function __gwt_rm
         # Find any tmux session whose start path matches the worktree path and kill it
         set -l session_name (tmux list-sessions -F '#{session_name} #{session_path}' 2>/dev/null | awk -v p="$path" '$2 == p {print $1; exit}')
         if test -n "$session_name"
-            tmux kill-session -t "$session_name"
+            tmux kill-session -t "=$session_name"
             echo "Killed session: $session_name"
         end
 
@@ -240,7 +321,7 @@ function __gwt_rename
     git branch -m "$old_name" "$new_name"
     or return 1
 
-    tmux kill-session -t "$repo_name/$old_name" 2>/dev/null
+    tmux kill-session -t "=$repo_name/$old_name" 2>/dev/null
 
     echo "Renamed: $old_name → $new_name"
 end
@@ -250,9 +331,6 @@ function __gwt_pick
         echo 'Not inside a git repository.' >&2
         return 1
     end
-
-    set -l main_root (__gwt_main_root)
-    set -l repo_name (basename "$main_root")
 
     set -l branch ''
     set -l wt_path ''
@@ -316,11 +394,7 @@ function __gwt_pick
         set wt_path $parts[2]
     end
 
-    set -l session_name (test "$wt_path" = "$main_root"; and echo "$repo_name"; or echo "$repo_name/$branch")
-    if not tmux has-session -t "$session_name" 2>/dev/null
-        tmux new-session -d -s "$session_name" -c "$wt_path"
-    end
-    sesh connect --switch "$session_name"
+    __gwt_connect "$wt_path" "$branch"
 end
 
 function __gwt_ls
