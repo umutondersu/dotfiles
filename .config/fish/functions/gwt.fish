@@ -83,7 +83,7 @@ function __gwt_add
             return 1
         end
 
-        set -l remote_branches (git for-each-ref --format='%(refname:short)' --exclude='refs/remotes/origin/HEAD' 'refs/remotes/origin/*')
+        set -l remote_branches (git for-each-ref --format='%(refname:short)' --exclude='refs/remotes/origin/HEAD' 'refs/remotes/origin/')
         if test (count $remote_branches) -eq 0
             echo 'No remote branches found.' >&2
             return 1
