@@ -37,6 +37,7 @@ complete -c gwt -f
 
 # --- Subcommands ---
 complete -c gwt -n __fish_use_subcommand -a add    -d 'Create a worktree and open a sesh session'
+complete -c gwt -n __fish_use_subcommand -a init   -d 'Ensure worktree/ dir is git-ignored'
 complete -c gwt -n __fish_use_subcommand -a rm     -d 'Remove worktree (args or fzf)'
 complete -c gwt -n __fish_use_subcommand -a ls     -d 'List all worktrees'
 complete -c gwt -n __fish_use_subcommand -a rename -d 'Rename worktree directory and branch'

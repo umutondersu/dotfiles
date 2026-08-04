@@ -5,6 +5,8 @@ function gwt --description 'Git worktree manager'
     switch "$cmd"
         case add
             __gwt_add $argv
+        case init
+            __gwt_init
         case rm
             __gwt_rm $argv
         case ls
@@ -18,6 +20,7 @@ function gwt --description 'Git worktree manager'
             echo ''
             echo 'Subcommands:'
             echo '  add [<name>]                 Create worktree (no arg picks an origin branch)'
+            echo '  init                         Ensure worktree/ dir is git-ignored'
             echo '  rm [<branch>...] [-b] [-f]   Remove worktrees (args or fzf); -b deletes branch, -f forces'
             echo '  ls                           List worktrees'
             echo '  rename <old> <new>           Rename worktree directory and branch'
@@ -44,6 +47,27 @@ function __gwt_branch_to_path
         /^worktree / { cur = substr($0, 10) }
         $0 == "branch " b { print cur }
     '
+end
+
+# Ensure the worktree dir inside the repo is git-ignored (idempotent) so it
+# never shows up as untracked in the main working tree.
+function __gwt_ignore_worktree_dir --argument-names main_root
+    set -l exclude "$main_root/.git/info/exclude"
+    if not string match -q -- 'worktree/' (command cat "$exclude" 2>/dev/null)
+        echo 'worktree/' >> "$exclude"
+    end
+end
+
+function __gwt_init
+    if not git rev-parse --is-inside-work-tree &>/dev/null
+        echo 'Not inside a git repository.' >&2
+        return 1
+    end
+
+    set -l main_root (__gwt_main_root)
+    __gwt_ignore_worktree_dir "$main_root"
+
+    echo "worktree/ is git-ignored in $main_root"
 end
 
 # Connect to the tmux session for a worktree, creating it if needed.
@@ -122,8 +146,8 @@ function __gwt_add
         return 0
     end
 
-    set -l wt_path (dirname "$main_root")/worktree/$name
-    set -l wt_dir (dirname "$wt_path")
+    set -l wt_path "$main_root"/worktree/$name
+    set -l wt_dir "$main_root"/worktree
 
     if not test -d "$wt_dir"
         mkdir -p "$wt_dir"
@@ -131,6 +155,7 @@ function __gwt_add
             echo "Failed to create directory: $wt_dir" >&2
             return 1
         end
+        __gwt_ignore_worktree_dir "$main_root"
     end
 
     if git show-ref --verify --quiet "refs/heads/$name"
@@ -334,7 +359,7 @@ function __gwt_rename
         return 1
     end
 
-    set -l new_path (dirname "$main_root")/worktree/$new_name
+    set -l new_path "$main_root"/worktree/$new_name
 
     if test -d "$new_path"
         echo "Path already exists: $new_path" >&2
