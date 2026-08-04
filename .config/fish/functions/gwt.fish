@@ -19,12 +19,12 @@ function gwt --description 'Git worktree manager'
             echo 'Usage: gwt <subcommand>'
             echo ''
             echo 'Subcommands:'
-            echo '  add [<name>]                 Create worktree (no arg picks an origin branch)'
-            echo '  init                         Ensure worktree/ dir is git-ignored'
-            echo '  rm [<branch>...] [-b] [-f]   Remove worktrees (args or fzf); -b deletes branch, -f forces'
-            echo '  ls                           List worktrees'
-            echo '  mv [<old>] <new>             Rename worktree dir and branch (1 arg renames current)'
-            echo '  pick [<branch>]              Pick a worktree and connect to its session'
+            echo '  add [<name>] [-b <base>]       Create worktree (no arg picks remote branch; -b sets base)'
+            echo '  init                           Ensure worktree/ dir is git-ignored'
+            echo '  ls                             List worktrees'
+            echo '  mv [<old>] <new>               Rename worktree dir and branch (1 arg = current)'
+            echo '  pick [<branch>]                Pick a worktree and connect to its session'
+            echo '  rm [. | <branch>...] [-B] [-f] Remove worktrees; -B keeps branch, -f forces dirty'
             return 0
         case '*'
             echo "Unknown subcommand: $cmd" >&2
@@ -91,9 +91,27 @@ function __gwt_add
     end
 
     set -l main_root (__gwt_main_root)
-    set -l name $argv[1]
+    set -l name ''
+    set -l base ''
 
-    # No name given: fetch origin and pick a remote branch
+    set -l i 1
+    while test $i -le (count $argv)
+        switch "$argv[$i]"
+            case -b --base
+                set i (math $i + 1)
+                if test $i -le (count $argv)
+                    set base $argv[$i]
+                end
+            case '*'
+                if test -z "$name"
+                    set name $argv[$i]
+                end
+        end
+        set i (math $i + 1)
+    end
+
+    # No name given: fetch origin and pick a remote branch via fzf
+    set -l already_fetched 0
     if test -z "$name"
         echo 'Fetching origin...'
         git fetch --prune origin >/dev/null 2>&1
@@ -101,11 +119,7 @@ function __gwt_add
             echo 'Failed to fetch origin.' >&2
             return 1
         end
-
-        or begin
-            echo 'Failed to fetch origin.' >&2
-            return 1
-        end
+        set already_fetched 1
 
         set -l remote_branches (git for-each-ref --format='%(refname:short)' --exclude='refs/remotes/origin/HEAD' 'refs/remotes/origin/')
         if test (count $remote_branches) -eq 0
@@ -134,9 +148,7 @@ function __gwt_add
             return 0
         end
 
-        set -l parts (string split \t "$chosen")
-        set name $parts[1]
-        set remote_ref $parts[2]
+        set name (string split \t "$chosen")[1]
     end
 
     # Branch already has a worktree: connect to it like gwt pick
@@ -161,11 +173,24 @@ function __gwt_add
     if git show-ref --verify --quiet "refs/heads/$name"
         git worktree add "$wt_path" "$name" >/dev/null 2>&1
         or return 1
-    else if set -q remote_ref
-        git worktree add --track -b "$name" "$wt_path" "$remote_ref" >/dev/null 2>&1
+    else if test $already_fetched -eq 1; or git ls-remote --exit-code origin "$name" &>/dev/null
+        # Branch exists on origin: fetch it if we haven't already, then create with tracking
+        if test $already_fetched -eq 0
+            echo "Fetching origin/$name..."
+            git fetch origin "$name" >/dev/null 2>&1
+            or begin
+                echo "Failed to fetch origin/$name." >&2
+                return 1
+            end
+        end
+        git worktree add --track -b "$name" "$wt_path" "origin/$name" >/dev/null 2>&1
         or return 1
     else
-        git worktree add -b "$name" "$wt_path" >/dev/null 2>&1
+        # Default base: the branch checked out in the main worktree
+        if test -z "$base"
+            set base (git -C "$main_root" rev-parse --abbrev-ref HEAD)
+        end
+        git worktree add -b "$name" "$wt_path" "$base" >/dev/null 2>&1
         or return 1
     end
 
@@ -178,14 +203,14 @@ function __gwt_rm
         return 1
     end
 
-    set -l delete_branch 0
+    set -l delete_branch 1
     set -l force 0
     set -l names
 
     for arg in $argv
         switch "$arg"
-            case -b --branch
-                set delete_branch 1
+            case -B --keep-branch
+                set delete_branch 0
             case -f --force
                 set force 1
             case '*'
@@ -195,7 +220,29 @@ function __gwt_rm
 
     set -l main_path (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
 
+    # Resolve '.' to the current worktree branch
+    set -l resolved_names
+    for name in $names
+        if test "$name" = '.'
+            set -l cur_path (git rev-parse --show-toplevel 2>/dev/null)
+            if test "$cur_path" = "$main_path"
+                echo 'Cannot remove the main worktree.' >&2
+                return 1
+            end
+            set -l cur_branch (git rev-parse --abbrev-ref HEAD 2>/dev/null)
+            if test -z "$cur_branch" -o "$cur_branch" = HEAD
+                echo 'Cannot remove a detached HEAD worktree with .  — use the path directly.' >&2
+                return 1
+            end
+            set -a resolved_names $cur_branch
+        else
+            set -a resolved_names $name
+        end
+    end
+    set names $resolved_names
+
     set -l paths
+    set -l fzf_selected_paths  # paths chosen via fzf — dirty ones are auto-forced
     if test (count $names) -gt 0
         for name in $names
             if string match -q '/*' $name
@@ -210,11 +257,9 @@ function __gwt_rm
             end
         end
     else
-        # Build branch list (same format as pick)
+        # Build branch list including dirty worktrees; skip only main
         set -l branches
         set -l fzf_paths
-
-        set -l main_path (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
 
         for line in (git worktree list)
             set -l path (string split -m1 ' ' $line)[1]
@@ -245,6 +290,13 @@ function __gwt_rm
             set -a fzf_input (printf "%s\t%s" "$branches[$i]" "$fzf_paths[$i]")
         end
 
+        # Write preview script to a temp file so fzf runs it via sh, avoiding
+        # fish parsing issues with $() subshell syntax in --preview strings.
+        set -l preview_script (mktemp /tmp/gwt_preview_XXXXXX)
+        printf '#!/bin/sh\nPATH=%s\ngit=%s\npath="$1"\ndirty=$("$git" -C "$path" status --porcelain 2>/dev/null)\nif [ -n "$dirty" ]; then\n  echo "--- Uncommitted changes ---"\n  "$git" -C "$path" status --short\n  echo "--- Log ---"\nfi\n"$git" -C "$path" log --oneline --decorate --graph --color=always -20\n' \
+            "$PATH" /usr/bin/git > "$preview_script"
+        chmod +x "$preview_script"
+
         set -l chosen (printf "%s\n" $fzf_input | fzf \
             --multi \
             --ansi \
@@ -253,26 +305,25 @@ function __gwt_rm
             --header='Tab to multi-select, Enter to confirm' \
             --delimiter='\t' \
             --with-nth='1' \
-            --preview="PATH=$PATH /usr/bin/git -C {2} log --oneline --decorate --graph --color=always -20" \
+            --preview="$preview_script {2}" \
             --preview-window='right:66%:wrap' \
             --layout='reverse')
+
+        command rm -f "$preview_script"
 
         if test -z "$chosen"
             return 0
         end
-
         for line in $chosen
             set -l parts (string split \t "$line")
-            set -a paths $parts[2]
+            set -a fzf_selected_paths $parts[2]
         end
     end
 
-    set -l rm_args
-    if test $force -eq 1
-        set rm_args --force
-    end
+    # Merge: named paths require explicit -f for dirty; fzf paths are auto-forced
+    set -l all_paths $paths $fzf_selected_paths
 
-    # Pre-check: verify all paths are removable before touching anything
+    # Pre-check named paths only: verify valid + not dirty (unless -f)
     for path in $paths
         if not git worktree list --porcelain | string match -q -- "worktree $path"
             echo "Not a worktree: $path" >&2
@@ -286,8 +337,15 @@ function __gwt_rm
             end
         end
     end
+    # Pre-check fzf paths: verify valid only (dirty is fine — auto-forced below)
+    for path in $fzf_selected_paths
+        if not git worktree list --porcelain | string match -q -- "worktree $path"
+            echo "Not a worktree: $path" >&2
+            return 1
+        end
+    end
 
-    for path in $paths
+    for path in $all_paths
         # Resolve branch name before removing the worktree
         set -l branch ''
         if test $delete_branch -eq 1
@@ -295,6 +353,17 @@ function __gwt_rm
                 /^worktree / { cur = substr($0, 10) }
                 cur == p && /^branch / { sub("refs/heads/", "", $2); print $2 }
             ')
+        end
+
+        # Auto-force if: -f flag set, OR path came from fzf and is dirty
+        set -l rm_args
+        if test $force -eq 1
+            set rm_args --force
+        else if contains -- $path $fzf_selected_paths
+            set -l dirty (git -C "$path" status --porcelain 2>/dev/null)
+            if test -n "$dirty"
+                set rm_args --force
+            end
         end
 
         git worktree remove $rm_args "$path"

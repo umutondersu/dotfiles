@@ -32,6 +32,12 @@ function __gwt_mv_needs_old
     test $count -lt 1
 end
 
+# Helper: list local and remote branch names for --base completion
+function __gwt_all_branches
+    git branch --format='%(refname:short)' 2>/dev/null
+    git branch -r --format='%(refname:short)' 2>/dev/null | string replace 'origin/' ''
+end
+
 # Disable file completions globally for gwt
 complete -c gwt -f
 
@@ -43,12 +49,20 @@ complete -c gwt -n __fish_use_subcommand -a ls     -d 'List all worktrees'
 complete -c gwt -n __fish_use_subcommand -a mv     -d 'Rename worktree (1 arg renames current)'
 complete -c gwt -n __fish_use_subcommand -a pick   -d 'Pick a worktree and connect to its session'
 
+# --- gwt add: branch name arg (remote branches) and --base flag ---
+complete -c gwt -n '__fish_seen_subcommand_from add' \
+    -a '(git branch -r --format="%(refname:short)" 2>/dev/null | string replace "origin/" "")' \
+    -d 'Remote branch'
+complete -c gwt -n '__fish_seen_subcommand_from add' -s b -l base \
+    -d 'Base branch to create from' -r \
+    -a '(__gwt_all_branches)'
+
 # --- gwt rm: complete with existing worktree branch names and flags ---
 complete -c gwt -n '__fish_seen_subcommand_from rm' \
     -a '(__gwt_worktree_branches)' \
     -d 'Branch'
-complete -c gwt -n '__fish_seen_subcommand_from rm' -s b -l branch \
-    -d 'Also delete the branch'
+complete -c gwt -n '__fish_seen_subcommand_from rm' -s B -l keep-branch \
+    -d 'Keep the local branch after removing worktree'
 complete -c gwt -n '__fish_seen_subcommand_from rm' -s f -l force \
     -d 'Force remove even with uncommitted changes'
 
