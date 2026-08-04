@@ -11,8 +11,8 @@ function gwt --description 'Git worktree manager'
             __gwt_rm $argv
         case ls
             __gwt_ls $argv
-        case rename
-            __gwt_rename $argv
+        case mv
+            __gwt_mv $argv
         case pick
             __gwt_pick $argv
         case '' -h --help
@@ -23,7 +23,7 @@ function gwt --description 'Git worktree manager'
             echo '  init                         Ensure worktree/ dir is git-ignored'
             echo '  rm [<branch>...] [-b] [-f]   Remove worktrees (args or fzf); -b deletes branch, -f forces'
             echo '  ls                           List worktrees'
-            echo '  rename <old> <new>           Rename worktree directory and branch'
+            echo '  mv [<old>] <new>             Rename worktree dir and branch (1 arg renames current)'
             echo '  pick [<branch>]              Pick a worktree and connect to its session'
             return 0
         case '*'
@@ -336,21 +336,40 @@ function __gwt_rm
     end
 end
 
-function __gwt_rename
+function __gwt_mv
     if not git rev-parse --is-inside-work-tree &>/dev/null
         echo 'Not inside a git repository.' >&2
         return 1
     end
 
+    set -l main_root (__gwt_main_root)
+
     set -l old_name $argv[1]
     set -l new_name $argv[2]
 
-    if test -z "$old_name" -o -z "$new_name"
-        echo 'Usage: gwt rename <old> <new>' >&2
+    if test -z "$old_name"
+        echo 'Usage: gwt mv [<old>] <new>' >&2
         return 1
     end
 
-    set -l main_root (__gwt_main_root)
+    if test -z "$new_name"
+        # Single arg: rename the current worktree
+        set rename_current 1
+        set new_name $old_name
+        set -l current_path (git rev-parse --show-toplevel)
+        if test "$current_path" = "$main_root"
+            echo 'Cannot rename the main worktree.' >&2
+            return 1
+        end
+        set old_name (git -C "$current_path" rev-parse --abbrev-ref HEAD)
+        if string match -q -- 'HEAD' "$old_name"
+            echo 'Cannot rename a detached HEAD worktree.' >&2
+            return 1
+        end
+    else
+        set rename_current 0
+    end
+
     set -l repo_name (basename "$main_root")
     set -l old_path (__gwt_branch_to_path "$old_name")
 
@@ -372,9 +391,31 @@ function __gwt_rename
     git branch -m "$old_name" "$new_name"
     or return 1
 
+    echo "Renamed: $old_name → $new_name"
+
+    if test "$rename_current" = 1
+        # Recreate the session at the new path and switch to it. This must
+        # happen before killing the old session: if this command runs from
+        # inside the old session, killing it would also kill the shell running us.
+        set -l new_session "$repo_name/$new_name"
+        if not tmux list-sessions -F '#{session_name}' 2>/dev/null | string match -q -- "$new_session"
+            tmux new-session -d -s "$new_session" -c "$new_path"
+        end
+        tmux switch-client -t "=$new_session" 2>/dev/null
+    end
+
     tmux kill-session -t "=$repo_name/$old_name" 2>/dev/null
 
-    echo "Renamed: $old_name → $new_name"
+    # Prune empty parent dirs left behind by the move (e.g. feat/ after feat/branch)
+    set -l parent (dirname "$old_path")
+    while test "$parent" != (dirname "$parent")
+        if test -d "$parent" && test (count (command ls -A "$parent")) -eq 0
+            rmdir "$parent"
+            set parent (dirname "$parent")
+        else
+            break
+        end
+    end
 end
 
 function __gwt_pick
