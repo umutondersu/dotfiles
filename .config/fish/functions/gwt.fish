@@ -187,7 +187,7 @@ function __gwt_rm
     else
         # Build branch list (same format as pick)
         set -l branches
-        set -l paths
+        set -l fzf_paths
 
         set -l main_path (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
 
@@ -207,7 +207,7 @@ function __gwt_rm
             end
 
             set -a branches "$branch"
-            set -a paths "$path"
+            set -a fzf_paths "$path"
         end
 
         if test (count $branches) -eq 0
@@ -217,7 +217,7 @@ function __gwt_rm
 
         set -l fzf_input
         for i in (seq 1 (count $branches))
-            set -a fzf_input (printf "%s\t%s" "$branches[$i]" "$paths[$i]")
+            set -a fzf_input (printf "%s\t%s" "$branches[$i]" "$fzf_paths[$i]")
         end
 
         set -l chosen (printf "%s\n" $fzf_input | fzf \
@@ -242,6 +242,26 @@ function __gwt_rm
         end
     end
 
+    set -l rm_args
+    if test $force -eq 1
+        set rm_args --force
+    end
+
+    # Pre-check: verify all paths are removable before touching anything
+    for path in $paths
+        if not git worktree list --porcelain | string match -q -- "worktree $path"
+            echo "Not a worktree: $path" >&2
+            return 1
+        end
+        if test $force -eq 0
+            set -l dirty (git -C "$path" status --porcelain 2>/dev/null)
+            if test -n "$dirty"
+                echo "Worktree has uncommitted changes (use -f to force): $path" >&2
+                return 1
+            end
+        end
+    end
+
     for path in $paths
         # Resolve branch name before removing the worktree
         set -l branch ''
@@ -252,15 +272,21 @@ function __gwt_rm
             ')
         end
 
-        set -l rm_args
-        if test $force -eq 1
-            set rm_args --force
-        end
-
         git worktree remove $rm_args "$path"
-        or continue
+        or return 1
 
         echo "Removed: $path"
+
+        # Remove parent dirs that are now empty (e.g. feat/ after feat/branch is deleted)
+        set -l parent (dirname "$path")
+        while test "$parent" != (dirname "$parent")
+            if test -d "$parent" && test (count (command ls -A "$parent")) -eq 0
+                rmdir "$parent"
+                set parent (dirname "$parent")
+            else
+                break
+            end
+        end
 
         # Find any tmux session whose start path matches the worktree path and kill it
         set -l session_name (tmux list-sessions -F '#{session_name} #{session_path}' 2>/dev/null | awk -v p="$path" '$2 == p {print $1; exit}')
