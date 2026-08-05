@@ -50,29 +50,21 @@ if type -q opencode
     abbr --add o opencode
 end
 
-if type -q spf
-    abbr --add s spf
-end
-
 if type -q lazygit
     abbr --add lg lazygit
     abbr --add G lazygit
 end
 
 if type -q kubectl
-    abbr --add kc kubectl
-    abbr --add kC kubectl create
+    abbr --add k kubectl
+    abbr --add kc kubectl create
     abbr --add kg kubectl get
     abbr --add ka kubectl apply -f
 end
 
-if type -q bunx
-    abbr --add shad bunx --bun shadcn@latest
-end
-
 if type -q lsd
     abbr --add lT ls --tree --depth 2
-    abbr --add lt 'ls -I node_modules -I dist -I build -I target -I out -I tmp -I __pycache__ --tree --depth 2'
+    abbr --add lt 'ls -I node_modules  -I build -I out -I tmp --tree --depth 2'
 end
 
 if type -q yt-dlp
@@ -97,25 +89,6 @@ if type -q konsave
     abbr --add --set-cursor=@ ks 'konsave -e my-setup -f && mv ./my-setup.knsv "@/my-setup-$(date +%Y%m%d).knsv"'
 end
 
-# Dynamic update alias based on available package manager and devbox
-set -l cmds
-if type -q brew
-    set cmds $cmds "brew update" "brew upgrade"
-else if type -q apt-get
-    set cmds $cmds "sudo apt update" "sudo apt upgrade -y"
-else if type -q dnf
-    set cmds $cmds "sudo dnf upgrade -y" "fwupdmgr get-updates; or true"
-else if type -q cachy-update
-    set cmds $cmds cachy-update
-end
-if not type -q cachy-update; and not type -q brew
-    set cmds $cmds "flatpak update -y"
-end
-if type -q devbox
-    set cmds $cmds " devbox global update 2>&1 | grep -v '^Info: Already up-to-date '"
-end
-abbr --add update (string join " && " $cmds)
-
 abbr --add l ls
 abbr --add ll ls -lg
 abbr --add la ls -A
@@ -126,13 +99,14 @@ abbr c --add cd
 abbr ci --add zi
 abbr g --add git
 abbr gs --add git status -s
-abbr gi --add git update-index --skip-worktree
+abbr gu --add git update-index --assume-unchanged
 
 if functions -q gwt
     abbr ga --add gwt add
-    abbr gaj --add gwt add --jira
     abbr gr --add gwt rm
     abbr gl --add gwt ls
+    abbr gm --add gwt mv
+    abbr gp --add gwt pick
 end
 
 abbr --add claer clear
@@ -157,3 +131,22 @@ switch (uname)
         abbr --add odlog journalctl --user-unit=onedrive -f
         abbr --add bios "systemctl reboot --firmware-setup"
 end
+
+# Dynamic update alias based on available package manager and devbox
+set -l cmds
+if type -q brew
+    set cmds $cmds "brew update" "brew upgrade"
+else if type -q apt-get
+    set cmds $cmds "sudo apt update" "sudo apt upgrade -y"
+else if type -q dnf
+    set cmds $cmds "sudo dnf upgrade -y" "fwupdmgr get-updates; or true"
+else if type -q cachy-update
+    set cmds $cmds cachy-update
+end
+if not type -q cachy-update; and not type -q brew
+    set cmds $cmds "flatpak update -y"
+end
+if type -q devbox
+    set cmds $cmds " devbox global update 2>&1 | grep -v '^Info: Already up-to-date '"
+end
+abbr --add update (string join " && " $cmds)
