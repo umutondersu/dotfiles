@@ -14,6 +14,7 @@
 	wta = "!f() { git worktree add -b \"$1\" \"../$1\"; }; f"
 	wtr = "!f() { git worktree remove \"../$1\"; }; f"
 	wtl = "!f() { git worktree list; }; f"
+	nb = "!f() { branch=\"$1\"; base=\"${2:-develop}\"; git fetch origin \"$base\" && git switch -c \"$branch\" \"origin/$base\"; }; f"
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [credential]
