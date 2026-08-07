@@ -205,6 +205,23 @@ function __gwt_add
     if git show-ref --verify --quiet "refs/heads/$name"
         git worktree add "$wt_path" "$name" >/dev/null 2>&1
         or return 1
+        if test -n "$base"
+            echo "Note: branch '$name' already exists; ignoring -b '$base'." >&2
+        end
+    else if test -n "$base"
+        # Create a new branch `name` based on `base`. Resolve the start point
+        # explicitly: passing a bare base that only exists as origin/<base> lets
+        # git DWIM it and end up checking out <base> instead of `name`.
+        set -l start_ref "$base"
+        if not git rev-parse --verify --quiet "$base^{commit}" >/dev/null 2>&1
+            set start_ref "refs/remotes/origin/$base"
+        end
+        if not git rev-parse --verify --quiet "$start_ref" >/dev/null 2>&1
+            echo "Base branch not found: $base" >&2
+            return 1
+        end
+        git worktree add -b "$name" "$wt_path" "$start_ref" >/dev/null 2>&1
+        or return 1
     else if test $already_fetched -eq 1; or git ls-remote --exit-code origin "$name" &>/dev/null
         # Branch exists on origin: fetch it if we haven't already, then create with tracking
         if test $already_fetched -eq 0
@@ -218,10 +235,8 @@ function __gwt_add
         git worktree add --track -b "$name" "$wt_path" "origin/$name" >/dev/null 2>&1
         or return 1
     else
-        # Default base: the branch checked out in the main worktree
-        if test -z "$base"
-            set base (git -C "$main_root" symbolic-ref --short HEAD 2>/dev/null)
-        end
+        # No base given and branch not on origin: branch from main HEAD
+        set -l base (git -C "$main_root" symbolic-ref --short HEAD 2>/dev/null)
         git worktree add -b "$name" "$wt_path" "$base" >/dev/null 2>&1
         or return 1
     end
