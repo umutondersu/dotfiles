@@ -57,6 +57,19 @@ function __gwt_name_to_path --argument-names name main_root
     end
 end
 
+# Prints the absolute path of every non-bare worktree (main + linked), one per
+# line, in `git worktree list` order (main first). Consumers decide how to treat
+# the main worktree.
+function __gwt_worktree_paths
+    for line in (git worktree list)
+        set -l path (string split -m1 ' ' $line)[1]
+        set -l rest (string replace -r '^\S+\s+' '' $line)
+        if not string match -q '(bare)' -- $rest
+            echo "$path"
+        end
+    end
+end
+
 # Given a worktree absolute path, prints its name (relative to the main repo's
 # worktree/ dir; the repo basename for the main worktree).
 function __gwt_path_to_name --argument-names path main_root
@@ -237,7 +250,7 @@ function __gwt_rm
         end
     end
 
-    set -l main_path (git worktree list --porcelain | head -1 | string replace 'worktree ' '')
+    set -l main_root (__gwt_main_root)
 
     # Resolve names to absolute worktree paths. Names are directory names:
     # '.' = current worktree, '/abs/path' = path, otherwise a dir under worktree/.
@@ -247,7 +260,7 @@ function __gwt_rm
         for name in $names
             if test "$name" = '.'
                 set -l cur_path (git rev-parse --show-toplevel 2>/dev/null)
-                if test "$cur_path" = "$main_path"
+                if test "$cur_path" = "$main_root"
                     echo 'Cannot remove the main worktree.' >&2
                     return 1
                 end
@@ -255,7 +268,7 @@ function __gwt_rm
             else if string match -q '/*' -- $name
                 set -a paths $name
             else
-                set -l match (__gwt_name_to_path "$name" (__gwt_main_root))
+                set -l match (__gwt_name_to_path "$name" "$main_root")
                 if test -z "$match"
                     echo "No worktree found: $name" >&2
                     continue
@@ -265,32 +278,26 @@ function __gwt_rm
         end
     else
         # Build worktree-name list including dirty worktrees; skip only main
-        set -l names
+        set -l fzf_names
         set -l fzf_paths
-        set -l main_root (__gwt_main_root)
 
-        for line in (git worktree list)
-            set -l path (string split -m1 ' ' $line)[1]
-            set -l rest (string replace -r '^\S+\s+' '' $line)
-
-            if string match -q '(bare)' -- $rest
-                continue
-            else if test "$path" = "$main_path"
+        for path in (__gwt_worktree_paths)
+            if test "$path" = "$main_root"
                 continue
             end
 
-            set -a names (__gwt_path_to_name "$path" "$main_root")
+            set -a fzf_names (__gwt_path_to_name "$path" "$main_root")
             set -a fzf_paths "$path"
         end
 
-        if test (count $names) -eq 0
+        if test (count $fzf_names) -eq 0
             echo 'No worktrees to remove.'
             return 0
         end
 
         set -l fzf_input
-        for i in (seq 1 (count $names))
-            set -a fzf_input (printf "%s\t%s" "$names[$i]" "$fzf_paths[$i]")
+        for i in (seq 1 (count $fzf_names))
+            set -a fzf_input (printf "%s\t%s" "$fzf_names[$i]" "$fzf_paths[$i]")
         end
 
         # Write preview script to a temp file so fzf runs it via sh, avoiding
@@ -399,10 +406,10 @@ function __gwt_rm
             set -l branch_ref "refs/heads/$branch"
 
             set -l merged 0
-            if git -C "$main_path" merge-base --is-ancestor "$branch_ref" HEAD 2>/dev/null
+            if git -C "$main_root" merge-base --is-ancestor "$branch_ref" HEAD 2>/dev/null
                 set merged 1
-            else if set -l upstream (git -C "$main_path" rev-parse --quiet --abbrev-ref "$branch@{upstream}" 2>/dev/null); and test -n "$upstream"
-                if git -C "$main_path" merge-base --is-ancestor "$branch_ref" "$upstream" 2>/dev/null
+            else if set -l upstream (git -C "$main_root" rev-parse --quiet --abbrev-ref "$branch@{upstream}" 2>/dev/null); and test -n "$upstream"
+                if git -C "$main_root" merge-base --is-ancestor "$branch_ref" "$upstream" 2>/dev/null
                     set merged 1
                 end
             end
@@ -415,13 +422,13 @@ function __gwt_rm
                 end
             end
 
-            git -C "$main_path" update-ref -d "$branch_ref"
+            git -C "$main_root" update-ref -d "$branch_ref"
             and echo "Deleted branch: $branch"
         end
 
         # Kill leftover non-current sessions whose panes live inside the removed
         # worktree (e.g. its dedicated repo/<name> session removed from afar).
-        # Use pane_current_path (live cwd) rather than the stale session_path.
+        # Use pane_current_path (live cwd) to find them.
         for sess in (tmux list-panes -a -F '#{session_name} #{pane_current_path}' 2>/dev/null \
                 | awk -v p="$path" '$2 == p {print $1}' | sort -u)
             if test "$sess" != "$cur_session"
@@ -435,12 +442,12 @@ function __gwt_rm
         # shell. A dedicated gwt session (repo/<name>) is terminated; a generic
         # pane parked in the worktree is relocated to the main repo instead.
         if test -n "$cur_pane_path"; and test "$cur_pane_path" = "$path"
-            set -l repo_name (basename "$main_path")
-            set -l wt_name (__gwt_path_to_name "$path" "$main_path")
+            set -l repo_name (basename "$main_root")
+            set -l wt_name (__gwt_path_to_name "$path" "$main_root")
             if test "$cur_session" = "$repo_name/$wt_name"
                 tmux kill-session -t "=$cur_session" 2>/dev/null
             else
-                tmux respawn-pane -t "$cur_pane_id" -k -c "$main_path" 2>/dev/null
+                tmux respawn-pane -t "$cur_pane_id" -k -c "$main_root" 2>/dev/null
             end
         end
     end
@@ -476,7 +483,7 @@ function __gwt_mv
 
     if test -z "$new_name"
         # Single arg: rename the current worktree (its dir name)
-        set rename_current 1
+        set -l rename_current 1
         set new_name $old_name
         set -l current_path (git rev-parse --show-toplevel)
         if test "$current_path" = "$main_root"
@@ -485,7 +492,7 @@ function __gwt_mv
         end
         set old_name (__gwt_path_to_name "$current_path" "$main_root")
     else
-        set rename_current 0
+        set -l rename_current 0
     end
 
     set -l old_path (__gwt_name_to_path "$old_name" "$main_root")
@@ -519,7 +526,7 @@ function __gwt_mv
         set -l cur_pane_id (tmux display-message -p '#{pane_id}' 2>/dev/null)
     else if tmux list-sessions -F '#{session_name}' 2>/dev/null | string match -q -- "$old_sess"
         tmux rename-session -t "=$old_sess" "$new_sess" 2>/dev/null
-        set renamed_other_session 1
+        set -l renamed_other_session 1
     end
 
     git worktree move "$old_path" "$new_path"
@@ -577,14 +584,7 @@ function __gwt_pick
         set -l names
         set -l paths
 
-        for line in (git worktree list)
-            set -l path (string split -m1 ' ' $line)[1]
-            set -l rest (string replace -r '^\S+\s+' '' $line)
-
-            if string match -q '(bare)' -- $rest
-                continue
-            end
-
+        for path in (__gwt_worktree_paths)
             set -l name (__gwt_path_to_name "$path" "$main_root")
             if test "$path" = "$main_root"
                 set name "$name (main)"
@@ -632,9 +632,8 @@ function __gwt_ls
         return 1
     end
 
-    set -l worktrees (git worktree list)
-    set -l main_repo (string split -m1 ' ' (echo $worktrees[1]))[1]
-    set -l main_root (__gwt_main_root)
+    set -l worktrees (__gwt_worktree_paths)
+    set -l main_repo $worktrees[1]
 
     set -l col_name
     set -l col_branch
@@ -642,21 +641,14 @@ function __gwt_ls
     set -l col_commit
     set -l is_main
 
-    for line in $worktrees
-        set -l path (string split -m1 ' ' $line)[1]
-        set -l rest (string replace -r '^\S+\s+' '' $line)
-        set -l branch ''
+    for path in $worktrees
+        # Identity is the directory name; the branch is secondary.
+        set -l name (__gwt_path_to_name "$path" (__gwt_main_root))
 
-        if string match -q '(bare)' -- $rest
-            continue
-        else if string match -qr '\[(.+)\]' $rest
-            set branch (string match -r '\[(.+)\]' $rest)[2]
-        else
+        set -l branch (git -C "$path" symbolic-ref --short HEAD 2>/dev/null)
+        if test -z "$branch"
             set branch '(detached HEAD)'
         end
-
-        # Identity is the directory name; the branch is secondary.
-        set -l name (__gwt_path_to_name "$path" "$main_root")
 
         # Ahead/behind
         set -l sync -
