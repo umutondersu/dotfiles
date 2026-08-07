@@ -1,21 +1,20 @@
 # Fish completions for gwt (git worktree manager)
 
-# Helper: list all worktree branch names
-function __gwt_worktree_branches
-    git worktree list --porcelain 2>/dev/null | string replace --regex --filter '^branch refs/heads/' ''
-end
-
-# Helper: list linked worktree names (excludes main worktree)
+# Helper: list linked worktree directory names (relative to the worktree/ dir,
+# so nested names like feat/foo work). Excludes the main worktree.
 function __gwt_worktree_names
-    set -l toplevel (git rev-parse --show-toplevel 2>/dev/null)
-    if test -z "$toplevel"
+    # Resolve the main repo path the same way gwt itself does (realpath the
+    # git-common-dir), otherwise --git-common-dir is relative (e.g. `.git`) inside
+    # the main worktree and the main repo would not be excluded below.
+    set -l main_root (string replace -r '/\.git(/worktrees/.+)?$' '' (realpath (git rev-parse --git-common-dir 2>/dev/null)))
+    if test -z "$main_root"
         return
     end
     git worktree list --porcelain 2>/dev/null \
         | string replace --regex --filter '^worktree\s*' '' \
         | while read -l path
-            if test "$path" != "$toplevel"
-                basename "$path"
+            if test "$path" != "$main_root"
+                string replace --regex '^.*/worktree/' '' "$path"
             end
         end
 end
@@ -57,10 +56,10 @@ complete -c gwt -n '__fish_seen_subcommand_from add' -s b -l base \
     -d 'Base branch to create from' -r \
     -a '(__gwt_all_branches)'
 
-# --- gwt rm: complete with existing worktree branch names and flags ---
+# --- gwt rm: complete with existing worktree names and flags ---
 complete -c gwt -n '__fish_seen_subcommand_from rm' \
-    -a '(__gwt_worktree_branches)' \
-    -d 'Branch'
+    -a '(__gwt_worktree_names)' \
+    -d 'Worktree'
 complete -c gwt -n '__fish_seen_subcommand_from rm' -s B -l keep-branch \
     -d 'Keep the local branch after removing worktree'
 complete -c gwt -n '__fish_seen_subcommand_from rm' -s f -l force \
@@ -70,8 +69,10 @@ complete -c gwt -n '__fish_seen_subcommand_from rm' -s f -l force \
 complete -c gwt -n '__fish_seen_subcommand_from mv; and __gwt_mv_needs_old' \
     -a '(__gwt_worktree_names)' \
     -d 'Worktree to rename'
+complete -c gwt -n '__fish_seen_subcommand_from mv' -s B -l keep-branch \
+    -d 'Move the directory but keep the branch name'
 
-# --- gwt pick: complete with branch names ---
+# --- gwt pick: complete with worktree names ---
 complete -c gwt -n '__fish_seen_subcommand_from pick' \
-    -a '(__gwt_worktree_branches)' \
-    -d 'Branch'
+    -a '(__gwt_worktree_names)' \
+    -d 'Worktree'
