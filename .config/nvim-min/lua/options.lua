@@ -30,6 +30,9 @@ vim.o.smartcase = true
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
+-- Enable Autoread
+vim.o.autoread = true
+
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
@@ -43,10 +46,9 @@ vim.wo.relativenumber = true
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
--- Disable Statusline
-vim.o.laststatus = 0
-vim.o.ruler = false
-vim.o.statusline = " "
+-- Statusline
+vim.o.laststatus = 3
+vim.o.cmdheight = 0
 
 -- Set default splits
 vim.o.splitright = true
@@ -58,6 +60,7 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 
 -- Autocomplete
 vim.o.autocomplete = true 
+
 vim.opt.completeopt = "menu,menuone,noselect,popup"
 
 
@@ -67,7 +70,6 @@ vim.diagnostic.config(
 		underline = false,
 		virtual_text = {
 			spacing = 2,
-			prefix = "●",
 			current_line = true,
 			source = "if_many"
 		},

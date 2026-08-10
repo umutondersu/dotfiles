@@ -8,6 +8,14 @@ vim.g.maplocalleader = ' '
 -- See `:help vim.keymap.set()`
 local map = vim.keymap.set
 
+map('n', '<leader>g', function()
+	if vim.bo.filetype == 'fugitive' then
+		vim.cmd('quit')
+	else
+		vim.cmd('G')
+	end
+end, { desc = 'Git Fugitive' })
+
 map({ 'n', 'v' }, 'p', '"+p')
 map({ 'n', 'v' }, 'P', '"+P')
 map({ 'n', 'v' }, 'x', '"+d')
@@ -16,6 +24,21 @@ map('n', '<leader>f', vim.lsp.buf.format, { desc = "Format Buffer" })
 map('n', '<leader>w', ':w<CR>', { desc = 'Save Buffer' })
 map('n', '<leader>q', ':bdelete<CR>', { desc = 'Quit Buffer' })
 map('i', '<C-x>', vim.lsp.completion.get)
+map({ 'n', 'v' }, '<leader>c', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+
+map("n", "<leader>d", function()
+	if vim.fn.getwininfo(vim.fn.win_getid())[1].quickfix > 0 then
+		vim.cmd("cclose")
+	else
+		vim.diagnostic.setqflist()
+		local qf = vim.fn.getqflist()
+		if #qf == 0 then
+			vim.notify("No diagnostics found", vim.log.levels.WARN)
+			return
+		end
+		vim.cmd("copen")
+	end
+end, { desc = "Diagnostics Quickfix" })
 
 -- Buffer Management
 map("n", "<C-a>", '<cmd>enew<cr>', { desc = 'Open a New Buffer' })
@@ -46,22 +69,5 @@ map('v', '>', '>gv', { desc = 'Shift Right' })
 map("n", "<M-u>", ":e!<CR>", { desc = 'Undo all unsaved writes' })
 
 -- Refactor Keymaps
-map("n", "<leader>r", function()
-	local filepath = vim.fn.expand('%')
-	local choice = vim.fn.confirm(
-		"Delete " .. vim.fn.fnamemodify(filepath, ":t") .. "?",
-		"&Yes\n&No",
-		2
-	)
-	if choice == 1 then
-		local success, err = os.remove(filepath)
-		if success then
-			vim.cmd('bdelete!')
-			vim.notify(string.format("Deleted %s", filepath), vim.log.levels.INFO)
-		else
-			vim.notify(string.format("Failed to delete %s: %s", filepath, err), vim.log.levels.ERROR)
-		end
-	end
-end, { desc = 'Remove File' })
 map("n", "<leader>W", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gcI<Left><Left><Left><Left>]],
 	{ desc = 'Replace Word' }) -- Replace the word under the cursor
