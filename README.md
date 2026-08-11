@@ -140,9 +140,13 @@ Desktop installation (`--desktop`) automatically installs
 
 The devbox configuration uses a **template-based approach** rather than direct symlinking:
 
-- **Template Location**: `devbox.json` (tracked in git)
+- **Template Location**: `devbox.linux.json` and `devbox.macos.json` (tracked in git)
 - **Working Location**: `~/.local/share/devbox/global/default/devbox.json`
   (copied during installation)
+
+The installer and `sync-devbox` automatically select the template matching the
+current OS (`uname`): `devbox.macos.json` on macOS, `devbox.linux.json` elsewhere.
+Use `sync-devbox -p linux` or `sync-devbox -p macos` to override the selection.
 
 ### Why Copy Instead of Stow (Symlink)?
 
@@ -150,6 +154,8 @@ The devbox configuration uses a **template-based approach** rather than direct s
    `devbox global add` which creates a permanent dirty git with stow
 2. **Environment flexibility**: Dev environments get the base config,
    desktop environments get base + extras
+3. **Platform-specific packages**: macOS and Linux templates can differ
+   (e.g. packages already provided by Homebrew on macOS)
 
 ## Package Management
 
@@ -173,10 +179,11 @@ devbox search <query>
 **To sync your changes with the template you can use `sync-devbox`.**
 
 - 📦 **sync-devbox**: Fish function to sync devbox configurations bidirectionally.
-  Default usage (`sync-devbox`) syncs working config → template, excluding desktop
-  packages. Use `--from-template` or `-R` to restore working config
+  Default usage (`sync-devbox`) syncs working config → template for the current OS,
+  excluding desktop packages. Use `--from-template` or `-R` to restore working config
   from template and add desktop packages (requires confirmation unless `-f` or `--force`
-  is used). Also supports `--dry-run` or `-n`
+  is used). Also supports `--dry-run` or `-n`, and `-p`/`--platform linux|macos`
+  to target a specific template
 
 - 🖥️ **desktop-pkg**: Fish function to manage desktop-specific devbox packages
   defined in `desktop-packages.txt`. Supports `-i`/`--install` to install all packages

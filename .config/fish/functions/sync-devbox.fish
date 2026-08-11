@@ -2,7 +2,7 @@
 # - Default: working → template (excludes desktop packages)
 # - --from-template: template → working
 function sync-devbox -d "Sync devbox configs bidirectionally"
-    argparse H/help R/from-template f/force A/all n/dry-run -- $argv
+    argparse H/help R/from-template f/force A/all n/dry-run p/platform= -- $argv
     or return
 
     if set -q _flag_help
@@ -15,12 +15,28 @@ function sync-devbox -d "Sync devbox configs bidirectionally"
         echo "  -A, --all              Apply all changes without per-package selection"
         echo "  -f, --force            Skip all confirmations"
         echo "  -n, --dry-run          Show what would change without applying"
+        echo "  -p, --platform <name>  Template platform: linux or macos (default: auto-detect)"
         echo "  -R, --from-template    Sync template -> working (default: working -> template)"
         return 0
     end
 
     set -l working_config ~/.local/share/devbox/global/default/devbox.json
-    set -l template_config ~/dotfiles/devbox.json
+
+    # Detect platform unless overridden with --platform
+    set -l platform linux
+    if set -q _flag_platform
+        set platform $_flag_platform
+    else if test "$(uname -s)" = Darwin
+        set platform macos
+    end
+    switch $platform
+        case linux macos
+        case '*'
+            echo "Error: Invalid platform '$platform' (expected linux or macos)"
+            return 1
+    end
+
+    set -l template_config ~/dotfiles/devbox.$platform.json
     set -l desktop_script ~/dotfiles/setup/desktop/packages.sh
     set -l desktop_packages_file ~/dotfiles/desktop-packages.txt
 

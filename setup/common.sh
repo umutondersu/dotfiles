@@ -122,17 +122,24 @@ stow_system_config() {
 }
 
 # Setup devbox configuration from template
-# Copies the devbox.json template to the working directory
+# Copies the platform-specific devbox template to the working directory
 setup_devbox_config() {
     local devbox_global_dir="$HOME/.local/share/devbox/global/default"
     mkdir -p "$devbox_global_dir"
 
+    # Detect platform for template selection
+    local os="linux"
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        os="macos"
+    fi
+    local template_file="$SCRIPT_DIR/devbox.$os.json"
+
     # Copy devbox template (don't symlink - scripts may modify it)
-    if [ -f "$SCRIPT_DIR/devbox.json" ]; then
-        cp "$SCRIPT_DIR/devbox.json" "$devbox_global_dir/devbox.json"
-        echo "✅ Devbox configuration copied from template"
+    if [ -f "$template_file" ]; then
+        cp "$template_file" "$devbox_global_dir/devbox.json"
+        echo "✅ Devbox configuration copied from template ($os)"
     else
-        echo "⚠️  Warning: devbox.json template not found at $SCRIPT_DIR/devbox.json"
+        echo "⚠️  Warning: devbox.json template not found at $template_file"
     fi
 }
 
