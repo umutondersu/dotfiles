@@ -16,15 +16,16 @@ function gwt --description 'Git worktree manager'
         case pick
             __gwt_pick $argv
         case '' -h --help
+            set -l help_w 42
             echo 'Usage: gwt <subcommand>'
             echo ''
             echo 'Subcommands:'
-            echo '  add [<name>] [-b <base>]       Create worktree (no arg picks remote branch; -b sets base)'
-            echo '  init                           Ensure worktree/ dir is git-ignored'
-            echo '  ls                             List worktrees'
-            echo '  mv [<old>] <new> [-B]          Move worktree dir; renames branch if it matches, -B keeps it'
-            echo '  pick [<name>]                  Pick a worktree and connect to its session'
-            echo '  rm [. | <name>...] [-B] [-f]   Remove worktrees; -B keeps branch, -f forces dirty'
+            printf '  %-*s %s\n' $help_w 'add [<name>] [-b <branch>] [-f <from>]' 'Create worktree (no arg picks remote branch; -b branch name, -f start point)'
+            printf '  %-*s %s\n' $help_w 'init' 'Ensure worktree/ dir is git-ignored'
+            printf '  %-*s %s\n' $help_w 'ls' 'List worktrees'
+            printf '  %-*s %s\n' $help_w 'mv [<old>] <new> [-B]' 'Move worktree dir; renames branch if it matches, -B keeps it'
+            printf '  %-*s %s\n' $help_w 'pick [<name>]' 'Pick a worktree and connect to its session'
+            printf '  %-*s %s\n' $help_w 'rm [. | <name>...] [-B] [-f]' 'Remove worktrees; -B keeps branch, -f forces dirty'
             return 0
         case '*'
             echo "Unknown subcommand: $cmd" >&2
@@ -124,15 +125,21 @@ function __gwt_add
 
     set -l main_root (__gwt_main_root)
     set -l name ''
-    set -l base ''
+    set -l branch ''
+    set -l from ''
 
     set -l i 1
     while test $i -le (count $argv)
         switch "$argv[$i]"
-            case -b --base
+            case -b --branch
                 set i (math $i + 1)
                 if test $i -le (count $argv)
-                    set base $argv[$i]
+                    set branch $argv[$i]
+                end
+            case -f --from
+                set i (math $i + 1)
+                if test $i -le (count $argv)
+                    set from $argv[$i]
                 end
             case '*'
                 if test -z "$name"
@@ -140,6 +147,12 @@ function __gwt_add
                 end
         end
         set i (math $i + 1)
+    end
+
+    # A worktree needs a dir name; -b/-f only make sense once we have one.
+    if test -z "$name"; and begin; test -n "$branch"; or test -n "$from"; end
+        echo 'Usage: gwt add <name> [-b <branch>] [-f <from>]' >&2
+        return 1
     end
 
     # No name given: fetch origin and pick a remote branch via fzf
@@ -202,42 +215,45 @@ function __gwt_add
         __gwt_ignore_worktree_dir "$main_root"
     end
 
-    if git show-ref --verify --quiet "refs/heads/$name"
-        git worktree add "$wt_path" "$name" >/dev/null 2>&1
+    # The branch this worktree will sit on. Defaults to the dir name; -b overrides.
+    set -l branch_name (test -n "$branch"; and echo "$branch"; or echo "$name")
+
+    if git show-ref --verify --quiet "refs/heads/$branch_name"
+        git worktree add "$wt_path" "$branch_name" >/dev/null 2>&1
         or return 1
-        if test -n "$base"
-            echo "Note: branch '$name' already exists; ignoring -b '$base'." >&2
+        if test -n "$from"
+            echo "Note: branch '$branch_name' already exists; ignoring -f '$from'." >&2
         end
-    else if test -n "$base"
-        # Create a new branch `name` based on `base`. Resolve the start point
-        # explicitly: passing a bare base that only exists as origin/<base> lets
-        # git DWIM it and end up checking out <base> instead of `name`.
-        set -l start_ref "$base"
-        if not git rev-parse --verify --quiet "$base^{commit}" >/dev/null 2>&1
-            set start_ref "refs/remotes/origin/$base"
+    else if test -n "$from"
+        # Create a new branch `branch_name` based on `from`. Resolve the start
+        # point explicitly: passing a bare from that only exists as origin/<from>
+        # lets git DWIM it and end up checking out <from> instead of `branch_name`.
+        set -l start_ref "$from"
+        if not git rev-parse --verify --quiet "$from^{commit}" >/dev/null 2>&1
+            set start_ref "refs/remotes/origin/$from"
         end
         if not git rev-parse --verify --quiet "$start_ref" >/dev/null 2>&1
-            echo "Base branch not found: $base" >&2
+            echo "Start point not found: $from" >&2
             return 1
         end
-        git worktree add -b "$name" "$wt_path" "$start_ref" >/dev/null 2>&1
+        git worktree add -b "$branch_name" "$wt_path" "$start_ref" >/dev/null 2>&1
         or return 1
-    else if test $already_fetched -eq 1; or git ls-remote --exit-code origin "$name" &>/dev/null
+    else if test $already_fetched -eq 1; or git ls-remote --exit-code origin "$branch_name" &>/dev/null
         # Branch exists on origin: fetch it if we haven't already, then create with tracking
         if test $already_fetched -eq 0
-            echo "Fetching origin/$name..."
-            git fetch origin "$name" >/dev/null 2>&1
+            echo "Fetching origin/$branch_name..."
+            git fetch origin "$branch_name" >/dev/null 2>&1
             or begin
-                echo "Failed to fetch origin/$name." >&2
+                echo "Failed to fetch origin/$branch_name." >&2
                 return 1
             end
         end
-        git worktree add --track -b "$name" "$wt_path" "origin/$name" >/dev/null 2>&1
+        git worktree add --track -b "$branch_name" "$wt_path" "origin/$branch_name" >/dev/null 2>&1
         or return 1
     else
-        # No base given and branch not on origin: branch from main HEAD
+        # No -f given and branch not on origin: branch from main HEAD
         set -l base (git -C "$main_root" symbolic-ref --short HEAD 2>/dev/null)
-        git worktree add -b "$name" "$wt_path" "$base" >/dev/null 2>&1
+        git worktree add -b "$branch_name" "$wt_path" "$base" >/dev/null 2>&1
         or return 1
     end
 
