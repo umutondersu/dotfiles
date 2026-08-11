@@ -102,11 +102,11 @@ abbr gs --add git status -s
 abbr gu --add git update-index --assume-unchanged
 
 if functions -q gwt
-    abbr ga --add gwt add
-    abbr gr --add gwt rm
-    abbr gl --add gwt ls
-    abbr gm --add gwt mv
-    abbr gp --add gwt pick
+    abbr gwa --add gwt add
+    abbr gwr --add gwt rm
+    abbr gwl --add gwt ls
+    abbr gwm --add gwt mv
+    abbr gwp --add gwt pick
 end
 
 abbr --add claer clear
