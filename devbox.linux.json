@@ -23,6 +23,7 @@
     "nix-search-cli@latest",
     "gh-dash@latest",
     "github:umutondersu/neovim-flake",
+    "github:umutondersu/gwt",
     "ncdu@latest",
     "opencode@latest",
     "sd@latest",
