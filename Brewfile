@@ -5,8 +5,6 @@ tap "riii111/sabiql"
 brew "helm"
 # Postgres C API library
 brew "libpq"
-# Polyglot runtime manager (asdf rust clone)
-brew "mise"
 # CLI for Postgres with auto-completion and syntax highlighting
 brew "pgcli"
 # Object-relational database system
@@ -21,3 +19,14 @@ cask "nikitabobko/tap/aerospace", trusted: true
 cask "bitwarden"
 # Administration and development platform for PostgreSQL
 cask "pgadmin4"
+go "github.com/onsi/ginkgo/v2/ginkgo"
+go "github.com/fatih/gomodifytags"
+go "golang.org/x/tools/gopls"
+go "github.com/cweill/gotests/gotests"
+go "gotest.tools/gotestsum"
+go "github.com/koron/iferr"
+go "github.com/josharian/impl"
+go "olexsmir.xyz/json2go/cmd/json2go"
+go "github.com/jwx-go/jwxmigrate/v4"
+go "github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen"
+go "github.com/lotusirous/gostdsym/stdsym"
