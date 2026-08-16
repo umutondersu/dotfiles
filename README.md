@@ -1,16 +1,19 @@
-# My Dotfiles for Linux
+# My Dotfiles
 
-This repository contains my Linux configuration files managed with
-[GNU Stow](https://www.gnu.org/software/stow/) for dotfile symlinking.
+This repository contains my cross-platform (Linux & macOS) configuration
+files managed with [GNU Stow](https://www.gnu.org/software/stow/) for dotfile
+symlinking.
 
-- **Distro-agnostic**: Works on all major Linux distribution with [Devbox](https://www.jetify.com/devbox)
+- **Cross-platform**: Works on all major Linux distributions and macOS with [Devbox](https://www.jetify.com/devbox)
 - **Reproducible**: Same package versions across all machines via `devbox.json`
 - **Isolated**: Doesn't interfere with system package manager
 - **Simple**: One command to install everything
 
-## Supported Distributions
+## Supported Platforms
 
 The installation script automatically detects and supports:
+
+**Linux distributions:**
 
 - **Debian/Ubuntu-based**: Ubuntu, Pop!\_OS, Debian, Linux Mint, elementary OS
 - **RHEL-based**: Fedora, RHEL, CentOS, Rocky Linux, AlmaLinux
@@ -19,14 +22,22 @@ The installation script automatically detects and supports:
 - **Alpine Linux**
 - Other distributions work with manual prerequisites
 
-**For now It is only reliably tested on Pop!\_OS, Fedora and CachyOS**
+**macOS:**
+
+- **macOS** (Intel & Apple Silicon); Homebrew is installed automatically if missing
+- **Xcode Command Line Tools** are required (Homebrew prompts to install them if missing)
+
+**For now it is only reliably tested on Pop!_OS, Fedora, CachyOS and macOS**
 
 ## Requirements
 
 - **git**
 - **curl**
-- **sudo**
+- **sudo** — Linux only
 - **unzip** — optional for non-Arch Nerd Font installation on desktop
+
+On macOS, **Xcode Command Line Tools** are required. The install script
+automatically installs Homebrew (and GNU Stow via Homebrew) if not present.
 
 The install script should handle everything else (check [Prerequisites](#prerequisites))
 
@@ -76,31 +87,6 @@ If your distribution is not detected, you'll need to manually install them
 
 ### Devbox Packages
 
-#### These might be old if I forgot to update the readme after editing packages
-
-**Default Shell:**
-
-- fish
-
-**Shell & CLI Tools:**
-
-- fzf, ripgrep, fd, zoxide, bat, lsd, tldr, direnv, glow, gh
-
-**Development:**
-
-- neovim, opencode, nodejs_22, deno
-
-**Utilities:**
-
-- curlie (HTTP client)
-- posting (API client)
-- vegeta (load testing)
-- lazygit (git client)
-- lazydocker (docker client)
-- jq (JSON Processor)
-- w3m (Terminal Web Browser)
-- ncdu: Disk usage analyzer
-
 ### Desktop-Only Packages (with `--desktop`)
 
 - **tmux**: Terminal multiplexer
@@ -118,10 +104,11 @@ you'll be prompted to install applications listed in `flatpak-apps.txt`.
 Categories include browsers, development tools, media players, gaming emulators,
 and utilities. To customize, edit `flatpak-apps.txt` before running the installer.
 
+> **Note:** Flatpaks are only installed on Linux; they are skipped on macOS.
+
 #### Manual Installations with scripts
 
 - **kitty**: Terminal emulator (script in `setup/kitty.sh`)
-- **vosk**: Speech recognition library (script in `setup/vosk-install.sh`)
 - **TPM**: Tmux Plugin Manager (git clone to `~/.tmux/plugins/tpm`)
 - **JetBrainsMono Nerd Font**: See [Nerd Font Installation](#nerd-font-installation) below
 
@@ -131,6 +118,8 @@ Desktop installation (`--desktop`) automatically installs
 **JetBrains Mono Nerd Font** via `setup/desktop/nerdfont.sh`.
 
 - **Arch-based**: installed via `pacman` (`ttf-jetbrains-mono-nerd`)
+- **macOS**: downloaded from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases)
+  and installed to `~/Library/Fonts`
 - **Other distros**: downloaded from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases)
   and installed to `~/.local/share/fonts`
 
@@ -158,23 +147,6 @@ Use `sync-devbox -p linux` or `sync-devbox -p macos` to override the selection.
    (e.g. packages already provided by Homebrew on macOS)
 
 ## Package Management
-
-```bash
-# Add new package
-devbox global add <package-name>
-
-# Remove package
-devbox global rm <package-name>
-
-# List installed packages
-devbox global list
-
-# Update all packages
-devbox global update
-
-# Search for packages
-devbox search <query>
-```
 
 **To sync your changes with the template you can use `sync-devbox`.**
 
@@ -216,12 +188,16 @@ See [`setup/.test/TESTING.md`](setup/.test/TESTING.md) for detailed documentatio
 
 ## System Configuration
 
-`etc/` and are automatically stowed to `/etc/` during desktop installation
+> **Note:** This section is Linux-only. Stowing to `/etc/` is skipped during
+> macOS installation.
+
+`etc/` is automatically stowed to `/etc/` during desktop installation.
 
 The installation script checks for existing directories in `/etc/` and skips
 stowing if conflicts are found.
 
-You'll need to manually backup/remove conflicting directories first.
+You'll need to manually backup/remove conflicting directories first. Following
+sub-sections (udev rules) do not apply to macOS.
 
 ### Manual stowing (if skipped during installation)
 
