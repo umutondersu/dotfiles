@@ -1,0 +1,8 @@
+theme = "tokyo-night-storm"
+leader = " "
+single_file_view = true
+show_commits = false
+no_update_check = true
+wrap = true
+comment_vim = true
+username = "Review Monster"

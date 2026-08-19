@@ -32,7 +32,8 @@
     "kubectx@latest",
     "kubectl@latest",
     "go@latest",
-    "stackit-cli@latest"
+    "stackit-cli@latest",
+    "tuicr@latest"
   ],
   "shell": {
     "init_hook": [],

@@ -14,12 +14,12 @@ if type -q devbox
     abbr --add dgc "devbox global run -- nix store gc --extra-experimental-features nix-command"
 
     abbr --add dg devbox global
-    abbr --add da devbox global add
+    abbr --add dA devbox global add
     abbr --add dgu devbox global update
     abbr --add drm devbox global rm
     abbr --add dl devbox global list
 
-    abbr --add dA devbox add
+    abbr --add da devbox add
     abbr --add dU devbox update
     abbr --add dr devbox run
     abbr --add dRm devbox rm
@@ -57,9 +57,6 @@ end
 
 if type -q kubectl
     abbr --add k kubectl
-    abbr --add kc kubectl create
-    abbr --add kg kubectl get
-    abbr --add ka kubectl apply -f
 end
 
 if type -q lsd
