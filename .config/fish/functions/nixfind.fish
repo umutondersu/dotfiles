@@ -157,10 +157,12 @@ function nixfind --description "Find a Nix package version and output a nix shel
 
         # Deduplicate: skip if key+rev already collected
         set dup 0
-        for i in (seq (count $key_names))
-            if test "$key_names[$i]" = "$key"; and test "$revisions[$i]" = "$rev"
-                set dup 1
-                break
+        if test (count $key_names) -gt 0
+            for i in (seq (count $key_names))
+                if test "$key_names[$i]" = "$key"; and test "$revisions[$i]" = "$rev"
+                    set dup 1
+                    break
+                end
             end
         end
         if test $dup -eq 1
@@ -489,8 +491,10 @@ function _nixfind_gen_flake
     echo ""
     echo "  inputs = {"
     echo "    nixpkgs.url = \"$base_url\";"
-    for j in (seq (count $overlay_revs))
-        echo "    $overlay_inputs[$j].url = \"github:NixOS/nixpkgs/$overlay_revs[$j]\";"
+    if test (count $overlay_revs) -gt 0
+        for j in (seq (count $overlay_revs))
+            echo "    $overlay_inputs[$j].url = \"github:NixOS/nixpkgs/$overlay_revs[$j]\";"
+        end
     end
     echo "  };"
     echo ""
