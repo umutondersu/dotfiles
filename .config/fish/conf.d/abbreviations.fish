@@ -98,7 +98,7 @@ abbr g --add git
 abbr gs --add git status -s
 abbr gu --add git update-index --assume-unchanged
 
-if functions -q gwt
+if type -q gwt
     abbr gwa --add gwt add
     abbr gwr --add gwt rm
     abbr gwl --add gwt ls
