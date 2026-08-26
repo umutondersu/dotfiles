@@ -1,19 +1,30 @@
 function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
-    if test "$argv[1]" = "--help" -o "$argv[1]" = "-h"
-        echo "Usage: adopr [PR_ID]"
+    if test "$argv[1]" = "--help"; or test "$argv[1]" = "-h"
+        echo "Usage: adopr [--plain] [PR_ID]"
         echo ""
         echo "Output changes for an Azure DevOps PR."
         echo ""
-        echo "  No arguments    Open an fzf selector to choose an active PR"
-        echo "  PR_ID           Show the diff for a specific PR"
-        echo "  -h, --help      Show this help message"
+        echo "Options:"
+        echo "  -p, --plain    Output raw git log instead of a formatted diff"
+        echo ""
+        echo "  No arguments   Open an fzf selector to choose an active PR"
+        echo "  PR_ID          Show the diff for a specific PR"
+        echo "  -h, --help     Show this help message"
         echo ""
         echo "Environment:"
         echo "  AZURE_DEVOPS_EXT_PAT    Azure DevOps Personal Access Token (required)"
         return 0
     end
 
-    set -l pr_id $argv[1]
+    set -l plain 0
+    set -l pr_id ""
+    for arg in $argv
+        if test "$arg" = "--plain"; or test "$arg" = "-p"
+            set plain 1
+        else
+            set pr_id $arg
+        end
+    end
 
     # Resolve git path once so subshells (fzf preview) work in Nix environments
     set -l git_cmd (command -s git)
@@ -128,5 +139,11 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
         return 1
     end
 
-    $git_cmd log -p refs/pr/$pr_id^1..refs/pr/$pr_id^2
+    if test "$plain" = "1"
+        $git_cmd log -p refs/pr/$pr_id^1..refs/pr/$pr_id^2
+    else if command -v delta > /dev/null 2>&1
+        $git_cmd diff --color=always refs/pr/$pr_id^1..refs/pr/$pr_id^2 | delta
+    else
+        $git_cmd diff --color=always refs/pr/$pr_id^1..refs/pr/$pr_id^2 | less -R
+    end
 end
