@@ -22,6 +22,39 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
         return 1
     end
 
+    # Extract org, project, and repo from git remote
+    set -l remote_url ($git_cmd remote get-url origin 2>/dev/null)
+    if test $status -ne 0
+        echo "Error: Not in a git repository or 'origin' remote not set."
+        return 1
+    end
+
+    set -l org ""
+    set -l proj ""
+    set -l repo ""
+
+    # Parse standard HTTPS (dev.azure.com)
+    if set matches (string match -r "dev\.azure\.com/([^/]+)/([^/]+)/_git/([^/\n]+)" $remote_url)
+        set org $matches[2]
+        set proj $matches[3]
+        set repo $matches[4]
+    # Parse SSH (ssh.dev.azure.com:v3)
+    else if set matches (string match -r "ssh\.dev\.azure\.com:v3/([^/]+)/([^/]+)/([^/\n]+)" $remote_url)
+        set org $matches[2]
+        set proj $matches[3]
+        set repo $matches[4]
+    # Parse legacy HTTPS (visualstudio.com)
+    else if set matches (string match -r "([^/]+)\.visualstudio\.com/([^/]+)/_git/([^/\n]+)" $remote_url)
+        set org $matches[2]
+        set proj $matches[3]
+        set repo $matches[4]
+    else
+        echo "Error: Could not parse Azure DevOps URL from origin: $remote_url"
+        return 1
+    end
+
+    set repo (string replace -r '\.git$' '' $repo)
+
     # If no PR ID was provided, trigger the fzf selector
     if test -z "$pr_id"
         if test -z "$AZURE_DEVOPS_EXT_PAT"
@@ -37,56 +70,23 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
             return 1
         end
 
-        # 1. Extract org, project, and repo from git remote
-        set -l remote_url ($git_cmd remote get-url origin 2>/dev/null)
-        if test $status -ne 0
-            echo "Error: Not in a git repository or 'origin' remote not set."
-            return 1
-        end
-
-        set -l org ""
-        set -l proj ""
-        set -l repo ""
-
-        # Parse standard HTTPS (dev.azure.com)
-        if set matches (string match -r "dev\.azure\.com/([^/]+)/([^/]+)/_git/([^/\n]+)" $remote_url)
-            set org $matches[2]
-            set proj $matches[3]
-            set repo $matches[4]
-        # Parse SSH (ssh.dev.azure.com:v3)
-        else if set matches (string match -r "ssh\.dev\.azure\.com:v3/([^/]+)/([^/]+)/([^/\n]+)" $remote_url)
-            set org $matches[2]
-            set proj $matches[3]
-            set repo $matches[4]
-        # Parse legacy HTTPS (visualstudio.com)
-        else if set matches (string match -r "([^/]+)\.visualstudio\.com/([^/]+)/_git/([^/\n]+)" $remote_url)
-            set org $matches[2]
-            set proj $matches[3]
-            set repo $matches[4]
-        else
-            echo "Error: Could not parse Azure DevOps URL from origin: $remote_url"
-            return 1
-        end
-
-        set repo (string replace -r '\.git$' '' $repo)
-
         echo "Fetching open pull requests for $repo..."
 
-        # 2. Query the ADO REST API using Basic Auth
+        # Query the ADO REST API using Basic Auth
         set -l api_url "https://dev.azure.com/$org/$proj/_apis/git/repositories/$repo/pullrequests?searchCriteria.status=active&api-version=7.1"
         set -l api_response (curl -s -u ":$AZURE_DEVOPS_EXT_PAT" "$api_url")
 
-        # 3. Check if there are any PRs before trying to open fzf
+        # Check if there are any PRs before trying to open fzf
         set -l pr_count (echo $api_response | jq -r '.value | length')
         if test -z "$pr_count" -o "$pr_count" = "0" -o "$pr_count" = "null"
             echo "No active PRs found, or API request failed (check if your PAT has 'Code: Read' permissions)."
             return 1
         end
 
-        # 4. Define the fzf preview command with the resolved git path
-        set -l fzf_preview "$git_cmd rev-parse --verify refs/pr/{1} >/dev/null 2>&1 || $git_cmd fetch origin pull/{1}/merge:refs/pr/{1} -f >/dev/null 2>&1; $git_cmd log --oneline --decorate --graph --color=always refs/pr/{1}^1~3..refs/pr/{1}^2"
+        # Define the fzf preview command with the resolved git path
+        set -l fzf_preview "sh -c '$git_cmd rev-parse --verify refs/pr/{1} >/dev/null 2>&1 || $git_cmd fetch origin pull/{1}/merge:refs/pr/{1} -f >/dev/null 2>&1; pr_desc=\$(curl -s -u \":\$AZURE_DEVOPS_EXT_PAT\" \"https://dev.azure.com/$org/$proj/_apis/git/repositories/$repo/pullrequests/{1}?api-version=7.1\"); title=\$(echo \$pr_desc | jq -r \".title // empty\"); desc=\$(echo \$pr_desc | jq -r \".description // empty\"); if [ -n \"\$title\" ]; then echo \"PR #{1}: \$title\"; echo \"\"; if [ -n \"\$desc\" ]; then echo \"\$desc\"; echo \"\"; fi; echo \"---\"; echo \"\"; fi; $git_cmd log --oneline --decorate --graph --color=always refs/pr/{1}^1~3..refs/pr/{1}^2'"
 
-        # 5. Format the list and open fzf; jq outputs tab-separated PR ID and title
+        # Format the list and open fzf; jq outputs tab-separated PR ID and title
         set pr_id (echo $api_response | \
                             jq -r '.value[] | "\(.pullRequestId)\t\(.title)"' | \
                             fzf --prompt="Select PR to diff > " \
@@ -98,6 +98,25 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
         if test -z "$pr_id"
             echo "Aborted: No PR selected."
             return 0
+        end
+    end
+
+    # Fetch PR details from API to get title and description
+    if test -n "$AZURE_DEVOPS_EXT_PAT"
+        set -l pr_url "https://dev.azure.com/$org/$proj/_apis/git/repositories/$repo/pullrequests/$pr_id?api-version=7.1"
+        set -l pr_details (curl -s -u ":$AZURE_DEVOPS_EXT_PAT" "$pr_url")
+        set -l pr_title (echo $pr_details | jq -r '.title // empty')
+        set -l pr_description (echo $pr_details | jq -r '.description // empty')
+
+        if test -n "$pr_title"
+            echo ""
+            echo "PR #$pr_id: $pr_title"
+            if test -n "$pr_description"
+                echo "$pr_description"
+            end
+            echo ""
+            echo "---"
+            echo ""
         end
     end
 
