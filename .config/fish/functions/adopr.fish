@@ -1,11 +1,13 @@
 function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
     if test "$argv[1]" = "--help"; or test "$argv[1]" = "-h"
-        echo "Usage: adopr [--plain] [PR_ID]"
+        echo "Usage: adopr [--plain] [--no-comments] [--system] [PR_ID]"
         echo ""
         echo "Output changes for an Azure DevOps PR."
         echo ""
         echo "Options:"
-        echo "  -p, --plain    Output raw git log instead of a formatted diff"
+        echo "  -p, --plain       Output raw git log instead of a formatted diff"
+        echo "  --no-comments     Skip fetching and displaying the review discussion"
+        echo "  --system          Include system messages (votes, reviewer changes, ref updates)"
         echo ""
         echo "  No arguments   Open an fzf selector to choose an active PR"
         echo "  PR_ID          Show the diff for a specific PR"
@@ -17,10 +19,16 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
     end
 
     set -l plain 0
+    set -l show_comments 1
+    set -l show_system 0
     set -l pr_id ""
     for arg in $argv
         if test "$arg" = "--plain"; or test "$arg" = "-p"
             set plain 1
+        else if test "$arg" = "--no-comments"
+            set show_comments 0
+        else if test "$arg" = "--system"
+            set show_system 1
         else
             set pr_id $arg
         end
@@ -127,6 +135,23 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
             end
             echo ""
             echo "---"
+            echo ""
+        end
+
+        if test "$show_comments" = "1"
+            set -l threads_url "https://dev.azure.com/$org/$proj/_apis/git/repositories/$repo/pullrequests/$pr_id/threads?api-version=7.1-preview.1"
+            set -l threads (curl -s -u ":$AZURE_DEVOPS_EXT_PAT" "$threads_url")
+            echo $threads | jq -r --argjson showSystem "$show_system" '
+                .value[]
+                | select(.isDeleted != true)
+                | . as $t
+                | .comments[]
+                | select(.isDeleted != true)
+                | select($showSystem or .commentType == "text")
+                | (if (.parentCommentId // 0) > 0 then "    " else "" end)
+                  + "[\($t.threadContext.filePath // "PR")\(if $t.threadContext.rightFileStart then ":" + ($t.threadContext.rightFileStart.line|tostring) else "" end)] "
+                  + .author.displayName + ": " + .content
+            '
             echo ""
         end
     end
