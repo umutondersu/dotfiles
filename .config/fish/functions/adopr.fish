@@ -1,11 +1,12 @@
 function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
-    if test "$argv[1]" = "--help"; or test "$argv[1]" = "-h"
-        echo "Usage: adopr [--plain] [--no-comments] [--system] [PR_ID]"
+    if test "$argv[1]" = --help; or test "$argv[1]" = -h
+        echo "Usage: adopr [--plain] [--no-comments] [--system] [--output [PATH]] [PR_ID]"
         echo ""
         echo "Output changes for an Azure DevOps PR."
         echo ""
         echo "Options:"
         echo "  -p, --plain       Output raw git log instead of a formatted diff"
+        echo "  -o, --output [PATH]  Write raw diff to a file (default: <PR_ID>.patch in repo root)"
         echo "  --no-comments     Skip fetching and displaying the review discussion"
         echo "  --system          Include system messages (votes, reviewer changes, ref updates)"
         echo ""
@@ -21,17 +22,35 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
     set -l plain 0
     set -l show_comments 1
     set -l show_system 0
+    set -l output 0
+    set -l output_path ""
     set -l pr_id ""
-    for arg in $argv
-        if test "$arg" = "--plain"; or test "$arg" = "-p"
-            set plain 1
-        else if test "$arg" = "--no-comments"
-            set show_comments 0
-        else if test "$arg" = "--system"
-            set show_system 1
-        else
-            set pr_id $arg
+    set -l pr_title ""
+    set -l pr_description ""
+    set -l i 1
+    while test $i -le (count $argv)
+        set -l arg $argv[$i]
+        switch $arg
+            case --plain -p
+                set plain 1
+            case --no-comments
+                set show_comments 0
+            case --system
+                set show_system 1
+            case -o --output
+                set output 1
+                set -l next_idx (math $i + 1)
+                if test $next_idx -le (count $argv)
+                    set -l next $argv[$next_idx]
+                    if not string match -q -- '-*' $next
+                        set output_path $next
+                        set i $next_idx
+                    end
+                end
+            case '*'
+                set pr_id $arg
         end
+        set i (math $i + 1)
     end
 
     # Resolve git path once so subshells (fzf preview) work in Nix environments
@@ -57,12 +76,12 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
         set org $matches[2]
         set proj $matches[3]
         set repo $matches[4]
-    # Parse SSH (ssh.dev.azure.com:v3)
+        # Parse SSH (ssh.dev.azure.com:v3)
     else if set matches (string match -r "ssh\.dev\.azure\.com:v3/([^/]+)/([^/]+)/([^/\n]+)" $remote_url)
         set org $matches[2]
         set proj $matches[3]
         set repo $matches[4]
-    # Parse legacy HTTPS (visualstudio.com)
+        # Parse legacy HTTPS (visualstudio.com)
     else if set matches (string match -r "([^/]+)\.visualstudio\.com/([^/]+)/_git/([^/\n]+)" $remote_url)
         set org $matches[2]
         set proj $matches[3]
@@ -80,11 +99,11 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
             echo "Error: AZURE_DEVOPS_EXT_PAT environment variable is not set."
             return 1
         end
-        if not command -v jq > /dev/null
+        if not command -v jq >/dev/null
             echo "Error: 'jq' is required to parse the Azure DevOps API response."
             return 1
         end
-        if not command -v fzf > /dev/null
+        if not command -v fzf >/dev/null
             echo "Error: 'fzf' is required for the interactive menu."
             return 1
         end
@@ -97,7 +116,7 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
 
         # Check if there are any PRs before trying to open fzf
         set -l pr_count (echo $api_response | jq -r '.value | length')
-        if test -z "$pr_count" -o "$pr_count" = "0" -o "$pr_count" = "null"
+        if test -z "$pr_count" -o "$pr_count" = 0 -o "$pr_count" = null
             echo "No active PRs found, or API request failed (check if your PAT has 'Code: Read' permissions)."
             return 1
         end
@@ -124,21 +143,29 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
     if test -n "$AZURE_DEVOPS_EXT_PAT"
         set -l pr_url "https://dev.azure.com/$org/$proj/_apis/git/repositories/$repo/pullrequests/$pr_id?api-version=7.1"
         set -l pr_details (curl -s -u ":$AZURE_DEVOPS_EXT_PAT" "$pr_url")
-        set -l pr_title (echo $pr_details | jq -r '.title // empty')
-        set -l pr_description (echo $pr_details | jq -r '.description // empty')
+        set pr_title (echo $pr_details | jq -r '.title // empty' | string collect)
+        set pr_description (echo $pr_details | jq -r '.description // empty' | string collect)
 
-        if test -n "$pr_title"
+        if test "$output" = 0; and test -n "$pr_title"
             echo ""
-            echo "PR #$pr_id: $pr_title"
-            if test -n "$pr_description"
-                echo "$pr_description"
+            if command -q glow
+                printf '# PR #%s: %s\n' $pr_id $pr_title | glow -w 0
+                if test -n "$pr_description"
+                    echo ""
+                    echo "$pr_description" | glow -w 0
+                end
+            else
+                echo "PR #$pr_id: $pr_title"
+                if test -n "$pr_description"
+                    echo "$pr_description"
+                end
             end
             echo ""
-            echo "---"
+            echo ---
             echo ""
         end
 
-        if test "$show_comments" = "1"
+        if test "$output" = 0; and test "$show_comments" = 1
             set -l threads_url "https://dev.azure.com/$org/$proj/_apis/git/repositories/$repo/pullrequests/$pr_id/threads?api-version=7.1-preview.1"
             set -l threads (curl -s -u ":$AZURE_DEVOPS_EXT_PAT" "$threads_url")
             echo $threads | jq -r --argjson showSystem "$show_system" '
@@ -164,11 +191,29 @@ function adopr --description 'Output changes for an Azure DevOps PR using a PAT'
         return 1
     end
 
-    if test "$plain" = "1"
+    if test "$output" = 1
+        set -l out_file $output_path
+        if test -z "$out_file"
+            set out_file ($git_cmd rev-parse --show-toplevel)/$pr_id.patch
+        end
+        if test -n "$pr_title"
+            echo "PR #$pr_id: $pr_title" > $out_file
+            if test -n "$pr_description"
+                echo "$pr_description" >> $out_file
+            end
+        else
+            echo "PR #$pr_id" > $out_file
+        end
+        echo "" >> $out_file
+        echo "---" >> $out_file
+        echo "" >> $out_file
+        $git_cmd log -p refs/pr/$pr_id^1..refs/pr/$pr_id^2 >> $out_file
+        echo "Saved patch to $out_file"
+    else if test "$plain" = 1
         $git_cmd log -p refs/pr/$pr_id^1..refs/pr/$pr_id^2
-    else if command -v delta > /dev/null 2>&1
-        $git_cmd diff --color=always refs/pr/$pr_id^1..refs/pr/$pr_id^2 | delta
+    else if command -q delta
+        $git_cmd diff --color=always refs/pr/$pr_id^1...refs/pr/$pr_id^2 | delta
     else
-        $git_cmd diff --color=always refs/pr/$pr_id^1..refs/pr/$pr_id^2 | less -R
+        $git_cmd diff --color=always refs/pr/$pr_id^1...refs/pr/$pr_id^2 | less -R
     end
 end
