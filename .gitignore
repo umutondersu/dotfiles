@@ -5,3 +5,6 @@
 .w3m/history
 .config/nvim-min/nvim-pack-lock.json
 .config/fish/themes/*.theme
+
+# STACKIT Stuff
+.config/fish/functions/mcli.fish
