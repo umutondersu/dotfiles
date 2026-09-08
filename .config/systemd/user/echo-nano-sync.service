@@ -1,0 +1,12 @@
+[Unit]
+Description=Echo Nano auto-sync watcher
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=%h/bin/echo-nano-sync-watch
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

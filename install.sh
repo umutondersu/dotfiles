@@ -161,6 +161,12 @@ if [ "$INSTALL_MODE" = "desktop" ]; then
         echo "═══════════════════════════════════════"
         bash "$DESKTOP_DIR/aur.sh"
         echo ""
+
+        echo "═══════════════════════════════════════"
+        echo "Setting up Echo Nano auto-sync"
+        echo "═══════════════════════════════════════"
+        bash "$DESKTOP_DIR/echo-nano-sync.sh"
+        echo ""
     fi
 
 fi

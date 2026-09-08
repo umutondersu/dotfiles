@@ -9,3 +9,6 @@ gamemode
 mangohud
 fastfetch
 cloudflare-warp-bin
+fatsort
+dosfstools
+python-mutagen

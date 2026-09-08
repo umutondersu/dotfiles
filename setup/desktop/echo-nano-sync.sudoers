@@ -1,0 +1,1 @@
+qorcialwolf ALL=(root) NOPASSWD: /usr/bin/fatsort, /usr/bin/fsck.fat
