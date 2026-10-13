@@ -33,7 +33,11 @@
     "go@latest",
     "stackit-cli@latest",
     "tuicr@latest",
-    "yq-go@latest"
+    "yq-go@latest",
+    "delta@latest",
+    "azure-cli@latest",
+    "sqlit-tui",
+    "popeye@latest"
   ],
   "shell": {
     "init_hook": [],
