@@ -57,6 +57,10 @@ end
 
 if type -q kubectl
     abbr --add k kubectl
+    abbr --add kk kubectl kustomize
+    abbr --add ksO "kubectl patch app onepaas-k8s-components -n argocd --type=merge -p '{\"spec\":{\"syncPolicy\":{\"automated\":null}}}'"
+    abbr --add kso "kubectl patch app onepaas-k8s-components -n argocd --type=merge -p '{\"spec\":{\"syncPolicy\":{\"automated\":{\"enabled\":true,\"selfHeal\":true,\"prune\":true}}}}'"
+    abbr --add ksc --set-cursor=@ "kubectl patch app onepaas-k8s-components-@ -n argocd --type=merge -p '{\"spec\":{\"syncPolicy\":{\"automated\":null}}}'"
 end
 
 if type -q lsd
