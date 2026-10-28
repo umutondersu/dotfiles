@@ -37,7 +37,10 @@
     "delta@latest",
     "azure-cli@latest",
     "sqlit-tui",
-    "popeye@latest"
+    "popeye@latest",
+    "jq@1.6",
+    "krew@latest",
+    "ijq@latest"
   ],
   "shell": {
     "init_hook": [],
