@@ -4,6 +4,10 @@ fish_add_path ~/bin
 fish_add_path ~/go/bin
 fish_add_path ~/.local/share/nvim/mason/bin
 
+if type -q krew
+    fish_add_path $HOME/.krew/bin
+end
+
 # macOS: Homebrew (Apple Silicon)
 if test (uname) = Darwin
     fish_add_path /opt/homebrew/bin
