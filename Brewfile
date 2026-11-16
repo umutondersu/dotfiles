@@ -1,8 +1,11 @@
 tap "fcoury/tap", trusted: true
 tap "nikitabobko/tap"
+tap "nklmilojevic/sofka"
 tap "riii111/sabiql", trusted: { formulae: ["sabiql"] }
-# Kubernetes package manager
-brew "helm"
+# Distributed revision control system
+brew "git"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@4"
 # Postgres C API library
 brew "libpq"
 # CLI for Postgres with auto-completion and syntax highlighting
@@ -13,6 +16,8 @@ brew "postgresql@18", link: true
 brew "sabiql"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# Kubernetes TUI, reimagined in Rust
+brew "nklmilojevic/sofka/sofka", trusted: true
 # AeroSpace is an i3-like tiling window manager for macOS
 cask "nikitabobko/tap/aerospace", trusted: true
 # Desktop password and login vault
