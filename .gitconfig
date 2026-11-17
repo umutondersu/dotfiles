@@ -26,3 +26,7 @@
 # Machine-local overrides (e.g. credentialStore = osxkeychain on macOS)
 [include]
 	path = ~/.gitconfig.local
+[url "git@ssh.dev.azure.com:v3/"]
+	insteadOf = https://dev.azure.com/
+[credential "https://platform.git.onstackit.cloud"]
+	provider = generic
