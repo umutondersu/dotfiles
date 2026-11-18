@@ -21,7 +21,6 @@
 	useHttpPath = true
 [credential]
 	helper = 
-	helper = manager
 	credentialStore = secretservice
 # Machine-local overrides (e.g. credentialStore = osxkeychain on macOS)
 [include]
