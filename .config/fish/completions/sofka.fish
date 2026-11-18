@@ -1,0 +1,1 @@
+sofka completion fish | source
